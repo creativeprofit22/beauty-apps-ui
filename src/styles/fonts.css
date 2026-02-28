@@ -1,0 +1,46 @@
+/*
+ * Fonts — Font feature settings, data font tabular-nums
+ */
+
+/* ── Display font: Space Grotesk ── */
+.font-display {
+  font-family: var(--font-family-display);
+  font-feature-settings: "ss01" on, "ss02" on;
+}
+
+/* ── Body font: Inter ── */
+.font-body {
+  font-family: var(--font-family-body);
+  font-feature-settings: "cv01" on, "cv02" on, "ss01" on;
+}
+
+/* ── Data font: Fira Code ── */
+.font-data {
+  font-family: var(--font-family-data);
+  font-variant-numeric: tabular-nums;
+  font-feature-settings: "zero" on, "ss01" on;
+}
+
+/* ── Tabular nums utility (for any font) ── */
+.tabular-nums {
+  font-variant-numeric: tabular-nums;
+}
+
+/* ── Gradient text treatment ── */
+.text-gradient {
+  background-clip: text;
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+
+.text-gradient-primary {
+  background-image: linear-gradient(135deg, var(--primary), var(--secondary));
+}
+
+.text-gradient-warm {
+  background-image: linear-gradient(
+    135deg,
+    var(--primary),
+    var(--accent)
+  );
+}

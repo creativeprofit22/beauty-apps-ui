@@ -1,0 +1,52 @@
+/*
+ * Structural Tokens — Shared across all skins
+ * Spacing scale, z-index, breakpoints
+ */
+
+:root {
+  /* ── Spacing scale (4px base) ── */
+  --space-0: 0px;
+  --space-0-5: 2px;
+  --space-1: 4px;
+  --space-1-5: 6px;
+  --space-2: 8px;
+  --space-3: 12px;
+  --space-4: 16px;
+  --space-5: 20px;
+  --space-6: 24px;
+  --space-8: 32px;
+  --space-10: 40px;
+  --space-12: 48px;
+  --space-16: 64px;
+  --space-20: 80px;
+  --space-24: 96px;
+  --space-32: 128px;
+
+  /* ── Z-index scale ── */
+  --z-base: 0;
+  --z-raised: 10;
+  --z-dropdown: 100;
+  --z-sticky: 200;
+  --z-overlay: 300;
+  --z-modal: 400;
+  --z-toast: 500;
+  --z-tooltip: 600;
+  --z-max: 9999;
+
+  /* ── Breakpoints (reference only — use Tailwind responsive prefixes) ── */
+  --bp-sm: 640px;
+  --bp-md: 768px;
+  --bp-lg: 1024px;
+  --bp-xl: 1280px;
+  --bp-2xl: 1536px;
+
+  /* ── Layout ── */
+  --sidebar-width: 240px;
+  --sidebar-collapsed: 56px;
+  --bottom-nav-height: 64px;
+  --page-max-width: 1200px;
+  --page-padding: var(--space-6);
+
+  /* ── Touch targets ── */
+  --touch-target-min: 44px;
+}
