@@ -8,8 +8,8 @@ interface ConfettiProps {
   active: boolean;
   /** Number of confetti pieces */
   count?: number;
-  /** Color palette for confetti pieces */
-  colors?: readonly string[];
+  /** Color palette for confetti pieces (from skinConfig.confettiColors) */
+  colors: readonly string[];
   /** Called when all confetti animations complete */
   onComplete?: () => void;
   className?: string;
@@ -26,7 +26,7 @@ const SHAPES = ["square", "rectangle", "circle"] as const;
 export function Confetti({
   active,
   count = 40,
-  colors = ["#D4A843", "#C97B7B", "#7BA37B", "#E8D5A3", "#D4A0A0"],
+  colors,
   onComplete,
   className,
 }: ConfettiProps) {

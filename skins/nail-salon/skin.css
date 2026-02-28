@@ -1,3 +1,5 @@
+@import "@fontsource-variable/quicksand";
+
 /*
  * Nail Salon Skin — Pastel pink, lavender, soft white
  * Very round radii, light airy surfaces, colored shadows
@@ -104,6 +106,7 @@
   --gradient-intensity: 0.5;
 }
 
+[data-skin="nail-salon"] .dark,
 .dark[data-skin="nail-salon"] {
   /* ── Surfaces (dark with pink warmth) ── */
   --surface-base: oklch(0.17 0.015 340);
@@ -188,6 +191,17 @@
 
   /* ── Focus ring ── */
   --focus-ring: 0 0 0 2px var(--surface-base), 0 0 0 4px var(--primary);
+
+  /* ── Very round radii ── */
+  --radii-xs: 8px;
+  --radii-sm: 12px;
+  --radii-md: 16px;
+  --radii-lg: 20px;
+  --radii-xl: 28px;
+  --radii-2xl: 36px;
+
+  /* ── Font display ── */
+  --font-family-display: "Quicksand Variable", "Quicksand", "Nunito", system-ui, sans-serif;
 
   /* ── Treatment flags ── */
   --glass-opacity: 0.80;

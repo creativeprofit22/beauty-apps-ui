@@ -11,8 +11,8 @@ interface UseScratchOptions {
   brushRadius?: number;
   /** Percentage threshold (0-1) to trigger auto-complete */
   completeThreshold?: number;
-  /** Foil gradient stops for the overlay */
-  foilGradient?: readonly string[];
+  /** Foil gradient stops for the overlay (from skinConfig.scratchFoilGradient) */
+  foilGradient: readonly string[];
   /** Called when scratch completion threshold is reached */
   onComplete?: () => void;
 }
@@ -36,12 +36,7 @@ export function useScratch({
   height,
   brushRadius = 20,
   completeThreshold = 0.35,
-  foilGradient = [
-    "oklch(0.82 0.10 85)",
-    "oklch(0.76 0.12 85)",
-    "oklch(0.80 0.08 60)",
-    "oklch(0.85 0.06 85)",
-  ],
+  foilGradient,
   onComplete,
 }: UseScratchOptions): UseScratchReturn {
   const canvasRef = useRef<HTMLCanvasElement | null>(null);

@@ -1,3 +1,5 @@
+@import "@fontsource-variable/oswald";
+
 /*
  * Barber Skin — Leather brown, steel, forest green
  * Sharp radii, matte surfaces, hard shadows, no glassmorphism
@@ -96,6 +98,7 @@
   --gradient-intensity: 0.3;
 }
 
+[data-skin="barber"] .dark,
 .dark[data-skin="barber"] {
   /* ── Surfaces (dark matte) ── */
   --surface-base: oklch(0.16 0.01 55);
@@ -172,4 +175,19 @@
 
   /* ── Focus ring ── */
   --focus-ring: 0 0 0 2px var(--surface-base), 0 0 0 4px var(--primary);
+
+  /* ── Sharp radii ── */
+  --radii-xs: 2px;
+  --radii-sm: 3px;
+  --radii-md: 4px;
+  --radii-lg: 6px;
+  --radii-xl: 8px;
+  --radii-2xl: 12px;
+
+  /* ── Font display ── */
+  --font-family-display: "Oswald Variable", "Oswald", "Arial Narrow", system-ui, sans-serif;
+
+  /* ── Treatment flags ── */
+  --glass-opacity: 1;
+  --gradient-intensity: 0.3;
 }

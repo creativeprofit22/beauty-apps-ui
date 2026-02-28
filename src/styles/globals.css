@@ -3,6 +3,7 @@
  * Import order matters: tokens → base → effects → fonts
  */
 
+@import "../../skins/_base/structure.css";
 @import "./tokens.css";
 @import "./base.css";
 @import "./effects.css";

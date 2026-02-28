@@ -25,6 +25,7 @@ export default function BackgroundsPage() {
                   "linear-gradient(135deg, var(--primary-muted) 0%, var(--secondary-muted) 50%, var(--accent-muted) 100%)",
                 backgroundSize: "200% 200%",
                 animation: "drift 8s ease-in-out infinite alternate",
+                opacity: "var(--gradient-intensity)",
               }}
             />
             <div className="absolute inset-0 flex items-center justify-center">

@@ -25,12 +25,13 @@ const tierLabels: Record<Tier, string> = {
 
 const tierGradients: Record<Tier, string> = {
   bronze:
-    "radial-gradient(circle, oklch(0.60 0.10 55 / 0.8) 0%, oklch(0.60 0.10 55 / 0) 70%)",
+    "radial-gradient(circle, color-mix(in oklch, var(--tier-bronze) 80%, transparent) 0%, transparent 70%)",
   silver:
-    "radial-gradient(circle, oklch(0.72 0.02 265 / 0.8) 0%, oklch(0.72 0.02 265 / 0) 70%)",
-  gold: "radial-gradient(circle, oklch(0.76 0.12 85 / 0.8) 0%, oklch(0.76 0.12 85 / 0) 70%)",
+    "radial-gradient(circle, color-mix(in oklch, var(--tier-silver) 80%, transparent) 0%, transparent 70%)",
+  gold:
+    "radial-gradient(circle, color-mix(in oklch, var(--tier-gold) 80%, transparent) 0%, transparent 70%)",
   black:
-    "radial-gradient(circle, oklch(0.25 0.01 60 / 0.9) 0%, oklch(0.25 0.01 60 / 0) 70%)",
+    "radial-gradient(circle, color-mix(in oklch, var(--tier-black) 90%, transparent) 0%, transparent 70%)",
 };
 
 const tierBadgeColors: Record<Tier, string> = {

@@ -1,3 +1,6 @@
+@import "@fontsource/bebas-neue";
+@import "@fontsource-variable/oswald";
+
 /*
  * Tattoo Skin — Jet black, crimson, silver
  * Angular elements (2px radii), high contrast, no glow, bold
@@ -99,6 +102,7 @@
   --gradient-intensity: 0.15;
 }
 
+[data-skin="tattoo"] .dark,
 .dark[data-skin="tattoo"] {
   /* ── Surfaces (jet black, near-zero chroma) ── */
   --surface-base: oklch(0.12 0.005 0);
@@ -178,6 +182,17 @@
 
   /* ── Focus ring (crimson accent in dark) ── */
   --focus-ring: 0 0 0 2px var(--surface-base), 0 0 0 4px var(--accent);
+
+  /* ── Angular radii ── */
+  --radii-xs: 1px;
+  --radii-sm: 2px;
+  --radii-md: 2px;
+  --radii-lg: 3px;
+  --radii-xl: 4px;
+  --radii-2xl: 6px;
+
+  /* ── Font display ── */
+  --font-family-display: "Bebas Neue", "Oswald Variable", "Oswald", "Impact", system-ui, sans-serif;
 
   /* ── Treatment flags ── */
   --glass-opacity: 1;

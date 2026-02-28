@@ -226,6 +226,10 @@
 
   /* ── Focus ring ── */
   --focus-ring: 0 0 0 2px var(--surface-base), 0 0 0 4px var(--primary);
+
+  /* ── Treatment flags ── */
+  --glass-opacity: 0.85;
+  --gradient-intensity: 0.6;
 }
 
 /* ═══════════════════════════════════════════════
@@ -316,4 +320,8 @@
 
   /* ── Focus ring ── */
   --focus-ring: 0 0 0 2px var(--surface-base), 0 0 0 4px var(--primary);
+
+  /* ── Treatment flags ── */
+  --glass-opacity: 0.75;
+  --gradient-intensity: 0.4;
 }

@@ -19,7 +19,10 @@
   },
   "dependencies": {
     "@fontsource-variable/inter": "^5.2.8",
+    "@fontsource-variable/oswald": "^5.2.8",
+    "@fontsource-variable/quicksand": "^5.2.10",
     "@fontsource-variable/space-grotesk": "^5.2.10",
+    "@fontsource/bebas-neue": "^5.2.7",
     "@fontsource/fira-code": "^5.2.7",
     "@gsap/react": "^2.1.2",
     "gsap": "^3.14.2",

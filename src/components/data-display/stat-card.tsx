@@ -48,7 +48,7 @@ export function StatCard({
             "tabular-nums",
           )}
           style={{
-            textShadow: "var(--stat-glow, none)",
+            textShadow: "var(--glow-primary, none)",
           }}
         >
           {value}

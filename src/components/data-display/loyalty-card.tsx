@@ -13,12 +13,13 @@ interface LoyaltyCardProps {
 
 const tierGradients: Record<LoyaltyTier, string> = {
   bronze:
-    "linear-gradient(135deg, oklch(0.60 0.10 55), oklch(0.52 0.08 45), oklch(0.60 0.10 55))",
+    "linear-gradient(135deg, var(--tier-bronze), color-mix(in oklch, var(--tier-bronze) 80%, black), var(--tier-bronze))",
   silver:
-    "linear-gradient(135deg, oklch(0.78 0.02 265), oklch(0.68 0.01 265), oklch(0.78 0.02 265))",
-  gold: "linear-gradient(135deg, oklch(0.82 0.10 85), oklch(0.70 0.14 85), oklch(0.82 0.10 85))",
+    "linear-gradient(135deg, var(--tier-silver), color-mix(in oklch, var(--tier-silver) 80%, black), var(--tier-silver))",
+  gold:
+    "linear-gradient(135deg, var(--tier-gold), color-mix(in oklch, var(--tier-gold) 80%, black), var(--tier-gold))",
   black:
-    "linear-gradient(135deg, oklch(0.25 0.01 60), oklch(0.18 0.005 60), oklch(0.25 0.01 60))",
+    "linear-gradient(135deg, var(--tier-black), color-mix(in oklch, var(--tier-black) 70%, black), var(--tier-black))",
 };
 
 const tierTextColor: Record<LoyaltyTier, string> = {

@@ -40,6 +40,7 @@
   --gradient-intensity: 0.6;
 }
 
+[data-skin="spa"] .dark,
 .dark[data-skin="spa"] {
   /* ── Primary: Warm Gold (brighter) ── */
   --primary: oklch(0.82 0.10 85);
