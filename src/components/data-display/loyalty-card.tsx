@@ -99,7 +99,7 @@ export function LoyaltyCard({
         {/* Bottom section: name + ID */}
         <div className="flex flex-col gap-1">
           <span
-            className="text-lg font-semibold tracking-wide"
+            className="text-lg font-semibold tracking-wide truncate"
             style={{
               textShadow:
                 tier === "black"
@@ -109,7 +109,7 @@ export function LoyaltyCard({
           >
             {memberName}
           </span>
-          <span className="font-data text-xs tracking-wider tabular-nums opacity-80">
+          <span className="font-data text-xs tracking-wider tabular-nums opacity-80 truncate">
             {memberId}
           </span>
         </div>

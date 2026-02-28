@@ -93,7 +93,7 @@ export default function MobilePage() {
           <div className="stagger-child">
             {/* Phone frame mockup */}
             <div
-              className="relative mx-auto bg-surface-base rounded-[2rem] border-[3px] border-border overflow-hidden"
+              className="relative mx-auto max-w-full bg-surface-base rounded-[2rem] border-[3px] border-border overflow-hidden"
               style={{ width: 320, height: 580 }}
             >
               {/* Status bar */}
@@ -189,7 +189,7 @@ export default function MobilePage() {
                       }`}
                       style={{ transitionDuration: "var(--duration-normal)" }}
                     >
-                      <span className="w-4 h-4">{item.icon}</span>
+                      <span className="w-5 h-5">{item.icon}</span>
                       <span>{item.label}</span>
                     </button>
                   ))}
@@ -212,7 +212,7 @@ export default function MobilePage() {
               Press &amp; release
             </p>
             <p className="text-sm text-text-secondary mb-4">
-              Buttons use box-shadow height for the "stamped press" effect —
+              Buttons use box-shadow height for the &ldquo;stamped press&rdquo; effect —
               active state translates down 2px and removes the shadow. Try pressing and holding.
             </p>
             <div className="flex flex-wrap gap-3">

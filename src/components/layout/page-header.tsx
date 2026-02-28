@@ -20,7 +20,7 @@ export function PageHeader({
     <header className={cn("mb-8 space-y-2", className)}>
       <h1
         className={cn(
-          "font-display text-4xl font-bold tracking-tight",
+          "font-display text-4xl font-bold tracking-tight break-words",
           gradient && "text-gradient text-gradient-primary",
         )}
       >

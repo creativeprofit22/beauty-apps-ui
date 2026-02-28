@@ -67,7 +67,7 @@ export function Toast({
       role="alert"
       aria-live="polite"
       className={cn(
-        "fixed bottom-6 right-6 max-w-sm w-full",
+        "fixed bottom-6 left-6 right-6 sm:left-auto max-w-sm",
         "bg-surface-raised rounded-xl shadow-lg overflow-hidden",
         "transition-all",
         open

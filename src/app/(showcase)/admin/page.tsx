@@ -238,9 +238,9 @@ export default function AdminPage() {
           </Button>
         </div>
         <Card className="p-0 overflow-hidden">
-          <div className="stagger-child flex">
+          <div className="stagger-child flex min-w-0">
             <div
-              className="border-r border-border bg-surface-raised transition-all duration-300"
+              className="shrink-0 border-r border-border bg-surface-raised transition-all duration-300"
               style={{ width: sidebarCollapsed ? "56px" : "240px" }}
             >
               <Sidebar
@@ -250,7 +250,7 @@ export default function AdminPage() {
                 collapsed={sidebarCollapsed}
               />
             </div>
-            <div className="flex-1 p-6">
+            <div className="flex-1 min-w-0 p-6">
               <p className="text-sm text-text-secondary">
                 Active:{" "}
                 <span className="font-medium text-text-primary">

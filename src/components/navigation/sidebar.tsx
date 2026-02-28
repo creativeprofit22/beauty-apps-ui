@@ -6,7 +6,7 @@ import { NavItem, type NavItemData } from "./nav-item";
 interface SidebarProps {
   items: NavItemData[];
   activeId: string;
-  onNavigate: (id: string) => void;
+  onNavigate?: (id: string) => void;
   collapsed?: boolean;
 }
 
@@ -33,7 +33,7 @@ export function Sidebar({
           active={activeId === item.id}
           collapsed={collapsed}
           variant="sidebar"
-          onClick={() => onNavigate(item.id)}
+          onClick={onNavigate ? () => onNavigate(item.id) : undefined}
         />
       ))}
     </nav>

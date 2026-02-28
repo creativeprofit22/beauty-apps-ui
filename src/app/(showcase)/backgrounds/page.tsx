@@ -70,7 +70,7 @@ export default function BackgroundsPage() {
 
       {/* ── Surface Hierarchy ── */}
       <ShowcaseSection title="Surface Hierarchy" className="mb-16">
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+        <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
           {/* Light mode */}
           <Card className="p-6">
             <p className="text-xs font-medium uppercase tracking-wider text-text-tertiary mb-4">
@@ -94,7 +94,7 @@ export default function BackgroundsPage() {
                     <p className="text-sm font-medium text-text-primary">{surface.name}</p>
                     <p className="text-xs text-text-tertiary">{surface.desc}</p>
                   </div>
-                  <span className="font-data text-xs text-text-tertiary shrink-0">
+                  <span className="font-data text-xs text-text-tertiary truncate">
                     {surface.var}
                   </span>
                 </div>
@@ -125,7 +125,7 @@ export default function BackgroundsPage() {
                     <p className="text-sm font-medium text-text-primary">{surface.name}</p>
                     <p className="text-xs text-text-tertiary">{surface.desc}</p>
                   </div>
-                  <span className="font-data text-xs text-text-tertiary shrink-0">
+                  <span className="font-data text-xs text-text-tertiary truncate">
                     {surface.var}
                   </span>
                 </div>
@@ -137,7 +137,7 @@ export default function BackgroundsPage() {
 
       {/* ── Light vs Dark Side-by-Side ── */}
       <ShowcaseSection title="Light vs Dark — Side by Side" className="mb-16">
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+        <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
           {/* Light card stack */}
           <Card className="p-6 overflow-hidden">
             <p className="text-xs font-medium uppercase tracking-wider text-text-tertiary mb-4">
@@ -158,7 +158,7 @@ export default function BackgroundsPage() {
                   Content sits on an elevated surface with three-layer shadow.
                 </p>
               </div>
-              <div className="flex gap-3">
+              <div className="flex flex-wrap gap-3">
                 <div
                   className="rounded-md px-4 py-2 text-sm font-medium"
                   style={{
@@ -221,7 +221,7 @@ export default function BackgroundsPage() {
                   Content sits on an elevated surface with three-layer shadow.
                 </p>
               </div>
-              <div className="flex gap-3">
+              <div className="flex flex-wrap gap-3">
                 <div
                   className="rounded-md px-4 py-2 text-sm font-medium"
                   style={{

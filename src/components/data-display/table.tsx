@@ -32,7 +32,7 @@ export function Table<T extends Record<string, unknown>>({
 }: TableProps<T>) {
   return (
     <div className={cn("w-full overflow-x-auto", className)}>
-      <table className="w-full border-collapse">
+      <table className="w-full border-collapse min-w-[600px]">
         <thead>
           <tr
             className="border-b-2 border-border"

@@ -1,5 +1,6 @@
 "use client";
 
+import Image from "next/image";
 import { cn } from "@/lib/utils";
 
 interface Service {
@@ -69,10 +70,11 @@ export function ServiceGallery({
             {/* Image or placeholder */}
             <div className="absolute inset-0 bg-surface-sunken">
               {service.image ? (
-                <img
+                <Image
                   src={service.image}
                   alt=""
-                  className="w-full h-full object-cover"
+                  fill
+                  className="object-cover"
                 />
               ) : (
                 <div
@@ -97,7 +99,7 @@ export function ServiceGallery({
 
             {/* Service info */}
             <div className="absolute inset-x-0 bottom-0 p-4 text-left">
-              <h3 className="text-base font-medium text-white">{service.name}</h3>
+              <h3 className="text-base font-medium text-white truncate">{service.name}</h3>
               <div className="flex items-center gap-2 mt-1">
                 <span className="text-sm font-semibold text-white/90">
                   {service.price}

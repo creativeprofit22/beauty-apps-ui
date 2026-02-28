@@ -4,7 +4,7 @@ import { useState, type ReactNode } from "react";
 import { cn } from "@/lib/utils";
 
 interface ShellProps {
-  sidebar?: ReactNode;
+  sidebar?: ReactNode | ((collapsed: boolean) => ReactNode);
   children: ReactNode;
 }
 
@@ -27,7 +27,7 @@ export function Shell({ sidebar, children }: ShellProps) {
           style={{ willChange: "width" }}
         >
           <div className="flex-1 overflow-y-auto overflow-x-hidden">
-            {sidebar}
+            {typeof sidebar === "function" ? sidebar(collapsed) : sidebar}
           </div>
           <button
             onClick={() => setCollapsed((c) => !c)}

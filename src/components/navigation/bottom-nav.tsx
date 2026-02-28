@@ -6,7 +6,7 @@ import { NavItem, type NavItemData } from "./nav-item";
 interface BottomNavProps {
   items: NavItemData[];
   activeId: string;
-  onNavigate: (id: string) => void;
+  onNavigate?: (id: string) => void;
   className?: string;
 }
 
@@ -65,7 +65,7 @@ export function BottomNav({
             item={item}
             active={activeId === item.id}
             variant="bottom"
-            onClick={() => onNavigate(item.id)}
+            onClick={onNavigate ? () => onNavigate(item.id) : undefined}
           />
         ))}
       </div>

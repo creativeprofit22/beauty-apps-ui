@@ -39,7 +39,7 @@ export default function TypographyPage() {
 
       {/* ── Font Specimens ── */}
       <ShowcaseSection title="Font Families" className="mb-16">
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
+        <div className="grid grid-cols-1 lg:grid-cols-3 gap-6">
           {/* Space Grotesk */}
           <Card className="p-6">
             <div className="stagger-child space-y-4">
@@ -155,7 +155,7 @@ export default function TypographyPage() {
                   {step.name}
                 </span>
                 <span
-                  className="font-display font-semibold text-text-primary truncate"
+                  className="font-display font-semibold text-text-primary min-w-0"
                   style={{ fontSize: step.size }}
                 >
                   Design Tokens
@@ -172,7 +172,7 @@ export default function TypographyPage() {
       {/* ── Metric Display Scale ── */}
       <ShowcaseSection title="Metric Display Scale" className="mb-16">
         <Card className="p-6">
-          <div className="grid grid-cols-2 md:grid-cols-4 gap-6">
+          <div className="grid grid-cols-2 lg:grid-cols-4 gap-6">
             {metricScale.map((step) => (
               <div key={step.name} className="stagger-child text-center">
                 <p

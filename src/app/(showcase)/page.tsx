@@ -127,7 +127,7 @@ function ColorSwatch({
       />
       <div className="min-w-0">
         <p className="text-sm font-medium text-text-primary truncate">{name}</p>
-        <p className="font-data text-xs text-text-tertiary">{cssVar}</p>
+        <p className="font-data text-xs text-text-tertiary truncate">{cssVar}</p>
       </div>
     </div>
   );
@@ -137,7 +137,7 @@ function ColorSwatch({
 
 function LightDarkPair({ children }: { children: (mode: "light" | "dark") => React.ReactNode }) {
   return (
-    <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+    <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
       <Card className="p-6 overflow-hidden">
         <p className="text-xs font-medium uppercase tracking-wider text-text-tertiary mb-4">
           Light
@@ -172,7 +172,7 @@ export default function TokensPage() {
       <ShowcaseSection title="Surfaces" className="mb-16">
         <LightDarkPair>
           {() => (
-            <div className="grid grid-cols-2 sm:grid-cols-3 gap-4">
+            <div className="grid grid-cols-2 md:grid-cols-3 gap-4">
               {surfaceTokens.map((t) => (
                 <ColorSwatch key={t.name} name={t.name} cssVar={t.var} />
               ))}
@@ -185,7 +185,7 @@ export default function TokensPage() {
       <ShowcaseSection title="Text" className="mb-16">
         <LightDarkPair>
           {() => (
-            <div className="grid grid-cols-2 sm:grid-cols-3 gap-4">
+            <div className="grid grid-cols-2 md:grid-cols-3 gap-4">
               {textTokens.map((t) => (
                 <ColorSwatch key={t.name} name={t.name} cssVar={t.var} darkBg={"dark" in t} />
               ))}
@@ -198,7 +198,7 @@ export default function TokensPage() {
       <ShowcaseSection title="Brand & Accent" className="mb-16">
         <LightDarkPair>
           {() => (
-            <div className="grid grid-cols-2 sm:grid-cols-3 gap-4">
+            <div className="grid grid-cols-2 md:grid-cols-3 gap-4">
               {accentTokens.map((t) => (
                 <ColorSwatch key={t.name} name={t.name} cssVar={t.var} />
               ))}
@@ -211,7 +211,7 @@ export default function TokensPage() {
       <ShowcaseSection title="Semantic" className="mb-16">
         <LightDarkPair>
           {() => (
-            <div className="grid grid-cols-2 sm:grid-cols-4 gap-4">
+            <div className="grid grid-cols-2 sm:grid-cols-2 lg:grid-cols-4 gap-4">
               {semanticTokens.map((t) => (
                 <ColorSwatch key={t.name} name={t.name} cssVar={t.var} />
               ))}
@@ -224,7 +224,7 @@ export default function TokensPage() {
       <ShowcaseSection title="Tiers" className="mb-16">
         <LightDarkPair>
           {() => (
-            <div className="grid grid-cols-2 sm:grid-cols-4 gap-4">
+            <div className="grid grid-cols-2 sm:grid-cols-2 lg:grid-cols-4 gap-4">
               {tierTokens.map((t) => (
                 <ColorSwatch key={t.name} name={t.name} cssVar={t.var} />
               ))}

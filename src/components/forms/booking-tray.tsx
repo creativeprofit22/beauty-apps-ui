@@ -136,7 +136,7 @@ export function BookingTray({
                 </span>
 
                 {/* Label or summary */}
-                <span>
+                <span className="truncate">
                   {isCompleted && step.summary ? step.summary : step.label}
                 </span>
               </button>

@@ -59,7 +59,7 @@ export default function EngagementPage() {
             <p className="text-sm text-text-secondary mb-4">
               Scratch the foil overlay to reveal the reward beneath. Auto-completes at 35% coverage.
             </p>
-            <div className="flex items-center gap-6">
+            <div className="flex flex-wrap items-center gap-6">
               <ScratchCard
                 key={scratchKey}
                 width={280}
@@ -166,7 +166,7 @@ export default function EngagementPage() {
         <Card className="p-6">
           <div className="stagger-child">
             <p className="text-sm text-text-secondary mb-4">
-              Floating "+N pts" counter animates upward and fades out over 1200ms.
+              Floating &ldquo;+N pts&rdquo; counter animates upward and fades out over 1200ms.
               Click the button to spawn new floats.
             </p>
             <div className="flex items-center gap-6">

@@ -44,7 +44,7 @@ export function StatCard({
         )}
         <span
           className={cn(
-            "font-data text-metric-lg font-semibold tracking-tight text-text-primary leading-none",
+            "font-data text-metric-lg font-semibold tracking-tight text-text-primary leading-none min-w-0",
             "tabular-nums",
           )}
           style={{

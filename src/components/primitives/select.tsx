@@ -97,6 +97,7 @@ export function Select({
       >
         <span
           className={cn(
+            "min-w-0 truncate flex-1",
             selectedOption ? "text-text-primary" : "text-text-tertiary",
           )}
         >
