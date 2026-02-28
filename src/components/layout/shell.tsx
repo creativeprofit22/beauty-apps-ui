@@ -16,7 +16,7 @@ export function Shell({ sidebar, children }: ShellProps) {
   const [collapsed, setCollapsed] = useState(false);
 
   return (
-    <div className="flex min-h-dvh">
+    <div className="flex h-dvh overflow-hidden">
       {sidebar && (
         <aside
           className={cn(

@@ -40,7 +40,7 @@ export default function TypographyPage() {
       {/* ── Font Specimens ── */}
       <ShowcaseSection title="Font Families" className="mb-16">
         <div className="grid grid-cols-1 lg:grid-cols-3 gap-6">
-          {/* Space Grotesk */}
+          {/* Display font */}
           <Card className="p-6">
             <div className="stagger-child space-y-4">
               <div>
@@ -48,7 +48,7 @@ export default function TypographyPage() {
                   Display
                 </p>
                 <p className="font-data text-xs text-text-tertiary">
-                  Space Grotesk
+                  DM Serif Display
                 </p>
               </div>
               <p
@@ -73,14 +73,14 @@ export default function TypographyPage() {
             </div>
           </Card>
 
-          {/* Inter */}
+          {/* Body font */}
           <Card className="p-6">
             <div className="stagger-child space-y-4">
               <div>
                 <p className="text-xs font-medium uppercase tracking-wider text-text-tertiary mb-1">
                   Body
                 </p>
-                <p className="font-data text-xs text-text-tertiary">Inter</p>
+                <p className="font-data text-xs text-text-tertiary">DM Sans</p>
               </div>
               <p
                 className="font-body text-3xl font-bold leading-tight"

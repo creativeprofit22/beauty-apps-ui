@@ -142,7 +142,7 @@ function LightDarkPair({ children }: { children: (mode: "light" | "dark") => Rea
         <p className="text-xs font-medium uppercase tracking-wider text-text-tertiary mb-4">
           Light
         </p>
-        <div className="bg-[oklch(0.985_0.005_85)] rounded-lg p-4 space-y-4">
+        <div className="bg-surface-base rounded-lg p-4 space-y-4">
           {children("light")}
         </div>
       </Card>
@@ -150,7 +150,7 @@ function LightDarkPair({ children }: { children: (mode: "light" | "dark") => Rea
         <p className="text-xs font-medium uppercase tracking-wider text-text-tertiary mb-4">
           Dark
         </p>
-        <div className="bg-[oklch(0.18_0.01_60)] rounded-lg p-4 space-y-4">
+        <div className="bg-surface-sunken rounded-lg p-4 space-y-4">
           {children("dark")}
         </div>
       </Card>
