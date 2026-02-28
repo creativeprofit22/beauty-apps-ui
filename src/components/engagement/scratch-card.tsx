@@ -14,7 +14,7 @@ interface ScratchCardProps {
   /** Brush radius for scratching */
   brushRadius?: number;
   /** Foil gradient stops */
-  foilGradient?: string[];
+  foilGradient?: readonly string[];
   /** Called when scratch threshold is reached */
   onComplete?: () => void;
   className?: string;

@@ -146,7 +146,7 @@ export function Select({
       {open && (
         <div
           className="fixed inset-0 bg-black/40 md:hidden"
-          style={{ zIndex: "var(--z-overlay)" as string }}
+          style={{ zIndex: "var(--z-overlay)" }}
           onClick={close}
           aria-hidden="true"
         />
@@ -161,7 +161,7 @@ export function Select({
           open ? "translate-y-0" : "translate-y-full",
         )}
         style={{
-          zIndex: "var(--z-modal)" as string,
+          zIndex: "var(--z-modal)",
           maxHeight: "60dvh",
           transitionDuration: "var(--duration-slow)",
           transitionTimingFunction: "var(--ease-spring)",

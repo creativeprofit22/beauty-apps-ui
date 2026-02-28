@@ -76,7 +76,7 @@ export function Toast({
         className,
       )}
       style={{
-        zIndex: "var(--z-toast)" as string,
+        zIndex: "var(--z-toast)",
         transitionDuration: "var(--duration-slow)",
         transitionTimingFunction: "var(--ease-spring)",
       }}

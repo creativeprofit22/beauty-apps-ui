@@ -31,7 +31,7 @@ export function BottomNav({
         className,
       )}
       style={{
-        zIndex: "var(--z-sticky)" as string,
+        zIndex: "var(--z-sticky)",
         height: "calc(var(--bottom-nav-height) + env(safe-area-inset-bottom, 0px))",
         paddingBottom: "env(safe-area-inset-bottom, 0px)",
       }}

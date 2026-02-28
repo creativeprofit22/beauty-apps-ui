@@ -1,10 +1,11 @@
 "use client";
 
-import { useRef, useEffect, type ReactNode } from "react";
+import { useRef, type ReactNode } from "react";
 import { gsap } from "gsap";
+import { useGSAP } from "@gsap/react";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
 
-gsap.registerPlugin(ScrollTrigger);
+gsap.registerPlugin(useGSAP, ScrollTrigger);
 
 interface ShowcaseSectionProps {
   children: ReactNode;
@@ -25,7 +26,7 @@ export function ShowcaseSection({
 }: ShowcaseSectionProps) {
   const sectionRef = useRef<HTMLElement>(null);
 
-  useEffect(() => {
+  useGSAP(() => {
     const el = sectionRef.current;
     if (!el) return;
 
@@ -55,18 +56,13 @@ export function ShowcaseSection({
       paused: true,
     });
 
-    const st = ScrollTrigger.create({
+    ScrollTrigger.create({
       trigger: el,
       start: "top 85%",
       once: true,
       onEnter: () => tween.play(),
     });
-
-    return () => {
-      st.kill();
-      tween.kill();
-    };
-  }, []);
+  }, { scope: sectionRef });
 
   return (
     <section ref={sectionRef} className={className}>

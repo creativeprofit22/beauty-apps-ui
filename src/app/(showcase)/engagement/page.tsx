@@ -64,7 +64,7 @@ export default function EngagementPage() {
                 key={scratchKey}
                 width={280}
                 height={160}
-                foilGradient={skinConfig.scratchFoilGradient as unknown as string[]}
+                foilGradient={skinConfig.scratchFoilGradient}
                 onComplete={handleScratchComplete}
               >
                 <div className="flex flex-col items-center justify-center gap-1 bg-surface-raised rounded-xl w-full h-full">
@@ -121,7 +121,7 @@ export default function EngagementPage() {
         </Card>
         <Confetti
           active={confettiActive}
-          colors={skinConfig.confettiColors as unknown as string[]}
+          colors={skinConfig.confettiColors}
           onComplete={handleConfettiComplete}
         />
       </ShowcaseSection>

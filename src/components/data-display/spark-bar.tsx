@@ -23,7 +23,7 @@ export function SparkBar({ percent, className }: SparkBarProps) {
       aria-valuenow={clamped}
       aria-valuemin={0}
       aria-valuemax={100}
-      style={{ ["--bar-pct" as string]: `${clamped}%` }}
+      style={{ "--bar-pct": `${clamped}%` } as React.CSSProperties}
     >
       <div
         className="h-full rounded-full bg-primary"

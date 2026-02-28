@@ -79,7 +79,7 @@ export function Table<T extends Record<string, unknown>>({
                 >
                   {col.render
                     ? col.render(row)
-                    : (row[col.key] as ReactNode)}
+                    : String(row[col.key])}
                 </td>
               ))}
             </tr>

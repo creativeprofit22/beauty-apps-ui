@@ -9,7 +9,7 @@ interface ConfettiProps {
   /** Number of confetti pieces */
   count?: number;
   /** Color palette for confetti pieces */
-  colors?: string[];
+  colors?: readonly string[];
   /** Called when all confetti animations complete */
   onComplete?: () => void;
   className?: string;

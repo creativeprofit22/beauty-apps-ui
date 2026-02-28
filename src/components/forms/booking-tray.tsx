@@ -62,7 +62,7 @@ export function BookingTray({
           open ? "opacity-100" : "opacity-0 pointer-events-none",
         )}
         style={{
-          zIndex: "var(--z-overlay)" as string,
+          zIndex: "var(--z-overlay)",
           transitionDuration: "var(--duration-normal)",
         }}
         onClick={onClose}
@@ -84,7 +84,7 @@ export function BookingTray({
           className,
         )}
         style={{
-          zIndex: "var(--z-modal)" as string,
+          zIndex: "var(--z-modal)",
           maxHeight: "90dvh",
           transitionDuration: "var(--duration-slow)",
           transitionTimingFunction: "var(--ease-spring)",

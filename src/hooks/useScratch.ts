@@ -12,7 +12,7 @@ interface UseScratchOptions {
   /** Percentage threshold (0-1) to trigger auto-complete */
   completeThreshold?: number;
   /** Foil gradient stops for the overlay */
-  foilGradient?: string[];
+  foilGradient?: readonly string[];
   /** Called when scratch completion threshold is reached */
   onComplete?: () => void;
 }
