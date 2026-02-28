@@ -38,27 +38,13 @@ export function BottomNav({
       aria-label="Mobile navigation"
     >
       <div
-        className="relative grid h-[var(--bottom-nav-height)]"
+        className="relative flex h-[var(--bottom-nav-height)] overflow-x-auto"
         style={{
-          gridTemplateColumns: `repeat(${items.length}, 1fr)`,
           "--tab-count": items.length,
           "--active-index": activeIndex >= 0 ? activeIndex : 0,
+          scrollbarWidth: "none",
         } as React.CSSProperties}
       >
-        {/* Sliding pill indicator */}
-        {activeIndex >= 0 && (
-          <span
-            className="absolute top-1.5 h-[3px] rounded-full bg-primary"
-            style={{
-              width: `calc(100% / ${items.length} - 24px)`,
-              left: "12px",
-              transform: `translateX(calc((100% + 24px) * var(--active-index)))`,
-              transition: "transform var(--duration-slow) cubic-bezier(0.4, 1.2, 0.4, 1)",
-            }}
-            aria-hidden="true"
-          />
-        )}
-
         {items.map((item) => (
           <NavItem
             key={item.id}

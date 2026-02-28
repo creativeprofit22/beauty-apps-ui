@@ -73,8 +73,8 @@ export function Table<T extends Record<string, unknown>>({
                     "md:px-4 md:py-3",
                     "text-sm text-text-primary",
                     col.numeric && "font-data tabular-nums md:text-right",
-                    // Mobile: show label before value
-                    "before:content-[attr(data-label)] before:font-semibold before:text-text-tertiary before:text-xs before:uppercase before:tracking-wider before:mr-2 before:inline md:before:content-none",
+                    // Mobile: show label before value on its own line
+                    "before:content-[attr(data-label)] before:font-semibold before:text-text-tertiary before:text-xs before:uppercase before:tracking-wider before:block before:mb-0.5 md:before:content-none",
                   )}
                 >
                   {col.render

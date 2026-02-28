@@ -64,7 +64,7 @@ export function OfferCard({
       </div>
 
       {/* Bottom section: details + expiry */}
-      <div className="px-5 pt-4 pb-5">
+      <div className="relative px-5 pt-4 pb-5">
         <h3 className="text-sm font-semibold text-text-primary">{title}</h3>
         {description && (
           <p className="mt-1 text-xs text-text-secondary">{description}</p>

@@ -83,7 +83,7 @@ export function NavItem({
 
   // Bottom nav variant
   const classes = cn(
-    "flex flex-col items-center justify-center gap-1",
+    "flex flex-col items-center justify-center gap-1 flex-shrink-0",
     "text-[0.625rem] font-medium leading-tight",
     "transition-colors",
     active ? "text-primary" : "text-text-tertiary",
@@ -91,11 +91,13 @@ export function NavItem({
   const style = {
     transitionDuration: "var(--duration-normal)",
     minHeight: "var(--touch-target-min)",
+    minWidth: "var(--touch-target-min)",
+    padding: "0 6px",
   };
   const content = (
     <>
-      <span className="w-5 h-5">{item.icon}</span>
-      <span>{item.label}</span>
+      <span className="w-5 h-5 flex-shrink-0">{item.icon}</span>
+      <span className="whitespace-nowrap">{item.label}</span>
     </>
   );
 
