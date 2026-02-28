@@ -113,7 +113,7 @@ export function Select({
         inert={!open ? true : undefined}
         className={cn(
           "absolute z-[var(--z-dropdown)] left-0 right-0 mt-1",
-          "rounded-lg bg-surface-overlay shadow-lg",
+          "rounded-lg bg-surface-overlay shadow-lg border border-border",
           "overflow-hidden",
           "transition-[opacity,transform] duration-normal",
           "origin-top",
@@ -134,7 +134,7 @@ export function Select({
               "transition-colors duration-fast",
               "hover:bg-surface-interactive-hover",
               option.value === value
-                ? "text-primary font-medium bg-surface-interactive"
+                ? "text-text-primary font-medium bg-primary-muted"
                 : "text-text-primary",
             )}
           >
@@ -189,7 +189,7 @@ export function Select({
                 "hover:bg-surface-interactive-hover",
                 "active:scale-[0.98]",
                 option.value === value
-                  ? "text-primary font-medium bg-surface-interactive"
+                  ? "text-text-primary font-medium bg-primary-muted"
                   : "text-text-primary",
               )}
             >

@@ -68,7 +68,7 @@ export default function EngagementPage() {
                 onComplete={handleScratchComplete}
               >
                 <div className="flex flex-col items-center justify-center gap-1 bg-surface-raised rounded-xl w-full h-full">
-                  <span className="font-display text-2xl font-bold text-primary">
+                  <span className="font-display text-2xl font-bold text-secondary">
                     20% OFF
                   </span>
                   <span className="text-xs text-text-secondary">

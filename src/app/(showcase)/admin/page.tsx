@@ -240,7 +240,7 @@ export default function AdminPage() {
         <Card className="p-0 overflow-hidden">
           <div className="stagger-child flex min-w-0">
             <div
-              className="shrink-0 border-r border-border bg-surface-raised transition-all duration-300"
+              className="shrink-0 border-r border-border bg-surface-sunken transition-all duration-300"
               style={{ width: sidebarCollapsed ? "56px" : "240px" }}
             >
               <Sidebar

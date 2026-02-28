@@ -38,7 +38,7 @@ export function StatCard({
 
       <div className="flex items-center gap-2">
         {icon && (
-          <span className="text-primary shrink-0" aria-hidden="true">
+          <span className="text-secondary shrink-0" aria-hidden="true">
             {icon}
           </span>
         )}
@@ -57,14 +57,14 @@ export function StatCard({
 
       {progress !== undefined && (
         <div className="mt-1">
-          <div className="h-1 w-full rounded-full bg-surface-sunken overflow-hidden">
+          <div className="h-1 w-full rounded-full bg-border overflow-hidden">
             <div
-              className="h-full rounded-full bg-primary relative"
+              className="h-full rounded-full bg-primary-hover relative"
               style={{ width: `${Math.min(100, Math.max(0, progress))}%` }}
             >
               {/* Glowing tip */}
               <span
-                className="absolute right-0 top-1/2 -translate-y-1/2 w-2 h-2 rounded-full bg-primary"
+                className="absolute right-0 top-1/2 -translate-y-1/2 w-2 h-2 rounded-full bg-primary-hover"
                 style={{
                   boxShadow: "var(--glow-primary)",
                   animation: "led-pulse 2s ease-in-out infinite",

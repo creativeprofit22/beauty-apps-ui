@@ -286,7 +286,7 @@ export default function ClientPortalPage() {
                   {mockSlots.find((s) => s.id === selectedSlot)?.time ?? "—"}
                 </span>
               </div>
-              <div className="flex justify-between text-sm border-t border-border-muted pt-2 mt-2">
+              <div className="flex justify-between text-sm border-t border-border pt-2 mt-2">
                 <span className="text-text-secondary">Total</span>
                 <span className="font-semibold text-text-primary">$120</span>
               </div>

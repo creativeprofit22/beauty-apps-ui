@@ -125,7 +125,7 @@ export default function MobilePage() {
 
                 {/* Mini appointment cards */}
                 <div className="space-y-2 mt-4">
-                  <div className="rounded-lg bg-surface-raised p-3 shadow-sm">
+                  <div className="rounded-lg bg-surface-overlay p-3 shadow-sm border border-border">
                     <div className="flex justify-between items-start">
                       <div>
                         <p className="text-sm font-medium text-text-primary">Hot Stone Massage</p>
@@ -136,7 +136,7 @@ export default function MobilePage() {
                       </span>
                     </div>
                   </div>
-                  <div className="rounded-lg bg-surface-raised p-3 shadow-sm">
+                  <div className="rounded-lg bg-surface-overlay p-3 shadow-sm border border-border">
                     <div className="flex justify-between items-start">
                       <div>
                         <p className="text-sm font-medium text-text-primary">Classic Facial</p>
@@ -295,16 +295,16 @@ export default function MobilePage() {
                 <div className="h-4 w-20 rounded bg-surface-sunken" />
                 <div className="h-2 w-32 rounded bg-surface-sunken" />
                 <div className="mt-3 space-y-2">
-                  <div className="h-16 rounded-lg bg-surface-raised shadow-sm" />
-                  <div className="h-16 rounded-lg bg-surface-raised shadow-sm" />
-                  <div className="h-16 rounded-lg bg-surface-raised shadow-sm" />
+                  <div className="h-16 rounded-lg bg-surface-warm-3 shadow-sm" />
+                  <div className="h-16 rounded-lg bg-surface-warm-3 shadow-sm" />
+                  <div className="h-16 rounded-lg bg-surface-warm-3 shadow-sm" />
                 </div>
               </div>
               <div className="absolute inset-x-0 bottom-0 h-10 bg-surface-raised border-t border-border flex items-center justify-around px-2">
                 {Array.from({ length: 5 }, (_, i) => (
                   <div key={i} className="flex flex-col items-center gap-0.5">
-                    <div className="w-3 h-3 rounded-sm bg-text-tertiary opacity-40" />
-                    <div className="w-5 h-1 rounded bg-text-tertiary opacity-20" />
+                    <div className="w-3 h-3 rounded-sm bg-border" />
+                    <div className="w-5 h-1 rounded bg-border" />
                   </div>
                 ))}
               </div>
@@ -322,13 +322,13 @@ export default function MobilePage() {
             >
               <div className="flex h-full">
                 {/* Sidebar wireframe */}
-                <div className="w-16 h-full bg-surface-raised border-r border-border p-2 space-y-3 shrink-0">
-                  <div className="h-3 w-8 rounded bg-primary opacity-40 mx-auto" />
+                <div className="w-16 h-full bg-surface-sunken border-r border-border p-2 space-y-3 shrink-0">
+                  <div className="h-3 w-8 rounded bg-primary-hover mx-auto" />
                   {Array.from({ length: 5 }, (_, i) => (
                     <div
                       key={i}
                       className={`h-2.5 w-8 rounded mx-auto ${
-                        i === 0 ? "bg-primary opacity-60" : "bg-text-tertiary opacity-20"
+                        i === 0 ? "bg-primary-hover" : "bg-border"
                       }`}
                     />
                   ))}
@@ -339,7 +339,7 @@ export default function MobilePage() {
                   <div className="h-1.5 w-40 rounded bg-surface-sunken" />
                   <div className="mt-2 grid grid-cols-3 gap-2">
                     {Array.from({ length: 6 }, (_, i) => (
-                      <div key={i} className="h-12 rounded bg-surface-raised shadow-sm" />
+                      <div key={i} className="h-12 rounded bg-surface-warm-3 shadow-sm" />
                     ))}
                   </div>
                 </div>

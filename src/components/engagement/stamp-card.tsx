@@ -44,7 +44,7 @@ export function StampCard({
                 "border-2 border-dashed border-accent",
               !isEarned &&
                 !isNext &&
-                "border-2 border-dashed border-border-muted",
+                "border-2 border-dashed border-border",
             )}
             style={
               isNext

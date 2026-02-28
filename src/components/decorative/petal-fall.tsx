@@ -26,8 +26,9 @@ export function PetalFall({ colors, count = 5 }: PetalFallProps) {
   const [reducedMotion, setReducedMotion] = useState(false);
   useEffect(() => {
     const mq = window.matchMedia("(prefers-reduced-motion: reduce)");
-    setReducedMotion(mq.matches);
     const handler = (e: MediaQueryListEvent) => setReducedMotion(e.matches);
+    // Read initial value via the change handler pattern to avoid sync setState
+    handler({ matches: mq.matches } as MediaQueryListEvent);
     mq.addEventListener("change", handler);
     return () => mq.removeEventListener("change", handler);
   }, []);

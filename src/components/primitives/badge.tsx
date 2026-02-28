@@ -21,8 +21,8 @@ const variantClasses: Record<BadgeVariant, string> = {
 
 const tierClasses: Record<BadgeTier, string> = {
   bronze: "bg-tier-bronze-muted text-tier-bronze",
-  silver: "bg-tier-silver-muted text-tier-silver",
-  gold: "bg-tier-gold-muted text-tier-gold",
+  silver: "bg-tier-silver-muted text-text-secondary",
+  gold: "bg-tier-gold-muted text-tier-black",
   black: "bg-tier-black-muted text-tier-black",
 };
 

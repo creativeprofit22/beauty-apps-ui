@@ -36,7 +36,7 @@ export function OfferCard({
     >
       {/* Top section: offer value */}
       <div className="px-5 pt-5 pb-4 text-center">
-        <span className="font-display text-3xl font-bold tracking-tight text-primary">
+        <span className="font-display text-3xl font-bold tracking-tight text-secondary">
           {offerValue}
         </span>
       </div>
@@ -72,7 +72,7 @@ export function OfferCard({
 
         {expiryPercent !== undefined && (
           <div className="mt-3">
-            <div className="h-1.5 w-full rounded-full bg-surface-sunken overflow-hidden">
+            <div className="h-1.5 w-full rounded-full bg-border overflow-hidden">
               <div
                 className={cn(
                   "h-full rounded-full transition-all duration-slow",

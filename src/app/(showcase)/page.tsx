@@ -243,7 +243,7 @@ export default function TokensPage() {
                   {s.name}
                 </span>
                 <div
-                  className="h-3 rounded-sm bg-primary"
+                  className="h-3 rounded-sm bg-secondary"
                   style={{ width: `${Math.max(s.px, 2)}px` }}
                 />
                 <span className="font-data text-xs text-text-secondary">{s.value}</span>
@@ -260,7 +260,7 @@ export default function TokensPage() {
             {radiusTokens.map((r) => (
               <div key={r.name} className="stagger-child flex flex-col items-center gap-2">
                 <div
-                  className="w-16 h-16 bg-primary"
+                  className="w-16 h-16 bg-secondary"
                   style={{ borderRadius: `var(${r.var})` }}
                 />
                 <span className="text-xs font-medium text-text-primary">{r.name}</span>
@@ -279,7 +279,7 @@ export default function TokensPage() {
               {shadowTokens.map((s) => (
                 <div key={s.name} className="stagger-child flex flex-col items-center gap-2">
                   <div
-                    className="w-20 h-20 rounded-lg bg-surface-raised"
+                    className="w-20 h-20 rounded-lg bg-surface-overlay border border-border"
                     style={{ boxShadow: `var(${s.cssVar})` }}
                   />
                   <span className="text-xs font-medium text-text-primary">{s.name}</span>
@@ -298,7 +298,7 @@ export default function TokensPage() {
               {glowTokens.map((g) => (
                 <div key={g.name} className="stagger-child flex flex-col items-center gap-2">
                   <div
-                    className="w-16 h-16 rounded-full bg-surface-raised"
+                    className="w-16 h-16 rounded-full bg-surface-overlay border border-border"
                     style={{ boxShadow: `var(${g.cssVar})` }}
                   />
                   <span className="text-xs font-medium text-text-primary">{g.name}</span>

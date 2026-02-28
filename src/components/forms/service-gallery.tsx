@@ -112,7 +112,7 @@ export function ServiceGallery({
             {/* Selected indicator */}
             {isSelected && (
               <div className="absolute top-3 right-3">
-                <div className="w-6 h-6 rounded-full bg-primary flex items-center justify-center">
+                <div className="w-6 h-6 rounded-full bg-accent flex items-center justify-center">
                   <svg
                     width="14"
                     height="14"

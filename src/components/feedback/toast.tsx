@@ -110,7 +110,7 @@ export function Toast({
                 {action && (
                   <button
                     onClick={action.onClick}
-                    className="mt-1.5 text-xs font-medium text-primary hover:underline"
+                    className="mt-1.5 text-xs font-medium text-secondary hover:underline"
                   >
                     {action.label}
                   </button>
@@ -128,7 +128,7 @@ export function Toast({
               {action && (
                 <button
                   onClick={action.onClick}
-                  className="mt-1.5 text-xs font-medium text-primary hover:underline"
+                  className="mt-1.5 text-xs font-medium text-secondary hover:underline"
                 >
                   {action.label}
                 </button>
@@ -147,7 +147,7 @@ export function Toast({
               {action && (
                 <button
                   onClick={action.onClick}
-                  className="mt-1 text-xs font-medium text-primary hover:underline col-start-2 justify-self-start"
+                  className="mt-1 text-xs font-medium text-secondary hover:underline col-start-2 justify-self-start"
                 >
                   {action.label}
                 </button>

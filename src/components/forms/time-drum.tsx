@@ -88,7 +88,7 @@ export function TimeDrum({
     >
       {/* Center highlight bar */}
       <div
-        className="absolute left-0 right-0 rounded-md bg-surface-interactive pointer-events-none"
+        className="absolute left-0 right-0 rounded-md bg-primary-muted pointer-events-none"
         style={{
           zIndex: 0,
           top: ITEM_HEIGHT,

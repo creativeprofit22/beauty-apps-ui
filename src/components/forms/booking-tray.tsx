@@ -93,16 +93,15 @@ export function BookingTray({
         {/* Drag handle */}
         <div className="flex justify-center pt-3 pb-2">
           <div
-            className="w-8 h-1 rounded-full bg-surface-warm-3"
-            style={{ boxShadow: "0 1px 2px oklch(0.5 0.02 72 / 0.15)" }}
+            className="w-8 h-1 rounded-full bg-border"
           />
         </div>
 
         {/* Progress line */}
         <div className="px-6 pb-4">
-          <div className="h-[3px] rounded-full bg-surface-warm-2 overflow-hidden">
+          <div className="h-[3px] rounded-full bg-border overflow-hidden">
             <div
-              className="h-full rounded-full bg-primary"
+              className="h-full rounded-full bg-primary-hover"
               style={{
                 width: `${steps.length > 1 ? (activeStep / (steps.length - 1)) * 100 : 0}%`,
                 transition: "width 400ms ease-out",
