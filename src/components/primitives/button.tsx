@@ -43,7 +43,7 @@ export function Button({
     <button
       className={cn(
         // Base
-        "relative inline-flex items-center justify-center font-medium",
+        "relative inline-flex items-center justify-center font-medium text-btn",
         "select-none transition-all",
         "focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary focus-visible:ring-offset-2",
         "disabled:opacity-50 disabled:pointer-events-none",
@@ -51,13 +51,13 @@ export function Button({
         radiusClasses[radius],
         // Variant styles
         variant === "primary" &&
-          "bg-primary text-text-on-accent shadow-[0_2px_0_0_var(--primary-hover)] hover:bg-primary-hover active:translate-y-[2px] active:shadow-none",
+          "bg-primary text-text-on-accent shadow-[0_2px_0_0_var(--primary-hover)] hover:bg-primary-hover active:translate-y-[1px] active:shadow-[0_1px_0_0_var(--primary-hover)]",
         variant === "secondary" &&
-          "bg-secondary text-text-on-accent shadow-[0_2px_0_0_var(--secondary-hover)] hover:bg-secondary-hover active:translate-y-[2px] active:shadow-none",
+          "bg-secondary text-text-on-accent shadow-[0_2px_0_0_var(--secondary-hover)] hover:bg-secondary-hover active:translate-y-[1px] active:shadow-[0_1px_0_0_var(--secondary-hover)]",
         variant === "ghost" &&
           "bg-transparent text-text-primary bg-[length:200%_100%] bg-[position:100%_0] hover:bg-[position:0_0] active:scale-[0.97]",
         variant === "cta" &&
-          "bg-primary text-text-on-accent shadow-[0_2px_0_0_var(--primary-hover)] hover:bg-primary-hover active:translate-y-[2px] active:shadow-none overflow-hidden",
+          "bg-primary text-text-on-accent shadow-[0_2px_0_0_var(--primary-hover)] hover:bg-primary-hover active:translate-y-[1px] active:shadow-[0_1px_0_0_var(--primary-hover)] overflow-hidden",
         className,
       )}
       style={{

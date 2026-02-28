@@ -40,7 +40,9 @@ design/                     # Soul docs (brand, specs, interactions, tokens, typ
 - **Skins:** `SKIN=spa|barber|nail-salon|tattoo` env var swaps CSS tokens at build time via webpack alias
 - **Path aliases:** `@/*` → `src/*`, `@/skin` → `skins/{SKIN}/`
 - **CSS cascade:** `globals.css` → `tokens.css` → `base.css` → `effects.css` → `fonts.css`
-- **Fonts:** Space Grotesk (display), Inter (body), Fira Code (data)
+- **Fonts:** DM Serif Display (display), DM Sans (body), Fira Code (data) — skins override via CSS custom properties
+
+**Phase:** UI Refinement "Alive, Not SaaS" — Chunk 6/6 COMPLETE
 
 ## Design Principles
 

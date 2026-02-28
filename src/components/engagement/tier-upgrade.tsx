@@ -56,6 +56,7 @@ export function TierUpgrade({
 
   useEffect(() => {
     if (!active) {
+      // eslint-disable-next-line react-hooks/set-state-in-effect -- reset phase synchronously when deactivated
       setPhase("idle");
       return;
     }

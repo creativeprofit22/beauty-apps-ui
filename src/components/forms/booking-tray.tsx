@@ -92,81 +92,45 @@ export function BookingTray({
       >
         {/* Drag handle */}
         <div className="flex justify-center pt-3 pb-2">
-          <div className="w-10 h-1 rounded-full bg-border" />
+          <div
+            className="w-8 h-1 rounded-full bg-surface-warm-3"
+            style={{ boxShadow: "0 1px 2px oklch(0.5 0.02 72 / 0.15)" }}
+          />
         </div>
 
-        {/* Step chips */}
-        <div className="px-6 pb-3 flex flex-wrap gap-2">
-          {steps.map((step, index) => {
-            const isCompleted = index < activeStep;
-            const isActive = index === activeStep;
-            const isFuture = index > activeStep;
-
-            return (
-              <button
-                key={step.id}
-                type="button"
-                onClick={() => isCompleted && onStepClick?.(index)}
-                disabled={isFuture}
-                className={cn(
-                  "inline-flex items-center gap-1.5 rounded-full px-3 py-1",
-                  "text-xs font-medium select-none",
-                  "transition-all duration-normal",
-                  isCompleted &&
-                    "bg-primary-muted text-primary cursor-pointer hover:bg-primary/20",
-                  isActive && "bg-surface-interactive text-text-primary",
-                  isFuture &&
-                    "bg-surface-sunken text-text-tertiary cursor-not-allowed opacity-60",
-                )}
-              >
-                {/* Step number / check */}
-                <span
-                  className={cn(
-                    "inline-flex items-center justify-center w-4 h-4 rounded-full text-[10px] font-bold",
-                    isCompleted && "bg-primary text-text-on-accent",
-                    isActive && "bg-text-primary text-text-inverse",
-                    isFuture && "bg-border text-text-tertiary",
-                  )}
-                >
-                  {isCompleted ? (
-                    <CheckIcon />
-                  ) : (
-                    index + 1
-                  )}
-                </span>
-
-                {/* Label or summary */}
-                <span className="truncate">
-                  {isCompleted && step.summary ? step.summary : step.label}
-                </span>
-              </button>
-            );
-          })}
+        {/* Progress line */}
+        <div className="px-6 pb-4">
+          <div className="h-[3px] rounded-full bg-surface-warm-2 overflow-hidden">
+            <div
+              className="h-full rounded-full bg-primary"
+              style={{
+                width: `${steps.length > 1 ? (activeStep / (steps.length - 1)) * 100 : 0}%`,
+                transition: "width 400ms ease-out",
+              }}
+            />
+          </div>
         </div>
 
-        {/* Step content */}
-        <div className="px-6 pb-6">{children}</div>
+        {/* Step content — slides in from right on step change */}
+        <div
+          key={activeStep}
+          className="px-6 pb-6"
+          ref={(el) => {
+            if (!el) return;
+            el.style.opacity = "0";
+            el.style.transform = "translateX(16px)";
+            requestAnimationFrame(() => {
+              el.style.transition =
+                "opacity 320ms var(--ease-bloom), transform 320ms var(--ease-bloom)";
+              el.style.opacity = "1";
+              el.style.transform = "translateX(0)";
+            });
+          }}
+        >
+          {children}
+        </div>
       </div>
     </>
   );
 }
 
-function CheckIcon() {
-  return (
-    <svg
-      width="10"
-      height="10"
-      viewBox="0 0 10 10"
-      fill="none"
-      aria-hidden="true"
-    >
-      <path
-        d="M2 5L4.5 7.5L8 3"
-        stroke="currentColor"
-        strokeWidth="1.5"
-        strokeLinecap="round"
-        strokeLinejoin="round"
-      />
-    </svg>
-  );
-}

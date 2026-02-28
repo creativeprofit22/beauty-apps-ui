@@ -8,24 +8,48 @@
  */
 
 :root[data-skin="spa"] {
-  /* ── Primary: Warm Gold ── */
-  --primary: oklch(0.76 0.12 85);
-  --primary-hover: oklch(0.70 0.14 85);
-  --primary-muted: oklch(0.92 0.04 85);
+  /* ── Primary: Champagne Nude ── */
+  --primary: oklch(0.82 0.06 72);
+  --primary-hover: oklch(0.76 0.08 72);
+  --primary-muted: oklch(0.92 0.03 72);
 
-  /* ── Secondary: Rose ── */
-  --secondary: oklch(0.68 0.12 12);
-  --secondary-hover: oklch(0.62 0.14 12);
-  --secondary-muted: oklch(0.92 0.04 12);
+  /* ── Secondary: Dusty Rose ── */
+  --secondary: oklch(0.70 0.08 18);
+  --secondary-hover: oklch(0.64 0.10 18);
+  --secondary-muted: oklch(0.92 0.03 18);
 
-  /* ── Accent: Sage ── */
-  --accent: oklch(0.65 0.08 155);
-  --accent-hover: oklch(0.59 0.10 155);
-  --accent-muted: oklch(0.92 0.03 155);
+  /* ── Accent: Warm Sage ── */
+  --accent: oklch(0.62 0.06 148);
+  --accent-hover: oklch(0.56 0.08 148);
+  --accent-muted: oklch(0.92 0.02 148);
 
   /* ── Spa-specific surface warmth ── */
-  --surface-base: oklch(0.985 0.005 85);
-  --surface-raised: oklch(0.995 0.003 85);
+  --surface-base: oklch(0.985 0.005 72);
+  --surface-raised: oklch(0.995 0.003 72);
+
+  /* ── Warm-tinted shadows ── */
+  --elevation-xs: 0 1px 2px oklch(0.22 0.02 72 / 0.04);
+  --elevation-sm: 0 1px 3px oklch(0.22 0.02 72 / 0.06),
+    0 1px 2px oklch(0.22 0.02 72 / 0.04);
+  --elevation-md: 0 4px 6px oklch(0.22 0.02 72 / 0.06),
+    0 2px 4px oklch(0.22 0.02 72 / 0.04),
+    0 0px 1px oklch(0.22 0.02 72 / 0.03);
+  --elevation-lg: 0 10px 15px oklch(0.22 0.02 72 / 0.07),
+    0 4px 6px oklch(0.22 0.02 72 / 0.04),
+    0 0px 2px oklch(0.22 0.02 72 / 0.03);
+  --elevation-card: 0 1px 3px oklch(0.22 0.02 72 / 0.05),
+    0 6px 16px oklch(0.22 0.02 72 / 0.06),
+    0 0px 1px oklch(0.22 0.02 72 / 0.03);
+
+  /* ── Borders ── */
+  --border: oklch(0.88 0.01 72);
+  --border-muted: oklch(0.92 0.005 72);
+  --border-accent: oklch(0.82 0.06 72);
+
+  /* ── Glow tokens ── */
+  --glow-primary: 0 0 12px oklch(0.82 0.06 72 / 0.25);
+  --glow-secondary: 0 0 12px oklch(0.70 0.08 18 / 0.25);
+  --glow-accent: 0 0 12px oklch(0.62 0.06 148 / 0.25);
 
   /* ── Soft radii ── */
   --radii-xs: 4px;
@@ -35,6 +59,17 @@
   --radii-xl: 20px;
   --radii-2xl: 28px;
 
+  /* ── Typography ── */
+  --font-family-display: "DM Serif Display", Georgia, "Times New Roman", serif;
+  --font-family-body: "DM Sans Variable", "DM Sans", system-ui, sans-serif;
+
+  /* ── Page background (warm light pooling + rose wash) ── */
+  --page-bg:
+    radial-gradient(ellipse at 50% 0%, oklch(0.97 0.015 72 / 0.8) 0%, transparent 70%),
+    radial-gradient(ellipse at 0% 100%, oklch(0.95 0.02 18 / 0.4) 0%, transparent 50%),
+    var(--surface-base);
+  --noise-opacity: 0.035;
+
   /* ── Spa treatment flags ── */
   --glass-opacity: 0.85;
   --gradient-intensity: 0.6;
@@ -42,24 +77,51 @@
 
 [data-skin="spa"] .dark,
 .dark[data-skin="spa"] {
-  /* ── Primary: Warm Gold (brighter) ── */
-  --primary: oklch(0.82 0.10 85);
-  --primary-hover: oklch(0.86 0.12 85);
-  --primary-muted: oklch(0.30 0.04 85);
+  /* ── Primary: Champagne Nude (brighter in dark) ── */
+  --primary: oklch(0.86 0.05 72);
+  --primary-hover: oklch(0.90 0.06 72);
+  --primary-muted: oklch(0.22 0.03 72);
 
-  /* ── Secondary: Rose ── */
-  --secondary: oklch(0.74 0.10 12);
-  --secondary-hover: oklch(0.78 0.12 12);
-  --secondary-muted: oklch(0.28 0.04 12);
+  /* ── Secondary: Dusty Rose ── */
+  --secondary: oklch(0.76 0.07 18);
+  --secondary-hover: oklch(0.80 0.09 18);
+  --secondary-muted: oklch(0.22 0.03 18);
 
-  /* ── Accent: Sage ── */
-  --accent: oklch(0.72 0.07 155);
-  --accent-hover: oklch(0.76 0.09 155);
-  --accent-muted: oklch(0.28 0.03 155);
+  /* ── Accent: Warm Sage ── */
+  --accent: oklch(0.68 0.05 148);
+  --accent-hover: oklch(0.72 0.07 148);
+  --accent-muted: oklch(0.22 0.02 148);
 
-  /* ── Dark spa surfaces ── */
-  --surface-base: oklch(0.18 0.01 60);
-  --surface-raised: oklch(0.22 0.012 60);
+  /* ── Dark spa surfaces (candlelit) ── */
+  --surface-base: oklch(0.10 0.012 55);
+  --surface-raised: oklch(0.14 0.014 55);
+
+  /* ── Borders ── */
+  --border: oklch(0.22 0.015 55);
+  --border-muted: oklch(0.18 0.01 55);
+  --border-accent: oklch(0.86 0.05 72);
+
+  /* ── Text (warm cream) ── */
+  --text-primary: oklch(0.94 0.008 78);
+  --text-secondary: oklch(0.72 0.01 78);
+
+  /* ── Glow-based card elevation ── */
+  --elevation-card: inset 0 1px 0 oklch(1 0 0 / 0.06),
+    0 0 1px oklch(0.86 0.05 72 / 0.12),
+    0 4px 12px oklch(0 0 0 / 0.15),
+    0 0 20px oklch(0.82 0.04 72 / 0.06);
+
+  /* ── Glow tokens ── */
+  --glow-primary: 0 0 16px oklch(0.86 0.05 72 / 0.35);
+  --glow-secondary: 0 0 16px oklch(0.76 0.07 18 / 0.35);
+  --glow-accent: 0 0 16px oklch(0.68 0.05 148 / 0.35);
+
+  /* ── Page background (dark warm pooling) ── */
+  --page-bg:
+    radial-gradient(ellipse at 50% 0%, oklch(0.15 0.02 72 / 0.5) 0%, transparent 70%),
+    radial-gradient(ellipse at 0% 100%, oklch(0.12 0.02 18 / 0.3) 0%, transparent 50%),
+    var(--surface-base);
+  --noise-opacity: 0.025;
 
   /* ── Treatment flags ── */
   --glass-opacity: 0.75;

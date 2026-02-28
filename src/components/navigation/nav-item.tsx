@@ -39,7 +39,7 @@ export function NavItem({
       "transition-colors",
       active
         ? "text-text-primary bg-surface-interactive"
-        : "text-text-secondary hover:text-text-primary hover:bg-surface-interactive-hover",
+        : "text-text-secondary hover:text-text-primary hover:bg-surface-warm-1",
       collapsed && "justify-center px-0",
     );
     const style = { transitionDuration: "var(--duration-normal)" };
@@ -84,9 +84,9 @@ export function NavItem({
   // Bottom nav variant
   const classes = cn(
     "flex flex-col items-center justify-center gap-1 flex-shrink-0",
-    "text-[0.625rem] font-medium leading-tight",
+    "text-[0.625rem] leading-tight",
     "transition-colors",
-    active ? "text-primary" : "text-text-tertiary",
+    active ? "text-primary" : "text-text-secondary",
   );
   const style = {
     transitionDuration: "var(--duration-normal)",
@@ -96,8 +96,18 @@ export function NavItem({
   };
   const content = (
     <>
-      <span className="w-5 h-5 flex-shrink-0">{item.icon}</span>
-      <span className="whitespace-nowrap">{item.label}</span>
+      <span
+        className="w-5 h-5 flex-shrink-0"
+        style={{
+          transform: active ? "scale(1.15)" : "scale(1)",
+          transition: "transform 120ms var(--ease-spring)",
+        }}
+      >
+        {item.icon}
+      </span>
+      <span className={cn("whitespace-nowrap", active ? "font-semibold" : "font-medium")}>
+        {item.label}
+      </span>
     </>
   );
 

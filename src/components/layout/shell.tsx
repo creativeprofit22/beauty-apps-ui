@@ -21,10 +21,13 @@ export function Shell({ sidebar, children }: ShellProps) {
         <aside
           className={cn(
             "hidden lg:flex flex-col border-r border-border",
-            "bg-surface-raised transition-[width] duration-slow",
+            "transition-[width] duration-slow",
             collapsed ? "w-[var(--sidebar-collapsed)]" : "w-[var(--sidebar-width)]",
           )}
-          style={{ willChange: "width" }}
+          style={{
+            willChange: "width",
+            background: "linear-gradient(180deg, var(--surface-warm-1), var(--surface-raised))",
+          }}
         >
           <div className="flex-1 overflow-y-auto overflow-x-hidden">
             {typeof sidebar === "function" ? sidebar(collapsed) : sidebar}

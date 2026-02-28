@@ -1,4 +1,5 @@
 @import "@fontsource-variable/oswald";
+@import "@fontsource-variable/ibm-plex-sans";
 
 /*
  * Barber Skin — Leather brown, steel, forest green
@@ -90,8 +91,15 @@
   /* ── Focus ring ── */
   --focus-ring: 0 0 0 2px var(--surface-base), 0 0 0 4px var(--primary);
 
-  /* ── Font display override ── */
+  /* ── Font overrides ── */
   --font-family-display: "Oswald Variable", "Oswald", "Arial Narrow", system-ui, sans-serif;
+  --font-family-body: "IBM Plex Sans Variable", "IBM Plex Sans", system-ui, sans-serif;
+
+  /* ── Page background (subtle cool gradient, no noise) ── */
+  --page-bg:
+    linear-gradient(180deg, oklch(0.95 0.004 250 / 0.3) 0%, transparent 40%),
+    var(--surface-base);
+  --noise-opacity: 0;
 
   /* ── Treatment flags (no glass, low gradient) ── */
   --glass-opacity: 1;
@@ -184,8 +192,15 @@
   --radii-xl: 8px;
   --radii-2xl: 12px;
 
-  /* ── Font display ── */
+  /* ── Font overrides ── */
   --font-family-display: "Oswald Variable", "Oswald", "Arial Narrow", system-ui, sans-serif;
+  --font-family-body: "IBM Plex Sans Variable", "IBM Plex Sans", system-ui, sans-serif;
+
+  /* ── Page background (dark subtle gradient, no noise) ── */
+  --page-bg:
+    linear-gradient(180deg, oklch(0.18 0.006 250 / 0.3) 0%, transparent 40%),
+    var(--surface-base);
+  --noise-opacity: 0;
 
   /* ── Treatment flags ── */
   --glass-opacity: 1;

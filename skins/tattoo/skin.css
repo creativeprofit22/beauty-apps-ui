@@ -97,6 +97,10 @@
   /* ── Font display override (bold condensed) ── */
   --font-family-display: "Bebas Neue", "Oswald Variable", "Oswald", "Impact", system-ui, sans-serif;
 
+  /* ── Page background (intentionally flat) ── */
+  --page-bg: var(--surface-base);
+  --noise-opacity: 0;
+
   /* ── Treatment flags (no glass, no gradient) ── */
   --glass-opacity: 1;
   --gradient-intensity: 0.15;
@@ -193,6 +197,10 @@
 
   /* ── Font display ── */
   --font-family-display: "Bebas Neue", "Oswald Variable", "Oswald", "Impact", system-ui, sans-serif;
+
+  /* ── Page background (intentionally flat) ── */
+  --page-bg: var(--surface-base);
+  --noise-opacity: 0;
 
   /* ── Treatment flags ── */
   --glass-opacity: 1;

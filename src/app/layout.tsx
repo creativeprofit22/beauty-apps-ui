@@ -1,6 +1,6 @@
 import type { Metadata } from "next";
-import "@fontsource-variable/inter";
-import "@fontsource-variable/space-grotesk";
+import "@fontsource/dm-serif-display";
+import "@fontsource-variable/dm-sans";
 import "@fontsource/fira-code/400.css";
 import "@fontsource/fira-code/500.css";
 import "@fontsource/fira-code/600.css";

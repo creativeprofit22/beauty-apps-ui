@@ -24,6 +24,7 @@ export function Sidebar({
   return (
     <nav
       className={cn("flex flex-col gap-1 py-2", collapsed ? "px-1" : "px-2")}
+      style={{ background: "linear-gradient(160deg, var(--surface-warm-1) 0%, transparent 50%)" }}
       aria-label="Main navigation"
     >
       {items.map((item) => (

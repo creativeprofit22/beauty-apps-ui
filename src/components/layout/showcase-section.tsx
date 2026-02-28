@@ -16,7 +16,7 @@ interface ShowcaseSectionProps {
 /**
  * ShowcaseSection — GSAP ScrollTrigger wrapper.
  * On viewport enter, staggers children in with:
- *   { opacity: 0, y: 20, skewX: -1.5 } → { opacity: 1, y: 0, skewX: 0 }
+ *   { opacity: 0, y: 12, blur(1px) } → { opacity: 1, y: 0, blur(0) }
  * Uses once: true, cleans up properly.
  */
 export function ShowcaseSection({
@@ -40,19 +40,20 @@ export function ShowcaseSection({
 
     if (prefersReduced) {
       // Just make visible immediately
-      gsap.set(targets, { opacity: 1, y: 0, skewX: 0, visibility: "visible" });
+      gsap.set(targets, { opacity: 1, y: 0, visibility: "visible" });
       return;
     }
 
-    gsap.set(targets, { opacity: 0, y: 20, skewX: -1.5, visibility: "visible" });
+    gsap.set(targets, { opacity: 0, y: 12, filter: "blur(1px)", visibility: "visible" });
 
     const tween = gsap.to(targets, {
       opacity: 1,
       y: 0,
-      skewX: 0,
+      filter: "blur(0px)",
       stagger: 0.06,
       duration: 0.5,
-      ease: "back.out(1.7)",
+      ease: "power2.out",
+      clearProps: "filter",
       paused: true,
     });
 

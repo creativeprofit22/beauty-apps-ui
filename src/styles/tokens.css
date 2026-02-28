@@ -78,6 +78,19 @@
   --shadow-xl: var(--elevation-xl);
   --shadow-inset: var(--elevation-inset);
   --shadow-card: var(--elevation-card);
+  --shadow-card-highlight: var(--elevation-card-highlight);
+
+  /* ── Surface tints ── */
+  --color-surface-warm-1: var(--surface-warm-1);
+  --color-surface-warm-2: var(--surface-warm-2);
+  --color-surface-warm-3: var(--surface-warm-3);
+
+  /* ── Accent palette ── */
+  --color-mauve: var(--mauve);
+  --color-terra: var(--terra);
+  --color-foil-light: var(--foil-light);
+  --color-foil-mid: var(--foil-mid);
+  --color-foil-dark: var(--foil-dark);
 
   /* ── Typography scale (minor third — 1.200) ── */
   --font-size-2xs: 0.694rem;
@@ -99,27 +112,34 @@
   --font-size-metric-xl: 3.5rem;
 
   /* ── Font families ── */
-  --font-family-display: "Space Grotesk Variable", "Space Grotesk", system-ui, sans-serif;
-  --font-family-body: "Inter Variable", "Inter", system-ui, sans-serif;
+  --font-family-display: "DM Serif Display", Georgia, "Times New Roman", serif;
+  --font-family-body: "DM Sans Variable", "DM Sans", system-ui, sans-serif;
   --font-family-data: "Fira Code", "Fira Mono", ui-monospace, monospace;
+
+  /* ── Font sizes ── */
+  --font-size-body: 0.9375rem;
 
   /* ── Line heights ── */
   --line-height-tight: 1.1;
   --line-height-snug: 1.25;
-  --line-height-normal: 1.5;
-  --line-height-relaxed: 1.625;
+  --line-height-normal: 1.65;
+  --line-height-relaxed: 1.75;
 
   /* ── Letter spacing ── */
   --letter-spacing-tight: -0.025em;
+  --letter-spacing-editorial: -0.02em;
   --letter-spacing-normal: 0em;
   --letter-spacing-wide: 0.025em;
   --letter-spacing-wider: 0.05em;
+  --letter-spacing-label: 0.14em;
   --letter-spacing-widest: 0.1em;
 
   /* ── Easing ── */
   --ease-standard: cubic-bezier(0.4, 0, 0.2, 1);
   --ease-spring: cubic-bezier(0.34, 1.56, 0.64, 1);
   --ease-tray: cubic-bezier(0.32, 0.72, 0, 1);
+  --ease-bloom: cubic-bezier(0.22, 1, 0.36, 1);
+  --ease-drift: cubic-bezier(0.5, 0, 0.5, 1);
 
   /* ── Durations ── */
   --duration-fast: 80ms;
@@ -135,34 +155,46 @@
    ═══════════════════════════════════════════════ */
 :root {
   /* ── Surfaces ── */
-  --surface-base: oklch(0.985 0.005 85);
-  --surface-raised: oklch(0.995 0.003 85);
+  --surface-base: oklch(0.985 0.005 72);
+  --surface-raised: oklch(0.995 0.003 72);
   --surface-overlay: oklch(1.0 0 0);
-  --surface-sunken: oklch(0.965 0.008 85);
-  --surface-interactive: oklch(0.975 0.006 85);
-  --surface-interactive-hover: oklch(0.955 0.01 85);
+  --surface-sunken: oklch(0.965 0.008 72);
+  --surface-interactive: oklch(0.975 0.006 72);
+  --surface-interactive-hover: oklch(0.955 0.01 72);
 
   /* ── Text ── */
-  --text-primary: oklch(0.22 0.02 60);
+  --text-primary: oklch(0.15 0.02 60);
   --text-secondary: oklch(0.42 0.02 60);
   --text-tertiary: oklch(0.58 0.015 60);
   --text-inverse: oklch(0.98 0.005 85);
   --text-on-accent: oklch(0.99 0 0);
 
-  /* ── Primary: Warm Gold ── */
-  --primary: oklch(0.76 0.12 85);
-  --primary-hover: oklch(0.70 0.14 85);
-  --primary-muted: oklch(0.92 0.04 85);
+  /* ── Primary: Champagne Nude ── */
+  --primary: oklch(0.82 0.06 72);
+  --primary-hover: oklch(0.76 0.08 72);
+  --primary-muted: oklch(0.92 0.03 72);
 
-  /* ── Secondary: Rose ── */
-  --secondary: oklch(0.68 0.12 12);
-  --secondary-hover: oklch(0.62 0.14 12);
-  --secondary-muted: oklch(0.92 0.04 12);
+  /* ── Secondary: Dusty Rose ── */
+  --secondary: oklch(0.70 0.08 18);
+  --secondary-hover: oklch(0.64 0.10 18);
+  --secondary-muted: oklch(0.92 0.03 18);
 
-  /* ── Accent: Sage ── */
-  --accent: oklch(0.65 0.08 155);
-  --accent-hover: oklch(0.59 0.10 155);
-  --accent-muted: oklch(0.92 0.03 155);
+  /* ── Accent: Warm Sage ── */
+  --accent: oklch(0.62 0.06 148);
+  --accent-hover: oklch(0.56 0.08 148);
+  --accent-muted: oklch(0.92 0.02 148);
+
+  /* ── Nude surface tints ── */
+  --surface-warm-1: oklch(0.97 0.008 72);
+  --surface-warm-2: oklch(0.95 0.012 72);
+  --surface-warm-3: oklch(0.93 0.016 72);
+
+  /* ── Accent palette ── */
+  --mauve: oklch(0.64 0.09 330);
+  --terra: oklch(0.62 0.10 40);
+  --foil-light: oklch(0.88 0.04 72);
+  --foil-mid: oklch(0.78 0.06 72);
+  --foil-dark: oklch(0.68 0.08 72);
 
   /* ── Semantic ── */
   --success: oklch(0.62 0.14 145);
@@ -185,9 +217,9 @@
   --tier-black-muted: oklch(0.85 0.005 60);
 
   /* ── Borders ── */
-  --border: oklch(0.88 0.01 85);
-  --border-muted: oklch(0.92 0.005 85);
-  --border-accent: oklch(0.76 0.12 85);
+  --border: oklch(0.88 0.01 72);
+  --border-muted: oklch(0.92 0.005 72);
+  --border-accent: oklch(0.82 0.06 72);
 
   /* ── Radii (soft, spa-like) ── */
   --radii-xs: 4px;
@@ -198,28 +230,28 @@
   --radii-2xl: 28px;
   --radii-full: 9999px;
 
-  /* ── Elevation / Shadows (three-layer: contact + cast + ambient) ── */
-  --elevation-xs: 0 1px 2px oklch(0.22 0.02 60 / 0.04);
-  --elevation-sm: 0 1px 3px oklch(0.22 0.02 60 / 0.06),
-    0 1px 2px oklch(0.22 0.02 60 / 0.04);
-  --elevation-md: 0 4px 6px oklch(0.22 0.02 60 / 0.06),
-    0 2px 4px oklch(0.22 0.02 60 / 0.04),
-    0 0px 1px oklch(0.22 0.02 60 / 0.03);
-  --elevation-lg: 0 10px 15px oklch(0.22 0.02 60 / 0.07),
-    0 4px 6px oklch(0.22 0.02 60 / 0.04),
-    0 0px 2px oklch(0.22 0.02 60 / 0.03);
-  --elevation-xl: 0 20px 25px oklch(0.22 0.02 60 / 0.08),
-    0 8px 10px oklch(0.22 0.02 60 / 0.04),
-    0 0px 4px oklch(0.22 0.02 60 / 0.02);
-  --elevation-inset: inset 0 2px 4px oklch(0.22 0.02 60 / 0.06);
-  --elevation-card: 0 1px 3px oklch(0.22 0.02 60 / 0.05),
-    0 6px 16px oklch(0.22 0.02 60 / 0.06),
-    0 0px 1px oklch(0.22 0.02 60 / 0.03);
+  /* ── Elevation / Shadows (warm-tinted, hue-matched to primary) ── */
+  --elevation-xs: 0 1px 2px oklch(0.22 0.02 72 / 0.04);
+  --elevation-sm: 0 1px 3px oklch(0.22 0.02 72 / 0.06),
+    0 1px 2px oklch(0.22 0.02 72 / 0.04);
+  --elevation-md: 0 4px 6px oklch(0.22 0.02 72 / 0.06),
+    0 2px 4px oklch(0.22 0.02 72 / 0.04),
+    0 0px 1px oklch(0.22 0.02 72 / 0.03);
+  --elevation-lg: 0 10px 15px oklch(0.22 0.02 72 / 0.07),
+    0 4px 6px oklch(0.22 0.02 72 / 0.04),
+    0 0px 2px oklch(0.22 0.02 72 / 0.03);
+  --elevation-xl: 0 20px 25px oklch(0.22 0.02 72 / 0.08),
+    0 8px 10px oklch(0.22 0.02 72 / 0.04),
+    0 0px 4px oklch(0.22 0.02 72 / 0.02);
+  --elevation-inset: inset 0 2px 4px oklch(0.22 0.02 72 / 0.06);
+  --elevation-card: 0 1px 3px oklch(0.22 0.02 72 / 0.05),
+    0 6px 16px oklch(0.22 0.02 72 / 0.06),
+    0 0px 1px oklch(0.22 0.02 72 / 0.03);
 
   /* ── Glow tokens ── */
-  --glow-primary: 0 0 12px oklch(0.76 0.12 85 / 0.25);
-  --glow-secondary: 0 0 12px oklch(0.68 0.12 12 / 0.25);
-  --glow-accent: 0 0 12px oklch(0.65 0.08 155 / 0.25);
+  --glow-primary: 0 0 12px oklch(0.82 0.06 72 / 0.25);
+  --glow-secondary: 0 0 12px oklch(0.70 0.08 18 / 0.25);
+  --glow-accent: 0 0 12px oklch(0.62 0.06 148 / 0.25);
   --glow-success: 0 0 12px oklch(0.62 0.14 145 / 0.25);
   --glow-warning: 0 0 12px oklch(0.78 0.14 75 / 0.25);
   --glow-error: 0 0 12px oklch(0.58 0.18 25 / 0.25);
@@ -230,6 +262,15 @@
   /* ── Treatment flags ── */
   --glass-opacity: 0.85;
   --gradient-intensity: 0.6;
+
+  /* ── Card highlight ── */
+  --elevation-card-highlight: inset 0 1px 0 oklch(1 0 0 / 0.65);
+
+  /* ── Page background ── */
+  --page-bg: var(--surface-base);
+
+  /* ── Noise texture opacity ── */
+  --noise-opacity: 0.035;
 }
 
 /* ═══════════════════════════════════════════════
@@ -237,35 +278,47 @@
    Warm dark: deeper surfaces, brighter accents, subtle glow
    ═══════════════════════════════════════════════ */
 .dark {
-  /* ── Surfaces ── */
-  --surface-base: oklch(0.18 0.01 60);
-  --surface-raised: oklch(0.22 0.012 60);
-  --surface-overlay: oklch(0.26 0.014 60);
-  --surface-sunken: oklch(0.14 0.008 60);
-  --surface-interactive: oklch(0.24 0.012 60);
-  --surface-interactive-hover: oklch(0.28 0.015 60);
+  /* ── Surfaces (candlelit warmth) ── */
+  --surface-base: oklch(0.10 0.012 55);
+  --surface-raised: oklch(0.14 0.014 55);
+  --surface-overlay: oklch(0.18 0.016 55);
+  --surface-sunken: oklch(0.08 0.010 55);
+  --surface-interactive: oklch(0.16 0.014 55);
+  --surface-interactive-hover: oklch(0.20 0.016 55);
 
-  /* ── Text ── */
-  --text-primary: oklch(0.93 0.008 85);
-  --text-secondary: oklch(0.72 0.01 85);
-  --text-tertiary: oklch(0.55 0.01 85);
+  /* ── Text (warm cream) ── */
+  --text-primary: oklch(0.94 0.008 78);
+  --text-secondary: oklch(0.72 0.01 78);
+  --text-tertiary: oklch(0.55 0.01 78);
   --text-inverse: oklch(0.22 0.02 60);
   --text-on-accent: oklch(0.15 0.01 60);
 
-  /* ── Primary: Warm Gold (brighter in dark) ── */
-  --primary: oklch(0.82 0.10 85);
-  --primary-hover: oklch(0.86 0.12 85);
-  --primary-muted: oklch(0.30 0.04 85);
+  /* ── Primary: Champagne Nude (brighter in dark) ── */
+  --primary: oklch(0.86 0.05 72);
+  --primary-hover: oklch(0.90 0.06 72);
+  --primary-muted: oklch(0.22 0.03 72);
 
-  /* ── Secondary: Rose ── */
-  --secondary: oklch(0.74 0.10 12);
-  --secondary-hover: oklch(0.78 0.12 12);
-  --secondary-muted: oklch(0.28 0.04 12);
+  /* ── Secondary: Dusty Rose ── */
+  --secondary: oklch(0.76 0.07 18);
+  --secondary-hover: oklch(0.80 0.09 18);
+  --secondary-muted: oklch(0.22 0.03 18);
 
-  /* ── Accent: Sage ── */
-  --accent: oklch(0.72 0.07 155);
-  --accent-hover: oklch(0.76 0.09 155);
-  --accent-muted: oklch(0.28 0.03 155);
+  /* ── Accent: Warm Sage ── */
+  --accent: oklch(0.68 0.05 148);
+  --accent-hover: oklch(0.72 0.07 148);
+  --accent-muted: oklch(0.22 0.02 148);
+
+  /* ── Nude surface tints (dark) ── */
+  --surface-warm-1: oklch(0.14 0.014 55);
+  --surface-warm-2: oklch(0.16 0.016 55);
+  --surface-warm-3: oklch(0.18 0.018 55);
+
+  /* ── Accent palette (dark) ── */
+  --mauve: oklch(0.70 0.08 330);
+  --terra: oklch(0.68 0.09 40);
+  --foil-light: oklch(0.80 0.04 72);
+  --foil-mid: oklch(0.70 0.05 72);
+  --foil-dark: oklch(0.60 0.06 72);
 
   /* ── Semantic ── */
   --success: oklch(0.70 0.12 145);
@@ -280,19 +333,19 @@
   /* ── Tiers ── */
   --tier-bronze: oklch(0.66 0.09 55);
   --tier-silver: oklch(0.78 0.02 265);
-  --tier-gold: oklch(0.82 0.10 85);
+  --tier-gold: oklch(0.82 0.08 72);
   --tier-black: oklch(0.90 0.005 60);
-  --tier-bronze-muted: oklch(0.28 0.04 55);
-  --tier-silver-muted: oklch(0.28 0.01 265);
-  --tier-gold-muted: oklch(0.28 0.04 85);
-  --tier-black-muted: oklch(0.35 0.005 60);
+  --tier-bronze-muted: oklch(0.20 0.04 55);
+  --tier-silver-muted: oklch(0.20 0.01 265);
+  --tier-gold-muted: oklch(0.20 0.04 72);
+  --tier-black-muted: oklch(0.30 0.005 60);
 
   /* ── Borders ── */
-  --border: oklch(0.32 0.015 60);
-  --border-muted: oklch(0.26 0.01 60);
-  --border-accent: oklch(0.82 0.10 85);
+  --border: oklch(0.22 0.015 55);
+  --border-muted: oklch(0.18 0.01 55);
+  --border-accent: oklch(0.86 0.05 72);
 
-  /* ── Elevation / Shadows (darker, more diffuse) ── */
+  /* ── Elevation / Shadows (glow-based warm elevation) ── */
   --elevation-xs: 0 1px 2px oklch(0 0 0 / 0.15);
   --elevation-sm: 0 1px 3px oklch(0 0 0 / 0.2),
     0 1px 2px oklch(0 0 0 / 0.15);
@@ -306,14 +359,15 @@
     0 8px 10px oklch(0 0 0 / 0.15),
     0 0px 4px oklch(0 0 0 / 0.08);
   --elevation-inset: inset 0 2px 4px oklch(0 0 0 / 0.2);
-  --elevation-card: 0 1px 3px oklch(0 0 0 / 0.15),
-    0 6px 16px oklch(0 0 0 / 0.2),
-    0 0px 1px oklch(0 0 0 / 0.1);
+  --elevation-card: inset 0 1px 0 oklch(1 0 0 / 0.06),
+    0 0 1px oklch(0.86 0.05 72 / 0.12),
+    0 4px 12px oklch(0 0 0 / 0.15),
+    0 0 20px oklch(0.82 0.04 72 / 0.06);
 
   /* ── Glow tokens (more visible in dark) ── */
-  --glow-primary: 0 0 16px oklch(0.82 0.10 85 / 0.35);
-  --glow-secondary: 0 0 16px oklch(0.74 0.10 12 / 0.35);
-  --glow-accent: 0 0 16px oklch(0.72 0.07 155 / 0.35);
+  --glow-primary: 0 0 16px oklch(0.86 0.05 72 / 0.35);
+  --glow-secondary: 0 0 16px oklch(0.76 0.07 18 / 0.35);
+  --glow-accent: 0 0 16px oklch(0.68 0.05 148 / 0.35);
   --glow-success: 0 0 16px oklch(0.70 0.12 145 / 0.35);
   --glow-warning: 0 0 16px oklch(0.82 0.12 75 / 0.35);
   --glow-error: 0 0 16px oklch(0.66 0.16 25 / 0.35);
@@ -324,4 +378,13 @@
   /* ── Treatment flags ── */
   --glass-opacity: 0.75;
   --gradient-intensity: 0.4;
+
+  /* ── Card highlight (subtler in dark) ── */
+  --elevation-card-highlight: inset 0 1px 0 oklch(1 0 0 / 0.08);
+
+  /* ── Page background ── */
+  --page-bg: var(--surface-base);
+
+  /* ── Noise texture opacity ── */
+  --noise-opacity: 0.025;
 }

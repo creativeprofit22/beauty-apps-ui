@@ -17,14 +17,15 @@ export function Input({ className, error = false, ref, ...props }: InputProps) {
     <input
       ref={ref}
       className={cn(
-        "w-full rounded-md bg-surface-sunken px-3 py-2",
+        "w-full rounded-md bg-surface-warm-2 px-3 py-2",
+        "border border-border",
         "text-text-primary placeholder:text-text-tertiary",
         "shadow-inset",
         "transition-shadow duration-normal",
         "focus:outline-none",
         error
-          ? "focus:shadow-[inset_0_2px_4px_var(--error-muted),0_0_0_2px_var(--error)]"
-          : "focus:shadow-[inset_0_2px_4px_var(--surface-sunken),0_0_0_2px_var(--primary)]",
+          ? "focus:shadow-[inset_0_2px_4px_var(--error-muted),0_0_0_3px_var(--error-muted)]"
+          : "focus:shadow-[inset_0_2px_4px_var(--surface-warm-2),0_0_0_3px_var(--primary-muted)]",
         "disabled:opacity-50 disabled:cursor-not-allowed",
         className,
       )}

@@ -18,7 +18,7 @@
     -webkit-font-smoothing: antialiased;
     -moz-osx-font-smoothing: grayscale;
     text-rendering: optimizeLegibility;
-    scroll-behavior: smooth;
+    scroll-behavior: auto;
     hanging-punctuation: first last;
   }
 
@@ -28,9 +28,9 @@
     font-size: var(--font-size-base);
     line-height: var(--line-height-normal);
     color: var(--text-primary);
-    background-color: var(--surface-base);
+    background: var(--page-bg);
     min-height: 100dvh;
-    -webkit-tap-highlight-color: transparent;
+    -webkit-tap-highlight-color: oklch(0.82 0.06 72 / 0.15);
   }
 
   /* ── Selection ── */
@@ -124,5 +124,46 @@
     textarea {
       min-height: 44px;
     }
+  }
+
+  /* ── Overscroll containment for nested scrollable areas ── */
+  [data-scroll-container],
+  .overflow-y-auto,
+  .overflow-auto,
+  aside,
+  nav {
+    overscroll-behavior: contain;
+  }
+
+  /* ── Surface texture (opt-in noise overlay) ── */
+  .surface-textured {
+    position: relative;
+  }
+
+  .surface-textured::after {
+    content: '';
+    position: absolute;
+    inset: 0;
+    pointer-events: none;
+    border-radius: inherit;
+    opacity: var(--noise-opacity, 0.035);
+    mix-blend-mode: multiply;
+    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='200' height='200'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.65' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+  }
+
+  /* ── Opal inner glow (premium surfaces) ── */
+  .surface-opal {
+    position: relative;
+    overflow: hidden;
+  }
+
+  .surface-opal::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    pointer-events: none;
+    border-radius: inherit;
+    background: radial-gradient(ellipse at 30% 20%, oklch(1 0 0 / 0.2) 0%, transparent 60%);
+    box-shadow: inset 0 0 30px oklch(1 0 0 / 0.06);
   }
 }
