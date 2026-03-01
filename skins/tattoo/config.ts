@@ -33,4 +33,30 @@ export const skinConfig = {
   /** Celebration style */
   celebrationStyle: "confetti" as const,
 
+  /** Envelope reveal colors */
+  envelopeColors: {
+    body: "#2A2A2A", // near-black
+    flap: "#B33A3A", // crimson
+  },
+
+  /** Gift box colors */
+  giftBoxColors: {
+    box: "#2A2A2A", // near-black
+    ribbon: "#A0A0A0", // silver
+  },
+
+  /** Wax seal color */
+  waxSealColor: "#2A2A2A", // dark
+
+  /** Slot machine symbols */
+  slotSymbols: ["🔥", "💀", "🐍", "⚡", "🖤"],
+
+  /** Bubble pop colors (silver/smoke) */
+  bubbleColors: [
+    "oklch(0.55 0.005 0 / 0.3)",
+    "oklch(0.35 0.22 27 / 0.25)",
+    "oklch(0.45 0.005 0 / 0.3)",
+    "oklch(0.65 0.005 0 / 0.3)",
+  ],
+
 } as const;

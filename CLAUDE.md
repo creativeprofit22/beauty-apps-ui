@@ -42,7 +42,7 @@ design/                     # Soul docs (brand, specs, interactions, tokens, typ
 - **CSS cascade:** `globals.css` → `tokens.css` → `base.css` → `effects.css` → `fonts.css`
 - **Fonts:** DM Serif Display (display), DM Sans (body), Fira Code (data) — skins override via CSS custom properties
 
-**Phase:** UI Refinement "Alive, Not SaaS" — Chunk 6/6 COMPLETE
+**Phase:** UX Enhancement Sprint (Engagement + WCAG + Design + Perf) — Chunk 7/7
 
 ## Design Principles
 

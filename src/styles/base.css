@@ -115,7 +115,36 @@
     max-width: 65ch;
   }
 
-  /* ── Touch targets ── */
+  /* ── Skip-to-content link ── */
+  .skip-link {
+    position: fixed;
+    top: -100%;
+    left: 16px;
+    z-index: 9999;
+    padding: 12px 24px;
+    border-radius: var(--radii-md);
+    background: var(--surface-raised);
+    color: var(--text-primary);
+    font-weight: 600;
+    box-shadow: var(--elevation-lg);
+    text-decoration: none;
+    outline: none;
+  }
+
+  .skip-link:focus-visible {
+    top: 16px;
+  }
+
+  /* ── Target sizes (WCAG 2.5.8 — 24px always, 44px for coarse pointer) ── */
+  button,
+  a,
+  input,
+  select,
+  textarea {
+    min-height: 24px;
+    min-width: 24px;
+  }
+
   @media (pointer: coarse) {
     button,
     a,
@@ -149,6 +178,11 @@
     opacity: var(--noise-opacity, 0.035);
     mix-blend-mode: multiply;
     background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='200' height='200'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.65' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+  }
+
+  /* ── CSS containment for scroll performance ── */
+  .contain-content {
+    contain: content;
   }
 
   /* ── Opal inner glow (premium surfaces) ── */

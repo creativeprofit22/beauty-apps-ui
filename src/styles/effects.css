@@ -183,6 +183,16 @@
   }
 }
 
+/* ── Radial progress draw-in ── */
+@keyframes radial-progress {
+  from {
+    stroke-dashoffset: var(--circumference);
+  }
+  to {
+    stroke-dashoffset: var(--offset);
+  }
+}
+
 /* ── Ripple warm (touch feedback) ── */
 @keyframes ripple-warm {
   from {
@@ -191,6 +201,115 @@
   }
   to {
     transform: scale(2.5);
+    opacity: 0;
+  }
+}
+
+/* ── Envelope flap open (3D hinge from top) ── */
+@keyframes envelope-flap {
+  0% {
+    transform: rotateX(0deg);
+  }
+  100% {
+    transform: rotateX(-180deg);
+  }
+}
+
+/* ── Card slide up from envelope interior ── */
+@keyframes card-slide-up {
+  0% {
+    transform: translateY(100%);
+    opacity: 0;
+  }
+  100% {
+    transform: translateY(0);
+    opacity: 1;
+  }
+}
+
+/* ── Ribbon untie (stroke-dashoffset wipe) ── */
+@keyframes ribbon-untie {
+  0% {
+    stroke-dashoffset: 0;
+  }
+  100% {
+    stroke-dashoffset: var(--ribbon-length);
+  }
+}
+
+/* ── Gift box lid lift ── */
+@keyframes lid-lift {
+  0% {
+    transform: translateY(0) rotateX(0deg);
+  }
+  100% {
+    transform: translateY(-30px) rotateX(-20deg);
+  }
+}
+
+/* ── Wax seal crack (fracture line draw-in) ── */
+@keyframes seal-crack {
+  0% {
+    stroke-dashoffset: var(--crack-length);
+  }
+  100% {
+    stroke-dashoffset: 0;
+  }
+}
+
+/* ── Peel curl (corner peel-back) ── */
+@keyframes peel-curl {
+  0% {
+    clip-path: polygon(100% 100%, 100% 100%, 100% 100%);
+    transform: rotate(0deg);
+  }
+  100% {
+    clip-path: polygon(60% 100%, 100% 60%, 100% 100%);
+    transform: rotate(-5deg);
+  }
+}
+
+/* ── Reel spin (slot machine reel scroll) ── */
+@keyframes reel-spin {
+  0% {
+    transform: translateY(0);
+  }
+  100% {
+    transform: translateY(var(--reel-offset));
+  }
+}
+
+/* ── Bubble float (rising soap/polish bubbles) ── */
+@keyframes bubble-float {
+  0% {
+    transform: translateY(0) translateX(0) scale(0.3);
+    opacity: 0;
+  }
+  10% {
+    opacity: 0.8;
+    transform: translateY(-10%) translateX(var(--drift-x, 5px)) scale(1);
+  }
+  90% {
+    opacity: 0.6;
+  }
+  100% {
+    transform: translateY(-110%) translateX(var(--drift-end, -10px)) scale(0.9);
+    opacity: 0;
+  }
+}
+
+/* ── Bubble pop (tap-to-pop burst) ── */
+@keyframes bubble-pop {
+  0% {
+    transform: scale(1);
+    opacity: 1;
+  }
+  50% {
+    transform: scale(1.3);
+    opacity: 0.5;
+  }
+  100% {
+    transform: scale(1.5);
     opacity: 0;
   }
 }

@@ -304,6 +304,76 @@ export default function TokensPage() {
           )}
         </LightDarkPair>
       </ShowcaseSection>
+
+      {/* ── Seasonal Accent Preview ── */}
+      <ShowcaseSection title="Seasonal Theming" className="mb-16">
+        <p className="text-sm text-text-secondary mb-6">
+          Lightweight accent layers activated via <code className="font-data text-xs bg-surface-sunken px-1.5 py-0.5 rounded">data-season</code> on the root element.
+          Use the season dropdown in the sidebar to preview live. Below shows reference colors per season.
+        </p>
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
+          {([
+            {
+              label: "Default",
+              colors: [
+                { token: "--accent", value: "oklch(0.62 0.06 148)" },
+                { token: "--accent-hover", value: "oklch(0.56 0.08 148)" },
+                { token: "--accent-muted", value: "oklch(0.92 0.02 148)" },
+                { token: "--border-accent", value: "oklch(0.82 0.06 72)" },
+              ],
+            },
+            {
+              label: "Valentine",
+              colors: [
+                { token: "--accent", value: "oklch(0.65 0.14 358)" },
+                { token: "--accent-hover", value: "oklch(0.58 0.16 358)" },
+                { token: "--accent-muted", value: "oklch(0.92 0.04 358)" },
+                { token: "--border-accent", value: "oklch(0.65 0.14 358)" },
+              ],
+            },
+            {
+              label: "Spring",
+              colors: [
+                { token: "--accent", value: "oklch(0.68 0.10 145)" },
+                { token: "--accent-hover", value: "oklch(0.62 0.12 145)" },
+                { token: "--accent-muted", value: "oklch(0.93 0.03 145)" },
+                { token: "--border-accent", value: "oklch(0.68 0.10 145)" },
+              ],
+            },
+            {
+              label: "Holiday",
+              colors: [
+                { token: "--accent", value: "oklch(0.55 0.12 145)" },
+                { token: "--accent-hover", value: "oklch(0.50 0.14 145)" },
+                { token: "--accent-muted", value: "oklch(0.92 0.03 145)" },
+                { token: "--border-accent", value: "oklch(0.72 0.10 85)" },
+              ],
+            },
+          ]).map((s) => (
+            <Card key={s.label} className="p-4 overflow-hidden">
+              <p className="text-xs font-medium uppercase tracking-wider text-text-tertiary mb-3">
+                {s.label}
+              </p>
+              <div className="space-y-2">
+                {s.colors.map((c) => (
+                  <div key={c.token} className="flex items-center gap-2">
+                    <div
+                      className="w-8 h-8 rounded-md border border-border shrink-0 ring-1 ring-inset ring-black/10"
+                      style={{ backgroundColor: c.value }}
+                    />
+                    <span className="font-data text-xs text-text-tertiary truncate">
+                      {c.token}
+                    </span>
+                  </div>
+                ))}
+              </div>
+            </Card>
+          ))}
+        </div>
+        <p className="text-xs text-text-tertiary mt-4">
+          Seasonal layers override only accent and border-accent tokens — a lightweight accent shift, not a full skin swap.
+        </p>
+      </ShowcaseSection>
     </>
   );
 }

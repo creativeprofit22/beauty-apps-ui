@@ -50,3 +50,24 @@
   /* ── Touch targets ── */
   --touch-target-min: 44px;
 }
+
+/* ═══════════════════════════════════════════════
+   SEASONAL DECORATIVE OVERRIDES
+   Lightweight decorative tokens per season.
+   Accent colors are overridden in tokens.css.
+   ═══════════════════════════════════════════════ */
+
+:root[data-season="valentine"] {
+  --seasonal-label: "Valentine";
+  --noise-opacity: 0.025;
+}
+
+:root[data-season="spring"] {
+  --seasonal-label: "Spring";
+  --noise-opacity: 0.03;
+}
+
+:root[data-season="holiday"] {
+  --seasonal-label: "Holiday";
+  --noise-opacity: 0.04;
+}

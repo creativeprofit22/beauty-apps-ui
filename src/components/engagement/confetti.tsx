@@ -25,7 +25,7 @@ const SHAPES = ["square", "rectangle", "circle"] as const;
  */
 export function Confetti({
   active,
-  count = 40,
+  count = 25,
   colors,
   onComplete,
   className,

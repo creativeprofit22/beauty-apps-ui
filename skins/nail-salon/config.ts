@@ -48,4 +48,39 @@ export const skinConfig = {
     "#D8A0A8", // warm ballet
   ],
 
+  /** Envelope reveal colors */
+  envelopeColors: {
+    body: "#C03030", // lacquer red
+    flap: "#E8B0B8", // ballet pink
+  },
+
+  /** Gift box colors */
+  giftBoxColors: {
+    box: "#E8B0B8", // ballet pink
+    ribbon: "#D4A843", // gold
+  },
+
+  /** Wax seal color */
+  waxSealColor: "#C03030", // lacquer red
+
+  /** Slot machine symbols */
+  slotSymbols: ["💅", "💎", "🌹", "✨", "👑"],
+
+  /** Bubble pop colors (lacquer reds/pinks) */
+  bubbleColors: [
+    "oklch(0.50 0.19 20 / 0.35)",
+    "oklch(0.84 0.06 358 / 0.3)",
+    "oklch(0.60 0.08 20 / 0.3)",
+    "oklch(0.90 0.02 20 / 0.35)",
+  ],
+
+  /** Nail polish swatch colors (decorative motif for loyalty/offer cards) */
+  swatchColors: [
+    "#C03030", // lacquer red
+    "#E8B0B8", // ballet pink
+    "#D4A843", // gold
+    "#F5F0E8", // cream
+    "#D44848", // bright lacquer
+  ],
+
 } as const;

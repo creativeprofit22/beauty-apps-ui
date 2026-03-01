@@ -51,13 +51,13 @@ export function Button({
         radiusClasses[radius],
         // Variant styles
         variant === "primary" &&
-          "bg-primary text-text-primary shadow-[0_2px_0_0_var(--primary-hover)] hover:bg-primary-hover active:translate-y-[1px] active:shadow-[0_1px_0_0_var(--primary-hover)]",
+          "bg-primary text-text-primary shadow-[0_2px_0_0_var(--primary-hover)] hover:bg-primary-hover active:translate-y-[1px] active:scale-[0.97] active:shadow-[0_1px_0_0_var(--primary-hover)]",
         variant === "secondary" &&
-          "bg-secondary text-text-primary shadow-[0_2px_0_0_var(--secondary-hover)] hover:bg-secondary-hover active:translate-y-[1px] active:shadow-[0_1px_0_0_var(--secondary-hover)]",
+          "bg-secondary text-text-primary shadow-[0_2px_0_0_var(--secondary-hover)] hover:bg-secondary-hover active:translate-y-[1px] active:scale-[0.97] active:shadow-[0_1px_0_0_var(--secondary-hover)]",
         variant === "ghost" &&
           "bg-transparent text-text-primary bg-[length:200%_100%] bg-[position:100%_0] hover:bg-[position:0_0] active:scale-[0.97]",
         variant === "cta" &&
-          "bg-primary text-text-primary shadow-[0_2px_0_0_var(--primary-hover)] hover:bg-primary-hover active:translate-y-[1px] active:shadow-[0_1px_0_0_var(--primary-hover)] overflow-hidden",
+          "bg-primary text-text-primary shadow-[0_2px_0_0_var(--primary-hover)] hover:bg-primary-hover active:translate-y-[1px] active:scale-[0.97] active:shadow-[0_1px_0_0_var(--primary-hover)] overflow-hidden",
         className,
       )}
       style={{

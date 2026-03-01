@@ -1,6 +1,6 @@
 "use client";
 
-import { useEffect, type ReactNode } from "react";
+import { useEffect, useRef, type ReactNode } from "react";
 import { cn } from "@/lib/utils";
 
 interface BookingStep {
@@ -33,6 +33,9 @@ export function BookingTray({
   children,
   className,
 }: BookingTrayProps) {
+  const trayRef = useRef<HTMLDivElement>(null);
+  const triggerRef = useRef<Element | null>(null);
+
   // Close on Escape
   useEffect(() => {
     if (!open) return;
@@ -53,6 +56,37 @@ export function BookingTray({
     }
   }, [open]);
 
+  // Focus trap: inert siblings, auto-focus first element, restore focus on close
+  useEffect(() => {
+    if (!open) return;
+
+    // Remember the element that triggered the tray
+    triggerRef.current = document.activeElement;
+
+    // Set inert on sibling content
+    const main = document.querySelector("main");
+    const aside = document.querySelector("aside");
+    main?.setAttribute("inert", "");
+    aside?.setAttribute("inert", "");
+
+    // Auto-focus first focusable element inside the tray
+    requestAnimationFrame(() => {
+      const first = trayRef.current?.querySelector<HTMLElement>(
+        "button, [href], input, select, textarea, [tabindex]:not([tabindex='-1'])"
+      );
+      first?.focus();
+    });
+
+    return () => {
+      main?.removeAttribute("inert");
+      aside?.removeAttribute("inert");
+      // Restore focus to the trigger element
+      if (triggerRef.current instanceof HTMLElement) {
+        triggerRef.current.focus();
+      }
+    };
+  }, [open]);
+
   return (
     <>
       {/* Backdrop */}
@@ -71,6 +105,7 @@ export function BookingTray({
 
       {/* Tray panel */}
       <div
+        ref={trayRef}
         role="dialog"
         aria-modal={open}
         aria-label="Booking"

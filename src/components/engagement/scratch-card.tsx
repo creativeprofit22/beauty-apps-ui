@@ -1,6 +1,6 @@
 "use client";
 
-import { type ReactNode } from "react";
+import { type ReactNode, useCallback } from "react";
 import { cn } from "@/lib/utils";
 import { useScratch } from "@/hooks/useScratch";
 
@@ -34,13 +34,17 @@ export function ScratchCard({
   onComplete,
   className,
 }: ScratchCardProps) {
-  const { canvasRef, isComplete } = useScratch({
+  const { canvasRef, isComplete, forceReveal } = useScratch({
     width,
     height,
     brushRadius,
     foilGradient,
     onComplete,
   });
+
+  const handleReveal = useCallback(() => {
+    forceReveal();
+  }, [forceReveal]);
 
   return (
     <div
@@ -55,6 +59,7 @@ export function ScratchCard({
       {/* Scratch canvas overlay */}
       <canvas
         ref={canvasRef}
+        aria-label="Scratch card. Scratch to reveal or press button to reveal instantly."
         className={cn(
           "absolute inset-0 cursor-crosshair",
           "transition-opacity duration-slower ease-standard",
@@ -66,6 +71,17 @@ export function ScratchCard({
           touchAction: "none",
         }}
       />
+
+      {/* WCAG 2.5.7 dragging alternative — tap/click to reveal */}
+      {!isComplete && (
+        <button
+          type="button"
+          onClick={handleReveal}
+          className="absolute bottom-2 left-1/2 -translate-x-1/2 z-10 px-3 py-1 text-2xs font-medium rounded-full bg-surface-base/80 text-text-secondary hover:bg-surface-base transition-colors duration-fast"
+        >
+          Tap to reveal
+        </button>
+      )}
     </div>
   );
 }

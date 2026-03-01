@@ -8,6 +8,7 @@ import { Button } from "@/components/primitives/button";
 import { Badge } from "@/components/primitives/badge";
 import { Input } from "@/components/primitives/input";
 import { Select } from "@/components/primitives/select";
+import { Skeleton } from "@/components/feedback/skeleton";
 
 /* ── Select demo options ────────────────────────────── */
 
@@ -268,6 +269,61 @@ export default function ComponentsPage() {
             </div>
           </div>
         </Card>
+      </ShowcaseSection>
+
+      {/* ── Skeleton ── */}
+      <ShowcaseSection title="Skeleton" className="mb-16">
+        <Card className="p-6 space-y-8">
+          <div className="stagger-child">
+            <p className="text-xs font-medium uppercase tracking-wider text-text-tertiary mb-4">
+              Text lines
+            </p>
+            <div className="space-y-2 max-w-sm">
+              <Skeleton variant="text" width="60%" />
+              <Skeleton variant="text" />
+              <Skeleton variant="text" width="80%" />
+            </div>
+          </div>
+
+          <div className="stagger-child">
+            <p className="text-xs font-medium uppercase tracking-wider text-text-tertiary mb-4">
+              Circle (avatar)
+            </p>
+            <div className="flex items-center gap-4">
+              <Skeleton variant="circle" width={48} height={48} />
+              <Skeleton variant="circle" width={36} height={36} />
+              <Skeleton variant="circle" width={24} height={24} />
+            </div>
+          </div>
+
+          <div className="stagger-child">
+            <p className="text-xs font-medium uppercase tracking-wider text-text-tertiary mb-4">
+              Card
+            </p>
+            <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 max-w-lg">
+              <Skeleton variant="card" height={120} />
+              <Skeleton variant="card" height={120} />
+            </div>
+          </div>
+
+          <div className="stagger-child">
+            <p className="text-xs font-medium uppercase tracking-wider text-text-tertiary mb-4">
+              Composed (profile card)
+            </p>
+            <div className="flex items-start gap-4 max-w-sm">
+              <Skeleton variant="circle" width={48} height={48} />
+              <div className="flex-1 space-y-2">
+                <Skeleton variant="text" width="40%" height="1.1em" />
+                <Skeleton variant="text" width="70%" />
+                <Skeleton variant="text" width="55%" />
+              </div>
+            </div>
+          </div>
+        </Card>
+        <p className="text-xs text-text-tertiary mt-4">
+          Warm breathing skeleton with shimmer gradient overlay. Variants: text (line), circle (avatar), card (block).
+          Uses <code className="font-data">spa-skeleton</code> + <code className="font-data">shimmer</code> keyframes.
+        </p>
       </ShowcaseSection>
     </>
   );

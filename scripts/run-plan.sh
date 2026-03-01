@@ -4,8 +4,8 @@ set -eo pipefail
 PROJECT_DIR="/mnt/e/Projects/spa-ui-moodboard"
 PLAN_FILE="$PROJECT_DIR/.claude/current-plan.md"
 LOG_DIR="$PROJECT_DIR/.claude/logs"
-CHECK_CMD="bun run typecheck"
-FEATURE_NAME="Spa UI Moodboard — Design System Showcase"
+CHECK_CMD="bun run typecheck && bun run lint"
+FEATURE_NAME="UX Enhancement Sprint"
 
 # Colors
 RED='\033[0;31m'
@@ -136,6 +136,7 @@ Instructions:
 2. Fix the errors — minimal changes, don't refactor or improve surrounding code
 3. Re-run: $CHECK_CMD
 4. If still failing, fix again. Loop until clean.
+5. Auto-fix formatting first if applicable: bun run lint --fix
 
 Do NOT ask questions. Report what was fixed when done.
 PROMPT

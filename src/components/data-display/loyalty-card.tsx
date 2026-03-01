@@ -1,3 +1,6 @@
+"use client";
+
+import { useEffect, useRef } from "react";
 import { cn } from "@/lib/utils";
 
 type LoyaltyTier = "bronze" | "silver" | "gold" | "black";
@@ -41,6 +44,24 @@ export function LoyaltyCard({
   watermarkSvg,
   className,
 }: LoyaltyCardProps) {
+  const sheenRef = useRef<HTMLSpanElement>(null);
+
+  useEffect(() => {
+    const el = sheenRef.current;
+    if (!el) return;
+    const io = new IntersectionObserver(
+      (entries) => {
+        const entry = entries[0];
+        if (entry) {
+          el.style.animationPlayState = entry.isIntersecting ? "running" : "paused";
+        }
+      },
+      { threshold: 0 },
+    );
+    io.observe(el);
+    return () => io.disconnect();
+  }, []);
+
   return (
     <div
       className={cn(
@@ -67,8 +88,9 @@ export function LoyaltyCard({
         />
       )}
 
-      {/* Foil sheen overlay */}
+      {/* Foil sheen overlay — paused when off-screen via IntersectionObserver */}
       <span
+        ref={sheenRef}
         className="absolute inset-0 pointer-events-none"
         style={{
           background:

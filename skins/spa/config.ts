@@ -48,4 +48,30 @@ export const skinConfig = {
     "#D4A8A8", // soft rose
   ],
 
+  /** Envelope reveal colors */
+  envelopeColors: {
+    body: "#E8D8C4", // pale champagne
+    flap: "#C98A8A", // dusty rose
+  },
+
+  /** Gift box colors */
+  giftBoxColors: {
+    box: "#E8D8C4", // pale champagne
+    ribbon: "#8AAA8A", // warm sage
+  },
+
+  /** Wax seal color */
+  waxSealColor: "#C98A8A", // dusty rose
+
+  /** Slot machine symbols */
+  slotSymbols: ["🌸", "💆", "🧖", "✨", "🌿"],
+
+  /** Bubble pop colors (iridescent/champagne) */
+  bubbleColors: [
+    "oklch(0.86 0.05 72 / 0.35)",
+    "oklch(0.70 0.08 18 / 0.3)",
+    "oklch(0.78 0.06 148 / 0.3)",
+    "oklch(0.88 0.04 72 / 0.35)",
+  ],
+
 } as const;

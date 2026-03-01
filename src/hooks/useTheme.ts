@@ -4,6 +4,11 @@ import { useCallback, useEffect, useSyncExternalStore } from "react";
 
 type Theme = "light" | "dark";
 
+interface UseThemeOptions {
+  /** When false, forces light mode regardless of stored/system preference (client-facing = light only). */
+  allowDarkMode?: boolean;
+}
+
 const STORAGE_KEY = "theme";
 
 function getServerSnapshot(): Theme {
@@ -38,8 +43,11 @@ function applyTheme(theme: Theme) {
   document.documentElement.classList.toggle("dark", theme === "dark");
 }
 
-export function useTheme() {
-  const theme = useSyncExternalStore(subscribe, getSnapshot, getServerSnapshot);
+export function useTheme({ allowDarkMode = true }: UseThemeOptions = {}) {
+  const rawTheme = useSyncExternalStore(subscribe, getSnapshot, getServerSnapshot);
+
+  // Force light mode on non-admin (client-facing) routes — luxury beauty = light mode only
+  const theme: Theme = allowDarkMode ? rawTheme : "light";
 
   useEffect(() => {
     applyTheme(theme);

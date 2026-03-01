@@ -10,6 +10,12 @@ import { Confetti } from "@/components/engagement/confetti";
 import { TierUpgrade } from "@/components/engagement/tier-upgrade";
 import { PointsFloat } from "@/components/engagement/points-float";
 import { StampCard } from "@/components/engagement/stamp-card";
+import { EnvelopeReveal } from "@/components/engagement/envelope-reveal";
+import { GiftBox } from "@/components/engagement/gift-box";
+import { WaxSeal } from "@/components/engagement/wax-seal";
+import { PeelBack } from "@/components/engagement/peel-back";
+import { SlotMachine } from "@/components/engagement/slot-machine";
+import { BubblePop } from "@/components/engagement/bubble-pop";
 import { skinConfig } from "@/skin/config";
 
 /* ── Page ──────────────────────────────────────────── */
@@ -25,6 +31,12 @@ export default function EngagementPage() {
   const [stampTrigger, setStampTrigger] = useState(0);
   const [stampValue] = useState(25);
   const [stampCount, setStampCount] = useState(0);
+  const [envelopeKey, setEnvelopeKey] = useState(0);
+  const [giftKey, setGiftKey] = useState(0);
+  const [sealKey, setSealKey] = useState(0);
+  const [peelKey, setPeelKey] = useState(0);
+  const [bubblesActive, setBubblesActive] = useState(false);
+  const [bubbleScore, setBubbleScore] = useState(0);
 
   const handleScratchComplete = () => {
     setScratchRevealed(true);
@@ -246,6 +258,229 @@ export default function EngagementPage() {
             Each stamp earned triggers a floating points counter.
             Complete all 10 stamps to claim a reward with confetti celebration.
           </p>
+        </Card>
+      </ShowcaseSection>
+
+      {/* ── Envelope Reveal ── */}
+      <ShowcaseSection title="Envelope Reveal" className="mb-16">
+        <Card className="p-6">
+          <div className="stagger-child">
+            <p className="text-sm text-text-secondary mb-4">
+              Sealed envelope with 3D flap animation. Tap to open — flap lifts via CSS 3D rotateX,
+              then inner card slides up with spring easing. Keyboard accessible (Enter/Space).
+            </p>
+            <div className="flex flex-wrap items-start gap-6">
+              <EnvelopeReveal
+                key={envelopeKey}
+                envelopeColor={skinConfig.envelopeColors.body}
+                flapColor={skinConfig.envelopeColors.flap}
+                onComplete={() => setConfettiActive(true)}
+              >
+                <div className="text-center">
+                  <span className="font-display text-lg font-bold text-secondary">
+                    Free Treatment
+                  </span>
+                  <p className="text-2xs text-text-tertiary mt-1">
+                    Your exclusive reward
+                  </p>
+                </div>
+              </EnvelopeReveal>
+              <div className="hidden sm:block space-y-2">
+                <p className="text-xs text-text-tertiary">
+                  Tap the envelope to reveal the reward inside.
+                </p>
+                <Button size="sm" variant="ghost" onClick={() => setEnvelopeKey((k) => k + 1)}>
+                  Reset Envelope
+                </Button>
+              </div>
+            </div>
+            <div className="sm:hidden mt-3">
+              <Button size="sm" variant="ghost" onClick={() => setEnvelopeKey((k) => k + 1)}>
+                Reset Envelope
+              </Button>
+            </div>
+          </div>
+        </Card>
+      </ShowcaseSection>
+
+      {/* ── Gift Box ── */}
+      <ShowcaseSection title="Gift Box" className="mb-16">
+        <Card className="p-6">
+          <div className="stagger-child">
+            <p className="text-sm text-text-secondary mb-4">
+              Gift box with ribbon cross. Tap to unwrap — ribbon unties via SVG stroke-dashoffset,
+              then lid lifts with spring easing. Reward content floats up from inside.
+            </p>
+            <div className="flex flex-wrap items-start gap-6">
+              <GiftBox
+                key={giftKey}
+                boxColor={skinConfig.giftBoxColors.box}
+                ribbonColor={skinConfig.giftBoxColors.ribbon}
+                onComplete={() => setConfettiActive(true)}
+              >
+                <div className="text-center">
+                  <span className="font-display text-xl font-bold text-accent">
+                    50% OFF
+                  </span>
+                  <p className="text-2xs text-text-tertiary mt-1">
+                    Next visit
+                  </p>
+                </div>
+              </GiftBox>
+              <div className="hidden sm:block space-y-2">
+                <p className="text-xs text-text-tertiary">
+                  Tap the gift box to unwrap your reward.
+                </p>
+                <Button size="sm" variant="ghost" onClick={() => setGiftKey((k) => k + 1)}>
+                  Reset Gift
+                </Button>
+              </div>
+            </div>
+            <div className="sm:hidden mt-3">
+              <Button size="sm" variant="ghost" onClick={() => setGiftKey((k) => k + 1)}>
+                Reset Gift
+              </Button>
+            </div>
+          </div>
+        </Card>
+      </ShowcaseSection>
+
+      {/* ── Wax Seal ── */}
+      <ShowcaseSection title="Wax Seal" className="mb-16">
+        <Card className="p-6">
+          <div className="stagger-child">
+            <p className="text-sm text-text-secondary mb-4">
+              Luxury wax seal with fracture animation. Tap to break — fracture lines animate
+              in via SVG stroke-dashoffset (staggered), seal splits into halves. Premium feel.
+            </p>
+            <div className="flex flex-wrap items-start gap-6">
+              <WaxSeal
+                key={sealKey}
+                sealColor={skinConfig.waxSealColor}
+                onComplete={() => setConfettiActive(true)}
+              >
+                <div className="flex items-center justify-center w-full h-full bg-surface-raised">
+                  <span className="font-display text-sm font-bold text-primary">
+                    VIP
+                  </span>
+                </div>
+              </WaxSeal>
+              <div className="hidden sm:block space-y-2">
+                <p className="text-xs text-text-tertiary">
+                  Tap the wax seal to break it open.
+                </p>
+                <Button size="sm" variant="ghost" onClick={() => setSealKey((k) => k + 1)}>
+                  Reset Seal
+                </Button>
+              </div>
+            </div>
+            <div className="sm:hidden mt-3">
+              <Button size="sm" variant="ghost" onClick={() => setSealKey((k) => k + 1)}>
+                Reset Seal
+              </Button>
+            </div>
+          </div>
+        </Card>
+      </ShowcaseSection>
+
+      {/* ── Peel-Back Corner ── */}
+      <ShowcaseSection title="Peel-Back Corner" className="mb-16">
+        <Card className="p-6">
+          <div className="stagger-child">
+            <p className="text-sm text-text-secondary mb-4">
+              Card with a peelable bottom-right corner. Drag or tap to peel — auto-completes
+              at 40% peel. Pure CSS transforms, no canvas. Keyboard accessible (Enter/Space).
+            </p>
+            <div className="flex flex-wrap items-start gap-6">
+              <PeelBack
+                key={peelKey}
+                onComplete={() => setConfettiActive(true)}
+                frontContent={
+                  <span className="font-display text-base text-text-secondary">
+                    Mystery Reward
+                  </span>
+                }
+              >
+                <div className="text-center">
+                  <span className="font-display text-xl font-bold text-accent">
+                    30% OFF
+                  </span>
+                  <p className="text-xs text-text-tertiary mt-1">
+                    Your next booking
+                  </p>
+                </div>
+              </PeelBack>
+              <div className="hidden sm:block space-y-2">
+                <p className="text-xs text-text-tertiary">
+                  Peel the corner to reveal the reward underneath.
+                </p>
+                <Button size="sm" variant="ghost" onClick={() => setPeelKey((k) => k + 1)}>
+                  Reset Peel
+                </Button>
+              </div>
+            </div>
+            <div className="sm:hidden mt-3">
+              <Button size="sm" variant="ghost" onClick={() => setPeelKey((k) => k + 1)}>
+                Reset Peel
+              </Button>
+            </div>
+          </div>
+        </Card>
+      </ShowcaseSection>
+
+      {/* ── Slot Machine ── */}
+      <ShowcaseSection title="Slot Machine" className="mb-16">
+        <Card className="p-6">
+          <div className="stagger-child">
+            <p className="text-sm text-text-secondary mb-4">
+              3-reel slot machine with staggered stops. Match all 3 symbols for a jackpot
+              with confetti celebration. Symbols are skin-configurable.
+            </p>
+            <SlotMachine
+              symbols={skinConfig.slotSymbols}
+              onJackpot={() => setConfettiActive(true)}
+            />
+          </div>
+        </Card>
+      </ShowcaseSection>
+
+      {/* ── Bubble Pop ── */}
+      <ShowcaseSection title="Bubble Pop" className="mb-16">
+        <Card className="p-6 space-y-4">
+          <div className="stagger-child">
+            <p className="text-sm text-text-secondary mb-4">
+              Floating bubbles rise from the bottom. Tap to pop them and earn points.
+              Skin-configurable bubble colors. Respects prefers-reduced-motion.
+            </p>
+            <div className="flex flex-wrap items-center gap-3 mb-4">
+              <Button
+                variant="cta"
+                onClick={() => {
+                  setBubblesActive(true);
+                  setBubbleScore(0);
+                }}
+              >
+                Launch Bubbles
+              </Button>
+              <Button
+                variant="secondary"
+                size="sm"
+                onClick={() => setBubblesActive(false)}
+              >
+                Stop
+              </Button>
+              {bubbleScore > 0 && (
+                <span className="text-sm font-display font-bold text-primary">
+                  Score: {bubbleScore} pts
+                </span>
+              )}
+            </div>
+          </div>
+          <BubblePop
+            active={bubblesActive}
+            colors={skinConfig.bubbleColors}
+            onPop={(pts) => setBubbleScore((s) => s + pts)}
+          />
         </Card>
       </ShowcaseSection>
     </>

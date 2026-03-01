@@ -30,7 +30,7 @@ export function OfferCard({
   return (
     <div
       className={cn(
-        "relative rounded-xl bg-surface-raised shadow-card overflow-hidden",
+        "relative rounded-xl bg-surface-raised shadow-card overflow-hidden contain-content",
         className,
       )}
     >

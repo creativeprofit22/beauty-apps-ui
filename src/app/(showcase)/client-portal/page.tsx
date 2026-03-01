@@ -11,6 +11,7 @@ import { OfferCard } from "@/components/data-display/offer-card";
 import { StampCard } from "@/components/engagement/stamp-card";
 import { BookingTray } from "@/components/forms/booking-tray";
 import { SlotGrid } from "@/components/forms/slot-grid";
+import { RadialProgress } from "@/components/data-display/radial-progress";
 import { skinConfig } from "@/skin/config";
 
 /* ── Mock data ───────────────────────────────────────── */
@@ -104,7 +105,9 @@ export default function ClientPortalPage() {
               <div className="flex justify-between text-sm">
                 <span className="text-text-secondary">Tier</span>
                 <Badge tier={activeTier}>
-                  {activeTier.charAt(0).toUpperCase() + activeTier.slice(1)}
+                  <span className={(activeTier === "gold" || activeTier === "black") ? "text-chrome" : ""}>
+                    {activeTier.charAt(0).toUpperCase() + activeTier.slice(1)}
+                  </span>
                 </Badge>
               </div>
               <div className="flex justify-between text-sm">
@@ -120,6 +123,31 @@ export default function ClientPortalPage() {
                 </span>
               </div>
             </div>
+            <div className="flex items-center gap-4 pt-2">
+              <RadialProgress
+                value={activeTier === "black" ? 100 : 85}
+                size={72}
+                strokeWidth={6}
+                label={activeTier === "black" ? "Max" : "3 more"}
+              />
+              <p className="text-xs text-text-secondary max-w-[12rem]">
+                {activeTier === "black"
+                  ? "You've reached the highest tier. Enjoy all benefits!"
+                  : "3 more visits to reach the next tier level."}
+              </p>
+            </div>
+            {/* Nail polish swatch motif — renders only when skin provides swatchColors */}
+            {"swatchColors" in skinConfig && (
+              <div className="nail-swatch pt-2" aria-hidden="true">
+                {(skinConfig as { swatchColors: readonly string[] }).swatchColors.map((color, i) => (
+                  <span
+                    key={i}
+                    className="nail-swatch-dot"
+                    style={{ backgroundColor: color }}
+                  />
+                ))}
+              </div>
+            )}
             <p className="text-xs text-text-tertiary mt-2">
               Embossed membership card with foil sheen, watermark pattern, and tier-specific gradients.
               Hover to see the subtle tilt interaction.

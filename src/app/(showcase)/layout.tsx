@@ -1,11 +1,14 @@
 "use client";
 
+import { useState, useEffect } from "react";
 import { usePathname } from "next/navigation";
 import { Shell } from "@/components/layout/shell";
 import { Sidebar } from "@/components/navigation/sidebar";
 import { BottomNav } from "@/components/navigation/bottom-nav";
 import { useTheme } from "@/hooks/useTheme";
 import type { NavItemData } from "@/components/navigation/nav-item";
+
+type Season = "" | "valentine" | "spring" | "holiday";
 
 const navItems: NavItemData[] = [
   {
@@ -114,17 +117,33 @@ const navItems: NavItemData[] = [
 ];
 
 /**
- * Showcase layout — wires Shell + Sidebar + BottomNav + theme toggle.
+ * Showcase layout — wires Shell + Sidebar + BottomNav.
+ * Dark mode toggle only renders on /admin — luxury beauty clients see light mode only.
  */
 export default function ShowcaseLayout({
   children,
 }: {
   children: React.ReactNode;
 }) {
-  const { theme, toggleTheme } = useTheme();
   const pathname = usePathname();
+  const isAdminRoute = pathname === "/admin";
+  const { theme, toggleTheme } = useTheme({ allowDarkMode: isAdminRoute });
   const activeId =
     navItems.find((item) => item.href === pathname)?.id ?? "tokens";
+
+  const [season, setSeason] = useState<Season>("");
+
+  useEffect(() => {
+    const root = document.documentElement;
+    if (season) {
+      root.setAttribute("data-season", season);
+    } else {
+      root.removeAttribute("data-season");
+    }
+    return () => {
+      root.removeAttribute("data-season");
+    };
+  }, [season]);
 
   return (
     <Shell
@@ -144,31 +163,55 @@ export default function ShowcaseLayout({
             />
           </div>
 
-          {/* Theme toggle */}
-          <div className="p-4 border-t border-border">
-            <button
-              onClick={toggleTheme}
-              className="flex items-center gap-2 w-full px-3 py-2 rounded-md text-sm text-text-secondary hover:text-text-primary hover:bg-surface-interactive transition-colors"
-              style={{ transitionDuration: "var(--duration-normal)" }}
-              aria-label={`Switch to ${theme === "dark" ? "light" : "dark"} mode`}
+          {/* Seasonal accent toggle */}
+          <div className="px-4 py-2 border-t border-border">
+            <label className="flex items-center gap-2 text-xs text-text-tertiary">
+              <svg width="14" height="14" viewBox="0 0 14 14" fill="none" aria-hidden="true">
+                <path d="M7 1v2M7 11v2M1 7h2M11 7h2M2.76 2.76l1.41 1.41M9.83 9.83l1.41 1.41M11.24 2.76l-1.41 1.41M4.17 9.83l-1.41 1.41" stroke="currentColor" strokeWidth="1.2" strokeLinecap="round" />
+              </svg>
+              Season
+            </label>
+            <select
+              value={season}
+              onChange={(e) => setSeason(e.target.value as Season)}
+              className="mt-1 w-full rounded-md bg-surface-interactive text-sm text-text-primary px-2 py-1.5 border border-border focus:outline-none focus:ring-2"
+              style={{ boxShadow: season ? "var(--glow-accent)" : "none" }}
             >
-              {theme === "dark" ? (
-                <svg width="16" height="16" viewBox="0 0 16 16" fill="none">
-                  <circle cx="8" cy="8" r="3.5" stroke="currentColor" strokeWidth="1.5" />
-                  <path d="M8 1.5V3M8 13V14.5M1.5 8H3M13 8H14.5M3.05 3.05L4.11 4.11M11.89 11.89L12.95 12.95M12.95 3.05L11.89 4.11M4.11 11.89L3.05 12.95" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" />
-                </svg>
-              ) : (
-                <svg width="16" height="16" viewBox="0 0 16 16" fill="none">
-                  <path d="M14 9.27A6.5 6.5 0 116.73 2 5 5 0 0014 9.27z" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" />
-                </svg>
-              )}
-              {theme === "dark" ? "Light mode" : "Dark mode"}
-            </button>
+              <option value="">None</option>
+              <option value="valentine">Valentine</option>
+              <option value="spring">Spring</option>
+              <option value="holiday">Holiday</option>
+            </select>
           </div>
+
+          {/* Theme toggle — admin only (luxury beauty = light mode for client-facing pages) */}
+          {isAdminRoute && (
+            <div className="p-4 border-t border-border">
+              <button
+                onClick={toggleTheme}
+                className="flex items-center gap-2 w-full px-3 py-2 rounded-md text-sm text-text-secondary hover:text-text-primary hover:bg-surface-interactive transition-colors"
+                style={{ transitionDuration: "var(--duration-normal)" }}
+                aria-label={`Switch to ${theme === "dark" ? "light" : "dark"} mode`}
+              >
+                {theme === "dark" ? (
+                  <svg width="16" height="16" viewBox="0 0 16 16" fill="none">
+                    <circle cx="8" cy="8" r="3.5" stroke="currentColor" strokeWidth="1.5" />
+                    <path d="M8 1.5V3M8 13V14.5M1.5 8H3M13 8H14.5M3.05 3.05L4.11 4.11M11.89 11.89L12.95 12.95M12.95 3.05L11.89 4.11M4.11 11.89L3.05 12.95" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" />
+                  </svg>
+                ) : (
+                  <svg width="16" height="16" viewBox="0 0 16 16" fill="none">
+                    <path d="M14 9.27A6.5 6.5 0 116.73 2 5 5 0 0014 9.27z" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" />
+                  </svg>
+                )}
+                {theme === "dark" ? "Light mode" : "Dark mode"}
+              </button>
+            </div>
+          )}
         </div>
       )}
     >
       <div
+        id="main-content"
         className="mx-auto py-8 pb-24 lg:pb-8"
         style={{
           maxWidth: "var(--page-max-width, 1200px)",
@@ -185,27 +228,29 @@ export default function ShowcaseLayout({
         activeId={activeId}
       />
 
-      {/* Mobile theme toggle — floating above bottom nav, hidden on lg+ */}
-      <button
-        onClick={toggleTheme}
-        className="fixed right-4 lg:hidden z-50 flex items-center justify-center w-10 h-10 rounded-full bg-surface-raised border border-border shadow-md text-text-secondary hover:text-text-primary transition-colors"
-        style={{
-          bottom: "calc(var(--bottom-nav-height, 56px) + env(safe-area-inset-bottom, 0px) + 12px)",
-          transitionDuration: "var(--duration-normal)",
-        }}
-        aria-label={`Switch to ${theme === "dark" ? "light" : "dark"} mode`}
-      >
-        {theme === "dark" ? (
-          <svg width="18" height="18" viewBox="0 0 16 16" fill="none">
-            <circle cx="8" cy="8" r="3.5" stroke="currentColor" strokeWidth="1.5" />
-            <path d="M8 1.5V3M8 13V14.5M1.5 8H3M13 8H14.5M3.05 3.05L4.11 4.11M11.89 11.89L12.95 12.95M12.95 3.05L11.89 4.11M4.11 11.89L3.05 12.95" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" />
-          </svg>
-        ) : (
-          <svg width="18" height="18" viewBox="0 0 16 16" fill="none">
-            <path d="M14 9.27A6.5 6.5 0 116.73 2 5 5 0 0014 9.27z" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" />
-          </svg>
-        )}
-      </button>
+      {/* Mobile theme toggle — admin only, floating above bottom nav, hidden on lg+ */}
+      {isAdminRoute && (
+        <button
+          onClick={toggleTheme}
+          className="fixed right-4 lg:hidden z-50 flex items-center justify-center w-10 h-10 rounded-full bg-surface-raised border border-border shadow-md text-text-secondary hover:text-text-primary transition-colors"
+          style={{
+            bottom: "calc(var(--bottom-nav-height, 56px) + env(safe-area-inset-bottom, 0px) + 12px)",
+            transitionDuration: "var(--duration-normal)",
+          }}
+          aria-label={`Switch to ${theme === "dark" ? "light" : "dark"} mode`}
+        >
+          {theme === "dark" ? (
+            <svg width="18" height="18" viewBox="0 0 16 16" fill="none">
+              <circle cx="8" cy="8" r="3.5" stroke="currentColor" strokeWidth="1.5" />
+              <path d="M8 1.5V3M8 13V14.5M1.5 8H3M13 8H14.5M3.05 3.05L4.11 4.11M11.89 11.89L12.95 12.95M12.95 3.05L11.89 4.11M4.11 11.89L3.05 12.95" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" />
+            </svg>
+          ) : (
+            <svg width="18" height="18" viewBox="0 0 16 16" fill="none">
+              <path d="M14 9.27A6.5 6.5 0 116.73 2 5 5 0 0014 9.27z" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" />
+            </svg>
+          )}
+        </button>
+      )}
     </Shell>
   );
 }

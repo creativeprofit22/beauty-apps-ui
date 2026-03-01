@@ -235,3 +235,23 @@
   --glass-opacity: 0.80;
   --gradient-intensity: 0.35;
 }
+
+/* ── Nail polish swatch motif ── */
+[data-skin="nail-salon"] .nail-swatch {
+  display: inline-flex;
+  gap: 4px;
+  align-items: center;
+}
+
+[data-skin="nail-salon"] .nail-swatch-dot {
+  width: 12px;
+  height: 12px;
+  border-radius: 50%;
+  box-shadow: inset 0 -2px 3px oklch(0 0 0 / 0.15),
+    0 1px 2px oklch(0 0 0 / 0.1);
+}
+
+[data-skin="nail-salon"] .nail-swatch-dot--lg {
+  width: 16px;
+  height: 16px;
+}

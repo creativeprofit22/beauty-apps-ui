@@ -24,12 +24,19 @@ interface UseScratchReturn {
   progress: number;
   /** Reset the scratch overlay */
   reset: () => void;
+  /** Instantly reveal without scratching (WCAG 2.5.7 dragging alternative) */
+  forceReveal: () => void;
 }
+
+const scheduleIdle =
+  typeof requestIdleCallback === "function"
+    ? requestIdleCallback
+    : (cb: () => void) => setTimeout(cb, 0);
 
 /**
  * useScratch — Encapsulates canvas scratch-off logic.
  * Uses destination-out compositing on pointermove.
- * Throttles completion check to every 200ms.
+ * Throttles completion check to every 500ms via requestIdleCallback.
  */
 export function useScratch({
   width,
@@ -63,23 +70,26 @@ export function useScratch({
   const checkCompletion = useCallback(
     (ctx: CanvasRenderingContext2D) => {
       const now = Date.now();
-      if (now - lastCheck.current < 200) return;
+      if (now - lastCheck.current < 500) return;
       lastCheck.current = now;
 
-      const { data } = ctx.getImageData(0, 0, width, height);
-      let transparent = 0;
-      for (let i = 3; i < data.length; i += 4) {
-        if (data[i] === 0) transparent++;
-      }
-      const pct = transparent / (width * height);
-      setProgress(pct);
+      scheduleIdle(() => {
+        if (completeCalled.current) return;
+        const { data } = ctx.getImageData(0, 0, width, height);
+        let transparent = 0;
+        for (let i = 3; i < data.length; i += 4) {
+          if (data[i] === 0) transparent++;
+        }
+        const pct = transparent / (width * height);
+        setProgress(pct);
 
-      if (pct > completeThreshold && !completeCalled.current) {
-        completeCalled.current = true;
-        isCompleteRef.current = true;
-        setIsComplete(true);
-        onComplete?.();
-      }
+        if (pct > completeThreshold && !completeCalled.current) {
+          completeCalled.current = true;
+          isCompleteRef.current = true;
+          setIsComplete(true);
+          onComplete?.();
+        }
+      });
     },
     [width, height, completeThreshold, onComplete],
   );
@@ -166,5 +176,14 @@ export function useScratch({
     lastCheck.current = 0;
   }, [drawFoil]);
 
-  return { canvasRef, isComplete, progress, reset };
+  const forceReveal = useCallback(() => {
+    if (completeCalled.current) return;
+    completeCalled.current = true;
+    isCompleteRef.current = true;
+    setIsComplete(true);
+    setProgress(1);
+    onComplete?.();
+  }, [onComplete]);
+
+  return { canvasRef, isComplete, progress, reset, forceReveal };
 }
