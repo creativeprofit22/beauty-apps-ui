@@ -38,7 +38,7 @@ const tierBadgeColors: Record<Tier, string> = {
   bronze: "text-tier-bronze",
   silver: "text-tier-silver",
   gold: "text-tier-gold",
-  black: "text-tier-black",
+  black: "text-white",
 };
 
 /**

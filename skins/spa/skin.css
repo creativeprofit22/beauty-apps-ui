@@ -43,7 +43,7 @@
 
   /* ── Borders ── */
   --border: oklch(0.88 0.01 72);
-  --border-muted: oklch(0.92 0.005 72);
+  --border-muted: oklch(0.82 0.01 72);
   --border-accent: oklch(0.82 0.06 72);
 
   /* ── Glow tokens ── */
@@ -98,7 +98,7 @@
 
   /* ── Borders ── */
   --border: oklch(0.22 0.015 55);
-  --border-muted: oklch(0.18 0.01 55);
+  --border-muted: oklch(0.28 0.01 55);
   --border-accent: oklch(0.86 0.05 72);
 
   /* ── Text (warm cream) ── */

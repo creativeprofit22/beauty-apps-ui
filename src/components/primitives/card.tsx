@@ -18,7 +18,7 @@ export function Card({ children, hover = false, premium = false, className }: Ca
   return (
     <div
       className={cn(
-        "rounded-xl bg-surface-raised [box-shadow:var(--elevation-card-highlight),var(--elevation-card)]",
+        "rounded-xl bg-surface-raised [box-shadow:var(--elevation-card-highlight),var(--elevation-card)] ring-1 ring-border/50",
         premium && "surface-textured",
         hover &&
           "transition-[transform,box-shadow] duration-normal ease-standard hover:scale-[1.02] hover:[box-shadow:var(--elevation-card-highlight),var(--elevation-lg)]",

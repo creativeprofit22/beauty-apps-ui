@@ -171,7 +171,7 @@ export default function MobilePage() {
                 >
                   {/* Sliding pill */}
                   <span
-                    className="absolute top-1.5 h-[3px] rounded-full bg-primary"
+                    className="absolute top-1.5 h-[3px] rounded-full bg-accent"
                     style={{
                       width: `calc(100% / ${mobileNavItems.length} - 16px)`,
                       left: "8px",

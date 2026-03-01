@@ -24,8 +24,8 @@ export function Input({ className, error = false, ref, ...props }: InputProps) {
         "transition-shadow duration-normal",
         "focus:outline-none",
         error
-          ? "focus:shadow-[inset_0_2px_4px_var(--error-muted),0_0_0_3px_var(--error-muted)]"
-          : "focus:shadow-[inset_0_2px_4px_var(--surface-warm-2),0_0_0_3px_var(--primary-muted)]",
+          ? "focus:shadow-[inset_0_2px_4px_var(--error-muted),0_0_0_3px_var(--error)]"
+          : "focus:shadow-[inset_0_2px_4px_var(--surface-warm-2),0_0_0_3px_var(--accent)]",
         "disabled:opacity-50 disabled:cursor-not-allowed",
         className,
       )}

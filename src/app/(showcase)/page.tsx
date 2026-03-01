@@ -110,7 +110,6 @@ const glowTokens = [
 function ColorSwatch({
   name,
   cssVar,
-  darkBg,
 }: {
   name: string;
   cssVar: string;
@@ -119,10 +118,7 @@ function ColorSwatch({
   return (
     <div className="stagger-child flex items-center gap-3">
       <div
-        className={cn(
-          "w-12 h-12 rounded-lg border border-border shadow-xs shrink-0",
-          darkBg && "ring-1 ring-border-muted",
-        )}
+        className="w-12 h-12 rounded-lg border border-border shadow-xs shrink-0 ring-1 ring-inset ring-black/10"
         style={{ backgroundColor: `var(${cssVar})` }}
       />
       <div className="min-w-0">
@@ -298,7 +294,7 @@ export default function TokensPage() {
               {glowTokens.map((g) => (
                 <div key={g.name} className="stagger-child flex flex-col items-center gap-2">
                   <div
-                    className="w-16 h-16 rounded-full bg-surface-overlay border border-border"
+                    className="w-16 h-16 rounded-full bg-surface-overlay border border-border ring-1 ring-inset ring-black/10"
                     style={{ boxShadow: `var(${g.cssVar})` }}
                   />
                   <span className="text-xs font-medium text-text-primary">{g.name}</span>

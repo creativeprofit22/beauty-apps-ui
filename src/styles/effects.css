@@ -161,7 +161,7 @@
     background-color: var(--surface-warm-2);
   }
   50% {
-    background-color: var(--surface-warm-1);
+    background-color: var(--border-muted);
   }
 }
 

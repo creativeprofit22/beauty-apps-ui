@@ -165,14 +165,14 @@
   /* ── Text ── */
   --text-primary: oklch(0.15 0.02 60);
   --text-secondary: oklch(0.42 0.02 60);
-  --text-tertiary: oklch(0.58 0.015 60);
+  --text-tertiary: oklch(0.48 0.02 60);
   --text-inverse: oklch(0.98 0.005 85);
   --text-on-accent: oklch(0.99 0 0);
 
   /* ── Primary: Champagne Nude ── */
   --primary: oklch(0.82 0.06 72);
   --primary-hover: oklch(0.76 0.08 72);
-  --primary-muted: oklch(0.92 0.03 72);
+  --primary-muted: oklch(0.85 0.04 72);
 
   /* ── Secondary: Dusty Rose ── */
   --secondary: oklch(0.70 0.08 18);
@@ -185,8 +185,8 @@
   --accent-muted: oklch(0.92 0.02 148);
 
   /* ── Nude surface tints ── */
-  --surface-warm-1: oklch(0.97 0.008 72);
-  --surface-warm-2: oklch(0.95 0.012 72);
+  --surface-warm-1: oklch(0.94 0.012 72);
+  --surface-warm-2: oklch(0.91 0.015 72);
   --surface-warm-3: oklch(0.93 0.016 72);
 
   /* ── Accent palette ── */
@@ -218,7 +218,7 @@
 
   /* ── Borders ── */
   --border: oklch(0.88 0.01 72);
-  --border-muted: oklch(0.92 0.005 72);
+  --border-muted: oklch(0.82 0.01 72);
   --border-accent: oklch(0.82 0.06 72);
 
   /* ── Radii (soft, spa-like) ── */
@@ -289,14 +289,14 @@
   /* ── Text (warm cream) ── */
   --text-primary: oklch(0.94 0.008 78);
   --text-secondary: oklch(0.72 0.01 78);
-  --text-tertiary: oklch(0.55 0.01 78);
+  --text-tertiary: oklch(0.60 0.015 60);
   --text-inverse: oklch(0.22 0.02 60);
   --text-on-accent: oklch(0.15 0.01 60);
 
   /* ── Primary: Champagne Nude (brighter in dark) ── */
   --primary: oklch(0.86 0.05 72);
   --primary-hover: oklch(0.90 0.06 72);
-  --primary-muted: oklch(0.22 0.03 72);
+  --primary-muted: oklch(0.28 0.04 72);
 
   /* ── Secondary: Dusty Rose ── */
   --secondary: oklch(0.76 0.07 18);
@@ -342,7 +342,7 @@
 
   /* ── Borders ── */
   --border: oklch(0.22 0.015 55);
-  --border-muted: oklch(0.18 0.01 55);
+  --border-muted: oklch(0.28 0.01 55);
   --border-accent: oklch(0.86 0.05 72);
 
   /* ── Elevation / Shadows (glow-based warm elevation) ── */

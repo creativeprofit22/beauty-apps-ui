@@ -44,25 +44,28 @@ export function ShowcaseSection({
       return;
     }
 
-    gsap.set(targets, { opacity: 0, y: 12, filter: "blur(1px)", visibility: "visible" });
+    // Shell uses <main overflow-y-auto> as scroll container, not window
+    const scroller = el.closest("main") || undefined;
 
-    const tween = gsap.to(targets, {
-      opacity: 1,
-      y: 0,
-      filter: "blur(0px)",
-      stagger: 0.06,
-      duration: 0.5,
-      ease: "power2.out",
-      clearProps: "filter",
-      paused: true,
-    });
-
-    ScrollTrigger.create({
-      trigger: el,
-      start: "top 85%",
-      once: true,
-      onEnter: () => tween.play(),
-    });
+    gsap.fromTo(
+      targets,
+      { opacity: 0, y: 12, filter: "blur(1px)", visibility: "visible" },
+      {
+        opacity: 1,
+        y: 0,
+        filter: "blur(0px)",
+        stagger: 0.06,
+        duration: 0.5,
+        ease: "power2.out",
+        clearProps: "filter",
+        scrollTrigger: {
+          trigger: el,
+          start: "top 85%",
+          once: true,
+          scroller,
+        },
+      },
+    );
   }, { scope: sectionRef });
 
   return (

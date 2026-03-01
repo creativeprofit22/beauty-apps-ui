@@ -24,8 +24,8 @@ const tierGradients: Record<LoyaltyTier, string> = {
 
 const tierTextColor: Record<LoyaltyTier, string> = {
   bronze: "text-white",
-  silver: "text-text-primary",
-  gold: "text-text-primary",
+  silver: "text-[oklch(0.20_0.01_265)]",
+  gold: "text-[oklch(0.20_0.02_80)]",
   black: "text-white",
 };
 

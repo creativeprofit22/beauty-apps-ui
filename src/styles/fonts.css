@@ -54,19 +54,26 @@
 
 /* ── Gradient text treatment ── */
 .text-gradient {
+  color: var(--text-primary);
   background-clip: text;
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
 }
 
 .text-gradient-primary {
-  background-image: linear-gradient(135deg, var(--primary), var(--secondary));
+  background-image: linear-gradient(135deg, var(--secondary-hover), var(--accent-hover));
+  background-image: linear-gradient(
+    135deg,
+    oklch(from var(--primary) calc(l - 0.25) calc(c + 0.04) h),
+    oklch(from var(--secondary) calc(l - 0.15) calc(c + 0.04) h)
+  );
 }
 
 .text-gradient-warm {
+  background-image: linear-gradient(135deg, var(--primary-hover), var(--accent-hover));
   background-image: linear-gradient(
     135deg,
-    var(--primary),
-    var(--accent)
+    oklch(from var(--primary) calc(l - 0.25) calc(c + 0.04) h),
+    oklch(from var(--accent) calc(l - 0.15) calc(c + 0.04) h)
   );
 }

@@ -60,7 +60,7 @@ export default function BackgroundsPage() {
               }}
             />
             <div className="absolute inset-0 flex items-center justify-center">
-              <p className="font-display text-2xl font-bold text-text-on-accent">
+              <p className="font-display text-2xl font-bold text-text-primary">
                 Noise Texture
               </p>
             </div>
@@ -163,7 +163,7 @@ export default function BackgroundsPage() {
                   className="rounded-md px-4 py-2 text-sm font-medium"
                   style={{
                     backgroundColor: "var(--primary)",
-                    color: "var(--text-on-accent)",
+                    color: "var(--text-primary)",
                   }}
                 >
                   Primary
@@ -172,7 +172,7 @@ export default function BackgroundsPage() {
                   className="rounded-md px-4 py-2 text-sm font-medium"
                   style={{
                     backgroundColor: "var(--secondary)",
-                    color: "var(--text-on-accent)",
+                    color: "var(--text-primary)",
                   }}
                 >
                   Secondary
@@ -181,7 +181,7 @@ export default function BackgroundsPage() {
                   className="rounded-md px-4 py-2 text-sm font-medium"
                   style={{
                     backgroundColor: "var(--accent)",
-                    color: "var(--text-on-accent)",
+                    color: "var(--text-primary)",
                   }}
                 >
                   Accent

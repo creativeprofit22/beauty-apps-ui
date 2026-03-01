@@ -13,14 +13,14 @@ interface BadgeProps {
 
 const variantClasses: Record<BadgeVariant, string> = {
   default: "bg-surface-interactive text-text-secondary",
-  success: "bg-success-muted text-success",
-  warning: "bg-warning-muted text-warning",
-  error: "bg-error-muted text-error",
-  info: "bg-info-muted text-info",
+  success: "bg-success-muted text-[oklch(0.38_0.12_145)]",
+  warning: "bg-warning-muted text-[oklch(0.42_0.12_75)]",
+  error: "bg-error-muted text-[oklch(0.38_0.15_25)]",
+  info: "bg-info-muted text-[oklch(0.38_0.10_245)]",
 };
 
 const tierClasses: Record<BadgeTier, string> = {
-  bronze: "bg-tier-bronze-muted text-tier-bronze",
+  bronze: "bg-tier-bronze-muted text-[oklch(0.38_0.08_55)]",
   silver: "bg-tier-silver-muted text-text-secondary",
   gold: "bg-tier-gold-muted text-tier-black",
   black: "bg-tier-black-muted text-tier-black",

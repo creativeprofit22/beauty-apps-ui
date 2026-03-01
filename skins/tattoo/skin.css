@@ -59,7 +59,7 @@
 
   /* ── Borders ── */
   --border: oklch(0.80 0.005 0);
-  --border-muted: oklch(0.88 0.003 0);
+  --border-muted: oklch(0.80 0.005 0);
   --border-accent: oklch(0.55 0.22 27);
 
   /* ── Angular radii (minimal) ── */
@@ -160,7 +160,7 @@
 
   /* ── Borders ── */
   --border: oklch(0.28 0.005 0);
-  --border-muted: oklch(0.22 0.005 0);
+  --border-muted: oklch(0.30 0.005 0);
   --border-accent: oklch(0.60 0.22 27);
 
   /* ── Shadows (deep black, high contrast) ── */

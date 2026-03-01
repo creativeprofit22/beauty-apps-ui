@@ -87,8 +87,8 @@ export function Select({
           error
             ? "shadow-[inset_0_2px_4px_var(--error-muted),0_0_0_2px_var(--error)]"
             : open
-              ? "shadow-[inset_0_2px_4px_var(--surface-sunken),0_0_0_2px_var(--primary)]"
-              : "",
+              ? "shadow-[inset_0_2px_4px_var(--surface-sunken),0_0_0_2px_var(--accent)]"
+              : "shadow-[inset_0_1px_2px_var(--surface-sunken),0_0_0_1px_var(--border)]",
           disabled && "opacity-50 cursor-not-allowed",
         )}
         aria-haspopup="listbox"
@@ -173,7 +173,7 @@ export function Select({
       >
         {/* Drag handle */}
         <div className="flex justify-center pt-3 pb-2">
-          <div className="w-10 h-1 rounded-full bg-border" />
+          <div className="w-10 h-1 rounded-full bg-text-tertiary" />
         </div>
         <div className="px-4 pb-6 overflow-y-auto overscroll-contain">
           {options.map((option) => (
