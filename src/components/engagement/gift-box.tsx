@@ -148,10 +148,10 @@ export function GiftBox({
             transition: "opacity 600ms ease-out",
           }}
         >
-          {/* Vertical ribbon */}
+          {/* Vertical ribbon — runs from bow down to box bottom */}
           <line
             x1="100"
-            y1="20"
+            y1="28"
             x2="100"
             y2="200"
             stroke={ribbonColor}
@@ -167,7 +167,7 @@ export function GiftBox({
                   : "none",
             }}
           />
-          {/* Horizontal ribbon */}
+          {/* Horizontal ribbon — at lid/body seam */}
           <line
             x1="0"
             y1="80"
@@ -186,30 +186,53 @@ export function GiftBox({
                   : "none",
             }}
           />
-          {/* Bow */}
+          {/* Bow — sits on top of the lid */}
+          {/* Center knot */}
           <ellipse
             cx="100"
-            cy="68"
-            rx="18"
-            ry="12"
+            cy="22"
+            rx="10"
+            ry="8"
             fill={ribbonColor}
+            style={{ filter: "brightness(0.95)" }}
+          />
+          {/* Left loop */}
+          <ellipse
+            cx="78"
+            cy="18"
+            rx="18"
+            ry="10"
+            fill={ribbonColor}
+            transform="rotate(-15, 78, 18)"
             style={{ filter: "brightness(1.1)" }}
           />
+          {/* Right loop */}
           <ellipse
-            cx="80"
-            cy="72"
-            rx="14"
-            ry="8"
+            cx="122"
+            cy="18"
+            rx="18"
+            ry="10"
             fill={ribbonColor}
-            transform="rotate(-20, 80, 72)"
+            transform="rotate(15, 122, 18)"
+            style={{ filter: "brightness(1.1)" }}
           />
-          <ellipse
-            cx="120"
-            cy="72"
-            rx="14"
-            ry="8"
-            fill={ribbonColor}
-            transform="rotate(20, 120, 72)"
+          {/* Left tail */}
+          <path
+            d="M82 24 Q72 38 66 32"
+            stroke={ribbonColor}
+            strokeWidth="5"
+            strokeLinecap="round"
+            fill="none"
+            style={{ filter: "brightness(0.9)" }}
+          />
+          {/* Right tail */}
+          <path
+            d="M118 24 Q128 38 134 32"
+            stroke={ribbonColor}
+            strokeWidth="5"
+            strokeLinecap="round"
+            fill="none"
+            style={{ filter: "brightness(0.9)" }}
           />
         </svg>
 
