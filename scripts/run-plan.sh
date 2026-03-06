@@ -2,10 +2,10 @@
 set -eo pipefail
 
 PROJECT_DIR="/mnt/e/Projects/spa-ui-moodboard"
-PLAN_FILE="$PROJECT_DIR/.claude/current-plan.md"
 LOG_DIR="$PROJECT_DIR/.claude/logs"
-CHECK_CMD="bun run typecheck && bun run lint"
-FEATURE_NAME="UX Enhancement Sprint"
+CHECK_CMD="bun run typecheck"
+FEATURE_NAME="UI Refinement — Alive, Not SaaS"
+TOTAL_CHUNKS=6
 
 # Colors
 RED='\033[0;31m'
@@ -16,15 +16,13 @@ CYAN='\033[0;36m'
 NC='\033[0m'
 
 # Defaults
-START_CHUNK=1
-CLEANUP_EVERY=0
+START_CHUNK=2
 SKIP_FINAL_CHECK=false
 
 # Parse args
 while [[ $# -gt 0 ]]; do
   case $1 in
     --start) START_CHUNK="$2"; shift 2 ;;
-    --cleanup-every) CLEANUP_EVERY="$2"; shift 2 ;;
     --skip-final-check) SKIP_FINAL_CHECK=true; shift ;;
     *) echo "Unknown option: $1"; exit 1 ;;
   esac
@@ -33,145 +31,26 @@ done
 mkdir -p "$LOG_DIR"
 
 echo -e "${BLUE}══════════════════════════════════════════════════════${NC}"
-echo -e "${BLUE}  Plan Executor - $(basename "$PROJECT_DIR")${NC}"
+echo -e "${BLUE}  Plan Executor - $FEATURE_NAME${NC}"
+echo -e "${BLUE}  $TOTAL_CHUNKS chunks, starting from $START_CHUNK${NC}"
+echo -e "${BLUE}  (Chunk 1 Typography Overhaul already complete)${NC}"
 echo -e "${BLUE}══════════════════════════════════════════════════════${NC}"
-
-if [[ ! -f "$PLAN_FILE" ]]; then
-  echo -e "${RED}✗ Plan file not found: $PLAN_FILE${NC}"
-  echo "  Run /plan-checkpoint first to create a plan."
-  exit 1
-fi
-
-TOTAL_CHUNKS=$(grep -cE "^#{3,4} Chunk [0-9]+:" "$PLAN_FILE" || echo "0")
-echo -e "${GREEN}✓${NC} $TOTAL_CHUNKS chunks detected, starting from chunk $START_CHUNK"
-echo -e "${GREEN}✓${NC} Feature: $FEATURE_NAME"
-echo -e "${GREEN}✓${NC} Checks: $CHECK_CMD"
-[[ "$CLEANUP_EVERY" -gt 0 ]] && echo -e "${GREEN}✓${NC} Cleanup every $CLEANUP_EVERY chunks"
 echo ""
 
-# ── Pre-read ALL chunks into arrays BEFORE any Claude invocations ───────────
-# Critical: process substitution + while read shares stdin with subprocesses.
-# Claude would consume remaining grep lines, killing the loop after chunk 1.
-# Fix: drain the grep output fully first, store in arrays, then loop arrays.
-declare -a CHUNK_NUMS=()
-declare -a CHUNK_NAMES=()
-
-while IFS= read -r line; do
-  num=$(echo "$line" | grep -oE "Chunk [0-9]+" | grep -oE "[0-9]+")
-  name=$(echo "$line" | sed -E 's/#{3,4} Chunk [0-9]+: //' | sed 's/ (parallel-safe:.*//')
-  if [[ -n "$num" ]]; then
-    CHUNK_NUMS+=("$num")
-    CHUNK_NAMES+=("$name")
-  fi
-done < <(grep -E "^#{3,4} Chunk [0-9]+:" "$PLAN_FILE")
-
-echo -e "${GREEN}✓${NC} Chunks loaded: ${CHUNK_NUMS[*]}"
-echo ""
-
-# ── Context bridge — captures what previous chunk produced ──────────────────
-PREV_CHUNK_CONTEXT=""
+# Context bridge — captures what previous chunk produced
+PREV_CONTEXT=""
 
 capture_context() {
   cd "$PROJECT_DIR"
-  PREV_CHUNK_CONTEXT=$(git diff --stat HEAD 2>/dev/null || echo "(no git changes)")
+  PREV_CONTEXT=$(git diff --stat HEAD 2>/dev/null || echo "")
 }
 
-# ── Prompt generation — mirrors /build-checkpoint quality ───────────────────
-generate_prompt() {
-  local num=$1
-  local name=$2
-  local context=$3
-
-  local context_section=""
-  if [[ -n "$context" && "$context" != "(no git changes)" ]]; then
-    context_section="
-**Previous chunk produced these changes** (for context, do NOT modify these files unless they're in YOUR scope):
-\`\`\`
-$context
-\`\`\`"
-  fi
-
-  cat << PROMPT
-Continue work on $(basename "$PROJECT_DIR") at $PROJECT_DIR
-
-**Phase**: build (implementation)
-**Feature**: $FEATURE_NAME
-**Chunk**: $num of $TOTAL_CHUNKS — $name
-$context_section
-
-Read .claude/current-plan.md — find the Chunk $num section.
-
-Instructions:
-1. Read .claude/current-plan.md and locate Chunk $num
-2. Read ALL existing files referenced in that chunk BEFORE writing anything (match patterns exactly)
-3. Implement exactly what Chunk $num describes — no more, no less
-4. Only modify files listed in that chunk's scope
-5. After implementing, run: $CHECK_CMD
-6. If checks fail, fix ALL errors before finishing
-7. Update CLAUDE.md phase line: Chunk $((num - 1))/$TOTAL_CHUNKS → Chunk $num/$TOTAL_CHUNKS
-
-Report what was implemented when done. Do NOT ask questions.
-PROMPT
-}
-
-# ── Fix pass — runs if quality gate fails after a chunk ─────────────────────
-generate_fix_prompt() {
-  local errors=$1
-
-  cat << PROMPT
-Continue work on $(basename "$PROJECT_DIR") at $PROJECT_DIR
-
-**Phase**: fix (quality gate failed after chunk implementation)
-**Feature**: $FEATURE_NAME
-
-The quality checks failed after implementing the last chunk. Fix ALL errors below.
-
-**Errors to fix:**
-\`\`\`
-$errors
-\`\`\`
-
-Instructions:
-1. Read each file mentioned in the errors
-2. Fix the errors — minimal changes, don't refactor or improve surrounding code
-3. Re-run: $CHECK_CMD
-4. If still failing, fix again. Loop until clean.
-5. Auto-fix formatting first if applicable: bun run lint --fix
-
-Do NOT ask questions. Report what was fixed when done.
-PROMPT
-}
-
-# ── Run a chunk ─────────────────────────────────────────────────────────────
-run_chunk() {
-  local num=$1
-  local name=$2
-  local log="$LOG_DIR/chunk-${num}.log"
-
-  echo -e "${BLUE}━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━${NC}"
-  echo -e "${YELLOW}▶ Chunk $num/$TOTAL_CHUNKS: $name${NC}"
-  echo -e "  Log: $log"
-  echo ""
-
-  cd "$PROJECT_DIR"
-
-  if claude --dangerously-skip-permissions --max-turns 50 \
-            -p "$(generate_prompt "$num" "$name" "$PREV_CHUNK_CONTEXT")" \
-            < /dev/null 2>&1 | tee "$log"; then
-    echo -e "${GREEN}✓ Chunk $num implementation done${NC}"
-  else
-    echo -e "${RED}✗ Chunk $num failed — check $log${NC}"
-    exit 1
-  fi
-  echo ""
-}
-
-# ── Quality gate — typecheck + lint between chunks ──────────────────────────
+# Quality gate
 run_quality_gate() {
   local num=$1
   local gate_log="$LOG_DIR/gate-${num}.log"
 
-  echo -e "${CYAN}  Running quality gate after chunk $num...${NC}"
+  echo -e "${CYAN}  Running quality gate...${NC}"
   cd "$PROJECT_DIR"
 
   if eval "$CHECK_CMD" > "$gate_log" 2>&1; then
@@ -183,74 +62,417 @@ run_quality_gate() {
     errors=$(cat "$gate_log")
     local fix_log="$LOG_DIR/fix-${num}.log"
 
-    if claude --dangerously-skip-permissions --max-turns 20 \
-              -p "$(generate_fix_prompt "$errors")" \
-              < /dev/null 2>&1 | tee "$fix_log"; then
-      # Re-check after fix
-      if eval "$CHECK_CMD" > "$gate_log" 2>&1; then
-        echo -e "${GREEN}  ✓ Fix pass succeeded — quality gate now passes${NC}"
-        return 0
-      else
-        echo -e "${RED}  ✗ Fix pass ran but checks still failing — continuing anyway${NC}"
-        echo -e "${RED}    Check $gate_log for remaining errors${NC}"
-        return 1
-      fi
+    claude --dangerously-skip-permissions --max-turns 20 \
+      -p "$(cat <<FIXPROMPT
+Fix quality check errors in spa-ui-moodboard at $PROJECT_DIR
+
+Errors:
+\`\`\`
+$errors
+\`\`\`
+
+Rules:
+- Read each file mentioned in the errors
+- Fix errors with minimal changes — do NOT refactor or improve surrounding code
+- Re-run: $CHECK_CMD
+- Loop until clean
+- Do NOT ask questions
+FIXPROMPT
+)" < /dev/null 2>&1 | tee "$fix_log"
+
+    if eval "$CHECK_CMD" > "$gate_log" 2>&1; then
+      echo -e "${GREEN}  ✓ Fix pass succeeded${NC}"
+      return 0
     else
-      echo -e "${RED}  ✗ Fix pass failed — continuing anyway${NC}"
+      echo -e "${RED}  ✗ Still failing — continuing anyway${NC}"
       return 1
     fi
   fi
 }
 
-# ── Cleanup pass ────────────────────────────────────────────────────────────
-run_cleanup() {
-  echo -e "${CYAN}━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━${NC}"
-  echo -e "${CYAN}▶ Running CLAUDE.md cleanup...${NC}"
+# ══════════════════════════════════════════════════════
+# CHUNK 2: Color Refinements
+# ══════════════════════════════════════════════════════
+
+run_chunk_2() {
+  local log="$LOG_DIR/chunk-2.log"
+  echo -e "${YELLOW}▶ Chunk 2/$TOTAL_CHUNKS: Color Refinements — Chroma Pullback + Warm Shadows + Dark Mode${NC}"
+
+  local context_section=""
+  if [[ -n "$PREV_CONTEXT" ]]; then
+    context_section="
+
+### Previous Chunk Changes
+\`\`\`
+$PREV_CONTEXT
+\`\`\`
+Do NOT modify these files unless they're in YOUR file lists."
+  fi
 
   cd "$PROJECT_DIR"
+  claude --dangerously-skip-permissions --max-turns 50 \
+    -p "$(cat <<'CHUNK_PROMPT'
+spa-ui-moodboard at /mnt/e/Projects/spa-ui-moodboard
+Stack: Next.js 16, React 19, Tailwind CSS 4.2, GSAP 3.14, Bun runtime, TypeScript 5.9
+Check: bun run typecheck
 
-  claude --dangerously-skip-permissions --max-turns 10 \
-         -p "Run /setup-claude-md to clean up CLAUDE.md. Keep it minimal and accurate." \
-         < /dev/null 2>&1 | tee "$LOG_DIR/cleanup.log"
+## Chunk 2/6: Color Refinements — Chroma Pullback + Warm Shadows + Dark Mode
 
-  echo -e "${CYAN}✓ Cleanup done${NC}"
-  echo ""
+**Read these files first** (do NOT explore beyond this list):
+- `src/styles/tokens.css` — current :root and .dark color tokens
+- `skins/spa/skin.css` — spa skin light + dark overrides
+- `skins/nail-salon/skin.css` — nail salon light + dark overrides
+- `design/refinement-spec.md` — Section 2 (Color Refinements) for target values
+
+**Modify:**
+- `src/styles/tokens.css` — verify/update :root and .dark palette values against spec targets
+- `skins/spa/skin.css` — verify/update spa-specific palette, warm shadows, dark mode candlelit surfaces
+- `skins/nail-salon/skin.css` — verify/update lacquer red primary, ballet pink secondary, chrome tokens, rose-tinted shadows
+
+**What to Build:**
+Compare current token values against refinement spec Section 2 targets. Fix any drift:
+- Spa primary: champagne nude oklch(0.82/0.06/72), secondary dusty rose (0.70/0.08/18), accent warm sage (0.62/0.06/148)
+- Warm mauve (--mauve) and terracotta (--terra) accent tokens
+- Nude surface tints (--surface-warm-1/2/3)
+- Foil tokens (--foil-light/mid/dark)
+- Text warm ink (0.15/0.02/60), not pure black
+- ALL shadows warm-tinted to match skin hue (champagne for spa, rose-red for nail salon)
+- Dark mode: candlelit surfaces (hue 55 for spa, hue 20 for nail), warm cream text, glow-based card elevation
+- Nail salon: primary oklch(0.50/0.19/20), secondary ballet pink, rose-tinted shadows
+- If values already match spec, report "already aligned" and move on
+
+**Rules:**
+- Read ONLY the files listed above. Do NOT explore the codebase.
+- Implement ONLY what's described. No extras, no refactoring.
+- After implementing: bun run typecheck
+- Fix ALL errors before finishing.
+- Do NOT ask questions.
+
+**Gate:** `bun run typecheck` passes. Color tokens match spec values.
+CHUNK_PROMPT
+)$context_section" < /dev/null 2>&1 | tee "$log"
 }
 
-# ── Main loop — iterates over pre-loaded arrays, no stdin conflict ──────────
-CHUNKS_SINCE_CLEANUP=0
+# ══════════════════════════════════════════════════════
+# CHUNK 3: Visual Texture & Depth
+# ══════════════════════════════════════════════════════
 
-for i in "${!CHUNK_NUMS[@]}"; do
-  num="${CHUNK_NUMS[$i]}"
-  name="${CHUNK_NAMES[$i]}"
+run_chunk_3() {
+  local log="$LOG_DIR/chunk-3.log"
+  echo -e "${YELLOW}▶ Chunk 3/$TOTAL_CHUNKS: Visual Texture & Depth — Page Backgrounds, Card Highlights, Noise, Opal${NC}"
+
+  local context_section=""
+  if [[ -n "$PREV_CONTEXT" ]]; then
+    context_section="
+
+### Previous Chunk Changes
+\`\`\`
+$PREV_CONTEXT
+\`\`\`
+Do NOT modify these files unless they're in YOUR file lists."
+  fi
+
+  cd "$PROJECT_DIR"
+  claude --dangerously-skip-permissions --max-turns 50 \
+    -p "$(cat <<'CHUNK_PROMPT'
+spa-ui-moodboard at /mnt/e/Projects/spa-ui-moodboard
+Stack: Next.js 16, React 19, Tailwind CSS 4.2, GSAP 3.14, Bun runtime, TypeScript 5.9
+Check: bun run typecheck
+
+## Chunk 3/6: Visual Texture & Depth — Page Backgrounds, Card Highlights, Noise, Opal Glow
+
+**Read these files first** (do NOT explore beyond this list):
+- `src/styles/base.css` — surface-textured, surface-opal classes
+- `src/styles/tokens.css` — --page-bg, --elevation-card-highlight, --noise-opacity
+- `skins/spa/skin.css` — spa --page-bg gradient
+- `skins/nail-salon/skin.css` — nail salon --page-bg gradient
+- `skins/barber/skin.css` — barber --page-bg
+- `skins/tattoo/skin.css` — tattoo --page-bg
+- `design/refinement-spec.md` — Section 3 (Visual Texture & Depth)
+
+**Modify:**
+- `src/styles/tokens.css` — verify --elevation-card-highlight has inset top-edge, verify --page-bg radial gradients
+- `src/styles/base.css` — verify surface-textured (SVG noise ::after), surface-opal (inner glow ::before), body uses --page-bg
+- `skins/spa/skin.css` — verify warm light pooling gradient + dark warm glow
+- `skins/nail-salon/skin.css` — verify chromatic shimmer gradient
+- `skins/barber/skin.css` — verify subtle cool gradient, --noise-opacity: 0
+- `skins/tattoo/skin.css` — verify flat --page-bg, --noise-opacity: 0
+
+**What to Build:**
+Compare implementations against spec Section 3:
+- Page background: radial light pooling for spa (warm from top + rose wash), chromatic shimmer for nail salon, subtle cool for barber, flat for tattoo
+- Card top-edge highlight: `inset 0 1px 0 oklch(1 0 0 / 0.65)` in --elevation-card-highlight
+- SVG noise texture: surface-textured with ::after, base64 feTurbulence SVG, opacity via --noise-opacity. Spa 0.035, nail 0.03, barber/tattoo 0
+- Opal glow: surface-opal with ::before radial gradient + inset box-shadow
+- If already matching spec, report "already aligned"
+
+**Rules:**
+- Read ONLY the files listed above. Do NOT explore the codebase.
+- Implement ONLY what's described. No extras, no refactoring.
+- After implementing: bun run typecheck
+- Fix ALL errors before finishing.
+- Do NOT ask questions.
+
+**Gate:** `bun run typecheck` passes. Visual texture classes present and functional.
+CHUNK_PROMPT
+)$context_section" < /dev/null 2>&1 | tee "$log"
+}
+
+# ══════════════════════════════════════════════════════
+# CHUNK 4: Animations & Easing
+# ══════════════════════════════════════════════════════
+
+run_chunk_4() {
+  local log="$LOG_DIR/chunk-4.log"
+  echo -e "${YELLOW}▶ Chunk 4/$TOTAL_CHUNKS: Animations & Easing — Keyframes, Skeleton Pulse, Input Focus, Nav Feedback${NC}"
+
+  local context_section=""
+  if [[ -n "$PREV_CONTEXT" ]]; then
+    context_section="
+
+### Previous Chunk Changes
+\`\`\`
+$PREV_CONTEXT
+\`\`\`
+Do NOT modify these files unless they're in YOUR file lists."
+  fi
+
+  cd "$PROJECT_DIR"
+  claude --dangerously-skip-permissions --max-turns 50 \
+    -p "$(cat <<'CHUNK_PROMPT'
+spa-ui-moodboard at /mnt/e/Projects/spa-ui-moodboard
+Stack: Next.js 16, React 19, Tailwind CSS 4.2, GSAP 3.14, Bun runtime, TypeScript 5.9
+Check: bun run typecheck
+
+## Chunk 4/6: Animations & Easing — Keyframes, Skeleton Pulse, Input Focus, Nav Feedback
+
+**Read these files first** (do NOT explore beyond this list):
+- `src/styles/effects.css` — existing keyframes and easing curves
+- `src/styles/base.css` — focus-visible, input reset, tap-highlight
+- `src/components/feedback/skeleton.tsx` — current skeleton implementation
+- `src/components/layout/showcase-section.tsx` — scroll-triggered entrance animation
+- `src/components/navigation/bottom-nav.tsx` — bottom nav tap feedback
+- `src/components/primitives/input.tsx` — input focus styles
+- `design/refinement-spec.md` — Section 4 (Animations & Easing)
+
+**Modify:**
+- `src/styles/effects.css` — verify keyframes: gentle-arrive (y:12 + blur:1px), soft-breathe (opacity+scale 3.5s), spa-skeleton (breathing 1.8s), petal-fall, ripple-warm (380ms). Verify easing: --ease-bloom (0.22,1,0.36,1), --ease-drift (0.5,0,0.5,1)
+- `src/styles/base.css` — verify input focus: outline:none + border-color:var(--primary) + warm primary halo box-shadow. Verify tap-highlight warm color
+- `src/components/feedback/skeleton.tsx` — verify spa/nail skins use spa-skeleton breathing pulse (NOT shimmer)
+- `src/components/layout/showcase-section.tsx` — verify entrance: y:12, filter:blur(1px), no skewX, power2.out ease, clearProps:filter
+- `src/components/navigation/bottom-nav.tsx` — verify: spring scale(1.15) on tap, always-visible labels, primary/grey active/inactive
+
+**What to Build:**
+Compare against spec Section 4. Fix drift:
+- Easing curves: bloom and drift present in :root
+- Keyframes: all 5 new keyframes present with correct values
+- Input focus: warm primary halo, NO blue browser ring
+- Skeleton: breathing pulse for warm skins, shimmer for cold skins
+- ShowcaseSection: gentle entrance without skew
+- Bottom nav: spring tap + always-visible labels
+- Performance: will-change only during animation, reduced-motion respected
+- If already matching, report "already aligned"
+
+**Rules:**
+- Read ONLY the files listed above. Do NOT explore the codebase.
+- Implement ONLY what's described. No extras, no refactoring.
+- After implementing: bun run typecheck
+- Fix ALL errors before finishing.
+- Do NOT ask questions.
+
+**Gate:** `bun run typecheck` passes. Animations match spec targets.
+CHUNK_PROMPT
+)$context_section" < /dev/null 2>&1 | tee "$log"
+}
+
+# ══════════════════════════════════════════════════════
+# CHUNK 5: Decorative Elements
+# ══════════════════════════════════════════════════════
+
+run_chunk_5() {
+  local log="$LOG_DIR/chunk-5.log"
+  echo -e "${YELLOW}▶ Chunk 5/$TOTAL_CHUNKS: Decorative Elements — Botanical Accents + Petal Fall${NC}"
+
+  local context_section=""
+  if [[ -n "$PREV_CONTEXT" ]]; then
+    context_section="
+
+### Previous Chunk Changes
+\`\`\`
+$PREV_CONTEXT
+\`\`\`
+Do NOT modify these files unless they're in YOUR file lists."
+  fi
+
+  cd "$PROJECT_DIR"
+  claude --dangerously-skip-permissions --max-turns 50 \
+    -p "$(cat <<'CHUNK_PROMPT'
+spa-ui-moodboard at /mnt/e/Projects/spa-ui-moodboard
+Stack: Next.js 16, React 19, Tailwind CSS 4.2, GSAP 3.14, Bun runtime, TypeScript 5.9
+Check: bun run typecheck
+
+## Chunk 5/6: Decorative Elements — Botanical Accents + Petal Fall
+
+**Read these files first** (do NOT explore beyond this list):
+- `src/components/decorative/floral-accent.tsx` — existing floral accent SVG
+- `src/components/decorative/petal-fall.tsx` — existing petal fall component
+- `skins/spa/config.ts` — enableBotanicalAccents, petalColors, celebrationStyle
+- `skins/nail-salon/config.ts` — enableBotanicalAccents, petalColors
+- `skins/barber/config.ts` — enableBotanicalAccents (should be false)
+- `skins/tattoo/config.ts` — enableBotanicalAccents (should be false)
+- `design/refinement-spec.md` — Section 5 (Decorative Elements)
+
+**Modify:**
+- `src/components/decorative/floral-accent.tsx` — verify: single-path SVG, stroke-only (no fill), currentColor, stroke-width 0.75px, strokeLinecap round, opacity 0.15-0.25
+- `src/components/decorative/petal-fall.tsx` — verify: 4-6 petals MAX (not 50), petal 6x10px, border-radius 50% 0 50% 0, staggered delays, skin palette colors
+- `skins/spa/config.ts` — verify enableBotanicalAccents: true, celebrationStyle: "petals"
+- `skins/barber/config.ts` — verify enableBotanicalAccents: false, celebrationStyle: "confetti"
+- `skins/tattoo/config.ts` — verify enableBotanicalAccents: false, celebrationStyle: "confetti"
+
+**What to Build:**
+Compare decorative implementations against spec Section 5:
+- FloralAccent: minimal stroke SVG, gated by enableBotanicalAccents config
+- PetalFall: CSS-only, 4-6 petals, petal-fall keyframe, skin palette colors
+- Spa/nail: botanicals enabled, celebration = petals
+- Barber/tattoo: botanicals disabled, celebration = confetti
+- Philosophy: ONE accent per viewport. Seasoning, not the dish.
+- If already matching, report "already aligned"
+
+**Rules:**
+- Read ONLY the files listed above. Do NOT explore the codebase.
+- Implement ONLY what's described. No extras, no refactoring.
+- After implementing: bun run typecheck
+- Fix ALL errors before finishing.
+- Do NOT ask questions.
+
+**Gate:** `bun run typecheck` passes. Decorative components match spec constraints.
+CHUNK_PROMPT
+)$context_section" < /dev/null 2>&1 | tee "$log"
+}
+
+# ══════════════════════════════════════════════════════
+# CHUNK 6: Component Refinements
+# ══════════════════════════════════════════════════════
+
+run_chunk_6() {
+  local log="$LOG_DIR/chunk-6.log"
+  echo -e "${YELLOW}▶ Chunk 6/$TOTAL_CHUNKS: Component Refinements — Buttons, Cards, Inputs, Sidebar, Nav, Booking, Stats${NC}"
+
+  local context_section=""
+  if [[ -n "$PREV_CONTEXT" ]]; then
+    context_section="
+
+### Previous Chunk Changes
+\`\`\`
+$PREV_CONTEXT
+\`\`\`
+Do NOT modify these files unless they're in YOUR file lists."
+  fi
+
+  cd "$PROJECT_DIR"
+  claude --dangerously-skip-permissions --max-turns 50 \
+    -p "$(cat <<'CHUNK_PROMPT'
+spa-ui-moodboard at /mnt/e/Projects/spa-ui-moodboard
+Stack: Next.js 16, React 19, Tailwind CSS 4.2, GSAP 3.14, Bun runtime, TypeScript 5.9
+Check: bun run typecheck
+
+## Chunk 6/6: Component Refinements — Buttons, Cards, Inputs, Sidebar, Bottom Nav, Booking Tray, Stats
+
+**Read these files first** (do NOT explore beyond this list):
+- `src/components/primitives/button.tsx` — button press shadow, text treatment
+- `src/components/primitives/card.tsx` — card styling, top-edge highlight
+- `src/components/primitives/input.tsx` — input focus glow, background
+- `src/components/navigation/sidebar.tsx` — sidebar gradient, active item
+- `src/components/navigation/nav-item.tsx` — nav item active state
+- `src/components/navigation/bottom-nav.tsx` — bottom nav labels, tap feedback
+- `src/components/forms/booking-tray.tsx` — progress indicator, step transitions
+- `src/components/data-display/stat-card.tsx` — data display warm ink
+- `src/components/data-display/loyalty-card.tsx` — editorial treatment
+- `src/components/engagement/stamp-card.tsx` — stamp pulse timing
+- `src/components/engagement/scratch-card.tsx` — specular flash on reveal
+- `design/refinement-spec.md` — Sections 6 (Component Refinements) + 7 (Mobile)
+
+**Modify:**
+- `src/components/primitives/button.tsx` — verify: shadow compresses on press (translateY 1px not 2px), text-btn class for uppercase + 0.06em tracking + 0.8125rem
+- `src/components/primitives/card.tsx` — verify: top-edge highlight inset in shadow stack
+- `src/components/primitives/input.tsx` — verify: warm focus glow (primary halo, not blue), background var(--surface-warm-2)
+- `src/components/navigation/sidebar.tsx` — verify: faint warm gradient bg, active 3px left accent bar with 25% inset, section labels wide-tracked caps
+- `src/components/navigation/bottom-nav.tsx` — verify: always-visible labels, active primary + weight 600, inactive warm grey oklch(0.55 0.02 72), spring scale tap
+- `src/components/forms/booking-tray.tsx` — verify: thin line progress (not dots), primary color 400ms ease-out, step slides from right 320ms
+- `src/components/data-display/stat-card.tsx` — verify: warm ink text, skin palette chart colors
+- `src/components/data-display/loyalty-card.tsx` — verify: tier name display serif, botanical watermark 15% opacity
+- `src/components/engagement/stamp-card.tsx` — verify: stamp pulse 280ms (not 200ms)
+- `src/components/engagement/scratch-card.tsx` — verify: warm specular flash (ripple-warm, champagne gold, 400ms)
+
+**What to Build:**
+Compare component implementations against spec Sections 6+7. Fix drift:
+- Buttons: shadow compress, text-btn treatment
+- Cards: inset top-edge highlight
+- Inputs: warm focus halo, warm surface bg
+- Sidebar: warm gradient, 3px left accent bar, caps labels
+- Bottom nav: always-visible labels, spring tap, primary/grey
+- Booking tray: line progress, slide-from-right transitions
+- Stats: warm ink, skin palette, rounded bar caps
+- Loyalty: display serif tier, botanical watermark
+- Mobile: scroll-behavior auto, overscroll-behavior contain
+- If already matching, report "already aligned"
+
+**Rules:**
+- Read ONLY the files listed above. Do NOT explore the codebase.
+- Implement ONLY what's described. No extras, no refactoring.
+- After implementing: bun run typecheck
+- Fix ALL errors before finishing.
+- Do NOT ask questions.
+
+**Gate:** `bun run typecheck` passes. Components match spec targets.
+CHUNK_PROMPT
+)$context_section" < /dev/null 2>&1 | tee "$log"
+}
+
+# ══════════════════════════════════════════════════════
+# MAIN LOOP
+# ══════════════════════════════════════════════════════
+
+CHUNK_FUNCTIONS=(
+  "" run_chunk_2 run_chunk_3 run_chunk_4 run_chunk_5 run_chunk_6
+)
+CHUNK_NAMES=(
+  "Typography Overhaul (DONE)"
+  "Color Refinements"
+  "Visual Texture & Depth"
+  "Animations & Easing"
+  "Decorative Elements"
+  "Component Refinements"
+)
+
+for i in "${!CHUNK_FUNCTIONS[@]}"; do
+  num=$((i + 1))
 
   if [[ "$num" -lt "$START_CHUNK" ]]; then
-    echo -e "${YELLOW}  Skipping chunk $num (--start=$START_CHUNK)${NC}"
+    echo -e "${YELLOW}  Skipping chunk $num: ${CHUNK_NAMES[$i]}${NC}"
     continue
   fi
 
-  # Implement the chunk
-  run_chunk "$num" "$name"
+  if [[ -z "${CHUNK_FUNCTIONS[$i]}" ]]; then
+    echo -e "${GREEN}  ✓ Chunk $num already complete: ${CHUNK_NAMES[$i]}${NC}"
+    continue
+  fi
 
-  # Quality gate — typecheck + lint, fix if needed
+  # Run the chunk
+  ${CHUNK_FUNCTIONS[$i]}
+
+  # Quality gate
   run_quality_gate "$num"
 
   # Capture context for next chunk
   capture_context
 
-  # Periodic cleanup
-  CHUNKS_SINCE_CLEANUP=$((CHUNKS_SINCE_CLEANUP + 1))
-  if [[ "$CLEANUP_EVERY" -gt 0 && "$CHUNKS_SINCE_CLEANUP" -ge "$CLEANUP_EVERY" ]]; then
-    run_cleanup
-    CHUNKS_SINCE_CLEANUP=0
-  fi
+  echo ""
 done
 
-echo ""
 echo -e "${GREEN}══════════════════════════════════════════════════════${NC}"
 echo -e "${GREEN}  All chunks complete!${NC}"
 echo -e "${GREEN}══════════════════════════════════════════════════════${NC}"
-echo ""
 
 if [[ "$SKIP_FINAL_CHECK" != "true" ]]; then
   echo -e "${BLUE}Running final quality checks...${NC}"
@@ -258,13 +480,10 @@ if [[ "$SKIP_FINAL_CHECK" != "true" ]]; then
   if eval "$CHECK_CMD"; then
     echo -e "${GREEN}✓ All checks passed${NC}"
   else
-    echo -e "${RED}✗ Checks failed — fix errors before committing${NC}"
+    echo -e "${RED}✗ Final checks failed — fix before committing${NC}"
     exit 1
   fi
 fi
 
 echo ""
-echo -e "${GREEN}Done! Next steps:${NC}"
-echo -e "  1. Review changes: git diff"
-echo -e "  2. Commit: /commit"
-echo -e "  3. Validate if needed: /quick-check, /validate-checkpoint, /wiring-checkpoint"
+echo -e "${GREEN}Done! Review changes: git diff${NC}"

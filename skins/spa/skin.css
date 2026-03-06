@@ -10,12 +10,12 @@
 :root[data-skin="spa"] {
   /* ── Primary: Champagne Nude ── */
   --primary: oklch(0.82 0.06 72);
-  --primary-hover: oklch(0.76 0.08 72);
+  --primary-hover: oklch(0.78 0.07 72);
   --primary-muted: oklch(0.92 0.03 72);
 
   /* ── Secondary: Dusty Rose ── */
   --secondary: oklch(0.70 0.08 18);
-  --secondary-hover: oklch(0.64 0.10 18);
+  --secondary-hover: oklch(0.66 0.09 18);
   --secondary-muted: oklch(0.92 0.03 18);
 
   /* ── Accent: Warm Sage ── */
@@ -24,7 +24,7 @@
   --accent-muted: oklch(0.92 0.02 148);
 
   /* ── Spa-specific surface warmth ── */
-  --surface-base: oklch(0.985 0.005 72);
+  --surface-base: oklch(0.985 0.004 72);
   --surface-raised: oklch(0.995 0.003 72);
 
   /* ── Warm-tinted shadows ── */
@@ -37,9 +37,9 @@
   --elevation-lg: 0 10px 15px oklch(0.22 0.02 72 / 0.07),
     0 4px 6px oklch(0.22 0.02 72 / 0.04),
     0 0px 2px oklch(0.22 0.02 72 / 0.03);
-  --elevation-card: 0 1px 3px oklch(0.22 0.02 72 / 0.05),
-    0 6px 16px oklch(0.22 0.02 72 / 0.06),
-    0 0px 1px oklch(0.22 0.02 72 / 0.03);
+  --elevation-card: 0 1px 2px oklch(0.50 0.08 72 / 0.06),
+    0 3px 8px oklch(0.50 0.08 72 / 0.08),
+    0 8px 24px oklch(0.50 0.08 72 / 0.05);
 
   /* ── Borders ── */
   --border: oklch(0.88 0.01 72);
@@ -77,13 +77,13 @@
 
 [data-skin="spa"] .dark,
 .dark[data-skin="spa"] {
-  /* ── Primary: Champagne Nude (brighter in dark) ── */
-  --primary: oklch(0.86 0.05 72);
-  --primary-hover: oklch(0.90 0.06 72);
+  /* ── Primary: Champagne Nude (glows brighter in dark) ── */
+  --primary: oklch(0.84 0.10 72);
+  --primary-hover: oklch(0.88 0.08 72);
   --primary-muted: oklch(0.22 0.03 72);
 
   /* ── Secondary: Dusty Rose ── */
-  --secondary: oklch(0.76 0.07 18);
+  --secondary: oklch(0.76 0.10 18);
   --secondary-hover: oklch(0.80 0.09 18);
   --secondary-muted: oklch(0.22 0.03 18);
 
@@ -94,7 +94,7 @@
 
   /* ── Dark spa surfaces (candlelit) ── */
   --surface-base: oklch(0.10 0.012 55);
-  --surface-raised: oklch(0.14 0.014 55);
+  --surface-raised: oklch(0.14 0.014 58);
 
   /* ── Borders ── */
   --border: oklch(0.22 0.015 55);
@@ -106,14 +106,13 @@
   --text-secondary: oklch(0.72 0.01 78);
 
   /* ── Glow-based card elevation ── */
-  --elevation-card: inset 0 1px 0 oklch(1 0 0 / 0.06),
-    0 0 1px oklch(0.86 0.05 72 / 0.12),
-    0 4px 12px oklch(0 0 0 / 0.15),
-    0 0 20px oklch(0.82 0.04 72 / 0.06);
+  --elevation-card: inset 0 1px 0 oklch(0.40 0.02 72 / 0.4),
+    0 0 0 1px oklch(0.30 0.015 72 / 0.4),
+    0 4px 16px oklch(0.50 0.06 72 / 0.15);
 
   /* ── Glow tokens ── */
-  --glow-primary: 0 0 16px oklch(0.86 0.05 72 / 0.35);
-  --glow-secondary: 0 0 16px oklch(0.76 0.07 18 / 0.35);
+  --glow-primary: 0 0 16px oklch(0.84 0.10 72 / 0.35);
+  --glow-secondary: 0 0 16px oklch(0.76 0.10 18 / 0.35);
   --glow-accent: 0 0 16px oklch(0.68 0.05 148 / 0.35);
 
   /* ── Page background (dark warm pooling) ── */

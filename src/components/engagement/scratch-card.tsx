@@ -1,6 +1,6 @@
 "use client";
 
-import { type ReactNode, useCallback } from "react";
+import { type ReactNode, useCallback, useState, useEffect } from "react";
 import { cn } from "@/lib/utils";
 import { useScratch } from "@/hooks/useScratch";
 
@@ -42,6 +42,16 @@ export function ScratchCard({
     onComplete,
   });
 
+  const [showFlash, setShowFlash] = useState(false);
+
+  useEffect(() => {
+    if (isComplete) {
+      setShowFlash(true);
+      const timer = setTimeout(() => setShowFlash(false), 400);
+      return () => clearTimeout(timer);
+    }
+  }, [isComplete]);
+
   const handleReveal = useCallback(() => {
     forceReveal();
   }, [forceReveal]);
@@ -71,6 +81,18 @@ export function ScratchCard({
           touchAction: "none",
         }}
       />
+
+      {/* Warm specular flash on reveal */}
+      {showFlash && (
+        <span
+          className="absolute inset-0 pointer-events-none z-20 rounded-xl"
+          style={{
+            background: "radial-gradient(circle at center, oklch(0.91 0.05 82 / 0.5), transparent 70%)",
+            animation: "ripple-warm 400ms ease-out forwards",
+          }}
+          aria-hidden="true"
+        />
+      )}
 
       {/* WCAG 2.5.7 dragging alternative — tap/click to reveal */}
       {!isComplete && (

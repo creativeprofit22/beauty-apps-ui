@@ -185,6 +185,16 @@
     contain: content;
   }
 
+  /* ── Bottom nav tap feedback ── */
+  .nav-icon {
+    transition: transform 120ms var(--ease-spring);
+  }
+
+  button:active .nav-icon,
+  a:active .nav-icon {
+    transform: scale(1.15);
+  }
+
   /* ── Opal inner glow (premium surfaces) ── */
   .surface-opal {
     position: relative;

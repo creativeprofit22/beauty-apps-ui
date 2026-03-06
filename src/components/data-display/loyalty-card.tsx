@@ -82,7 +82,7 @@ export function LoyaltyCard({
             backgroundImage: `url("data:image/svg+xml,${encodeURIComponent(watermarkSvg)}")`,
             backgroundSize: "40%",
             backgroundRepeat: "repeat",
-            opacity: 0.08,
+            opacity: 0.15,
           }}
           aria-hidden="true"
         />
@@ -106,7 +106,7 @@ export function LoyaltyCard({
         {/* Tier badge */}
         <div className="flex items-start justify-between">
           <span
-            className="text-xs font-semibold uppercase tracking-widest"
+            className="text-sm font-display italic tracking-wide"
             style={{
               textShadow:
                 tier === "black"

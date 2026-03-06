@@ -21,10 +21,13 @@ const variantDefaults: Record<SkeletonVariant, { width: string; height: string }
   card: { width: "100%", height: "160px" },
 };
 
+const warmSkins = ["spa", "nail-salon"];
+const isWarmSkin = warmSkins.includes(process.env.SKIN ?? "spa");
+
 /**
- * Skeleton — warm breathing loader placeholder.
- * Uses the `spa-skeleton` keyframe (defined in effects.css) with a shimmer gradient overlay.
- * Variants: text (single line), circle (avatar), card (rounded rect).
+ * Skeleton — loader placeholder.
+ * Warm skins (spa, nail-salon): breathing pulse via `spa-skeleton` keyframe.
+ * Cold skins (barber, tattoo): horizontal shimmer sweep.
  */
 export function Skeleton({
   variant = "text",
@@ -44,19 +47,23 @@ export function Skeleton({
       style={{
         width: width ?? defaults.width,
         height: height ?? defaults.height,
-        animation: "spa-skeleton 2s ease-in-out infinite",
+        animation: isWarmSkin
+          ? "spa-skeleton 1.8s ease-in-out infinite"
+          : undefined,
       }}
       aria-hidden="true"
     >
-      <div
-        className="absolute inset-0"
-        style={{
-          background:
-            "linear-gradient(90deg, transparent 0%, var(--surface-warm-1) 50%, transparent 100%)",
-          backgroundSize: "200% 100%",
-          animation: "shimmer 1.5s ease-in-out infinite",
-        }}
-      />
+      {!isWarmSkin && (
+        <div
+          className="absolute inset-0"
+          style={{
+            background:
+              "linear-gradient(90deg, transparent 0%, var(--surface-warm-1) 50%, transparent 100%)",
+            backgroundSize: "200% 100%",
+            animation: "shimmer 1.5s ease-in-out infinite",
+          }}
+        />
+      )}
     </div>
   );
 }

@@ -48,7 +48,7 @@ export function NavItem({
         {active && (
           <span
             className="absolute left-0 w-[3px] bg-primary rounded-r-full"
-            style={{ top: "20%", bottom: "20%" }}
+            style={{ top: "25%", bottom: "25%" }}
             aria-hidden="true"
           />
         )}
@@ -83,10 +83,10 @@ export function NavItem({
 
   // Bottom nav variant
   const classes = cn(
-    "flex flex-col items-center justify-center gap-1 flex-shrink-0",
+    "group flex flex-col items-center justify-center gap-1 flex-shrink-0",
     "text-[0.625rem] leading-tight",
     "transition-colors",
-    active ? "text-primary" : "text-text-secondary",
+    active ? "text-primary" : "text-[oklch(0.55_0.02_72)]",
   );
   const style = {
     transitionDuration: "var(--duration-normal)",
@@ -97,11 +97,8 @@ export function NavItem({
   const content = (
     <>
       <span
-        className="w-5 h-5 flex-shrink-0"
-        style={{
-          transform: active ? "scale(1.15)" : "scale(1)",
-          transition: "transform 120ms var(--ease-spring)",
-        }}
+        className="w-5 h-5 flex-shrink-0 nav-icon group-active:scale-[1.15]"
+        style={{ transition: "transform 120ms var(--ease-spring)" }}
       >
         {item.icon}
       </span>

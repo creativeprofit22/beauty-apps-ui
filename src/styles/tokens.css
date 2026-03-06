@@ -155,28 +155,28 @@
    ═══════════════════════════════════════════════ */
 :root {
   /* ── Surfaces ── */
-  --surface-base: oklch(0.985 0.005 72);
+  --surface-base: oklch(0.985 0.004 72);
   --surface-raised: oklch(0.995 0.003 72);
   --surface-overlay: oklch(1.0 0 0);
-  --surface-sunken: oklch(0.965 0.008 72);
+  --surface-sunken: oklch(0.965 0.007 72);
   --surface-interactive: oklch(0.975 0.006 72);
   --surface-interactive-hover: oklch(0.955 0.01 72);
 
   /* ── Text ── */
   --text-primary: oklch(0.15 0.02 60);
-  --text-secondary: oklch(0.42 0.02 60);
-  --text-tertiary: oklch(0.48 0.02 60);
+  --text-secondary: oklch(0.45 0.02 72);
+  --text-tertiary: oklch(0.60 0.015 72);
   --text-inverse: oklch(0.98 0.005 85);
   --text-on-accent: oklch(0.99 0 0);
 
   /* ── Primary: Champagne Nude ── */
   --primary: oklch(0.82 0.06 72);
-  --primary-hover: oklch(0.76 0.08 72);
+  --primary-hover: oklch(0.78 0.07 72);
   --primary-muted: oklch(0.85 0.04 72);
 
   /* ── Secondary: Dusty Rose ── */
   --secondary: oklch(0.70 0.08 18);
-  --secondary-hover: oklch(0.64 0.10 18);
+  --secondary-hover: oklch(0.66 0.09 18);
   --secondary-muted: oklch(0.92 0.03 18);
 
   /* ── Accent: Warm Sage ── */
@@ -185,16 +185,16 @@
   --accent-muted: oklch(0.92 0.02 148);
 
   /* ── Nude surface tints ── */
-  --surface-warm-1: oklch(0.94 0.012 72);
-  --surface-warm-2: oklch(0.91 0.015 72);
-  --surface-warm-3: oklch(0.93 0.016 72);
+  --surface-warm-1: oklch(0.98 0.004 72);
+  --surface-warm-2: oklch(0.96 0.007 72);
+  --surface-warm-3: oklch(0.93 0.010 72);
 
   /* ── Accent palette ── */
   --mauve: oklch(0.64 0.09 330);
   --terra: oklch(0.62 0.10 40);
-  --foil-light: oklch(0.88 0.04 72);
-  --foil-mid: oklch(0.78 0.06 72);
-  --foil-dark: oklch(0.68 0.08 72);
+  --foil-light: oklch(0.91 0.05 82);
+  --foil-mid: oklch(0.78 0.09 78);
+  --foil-dark: oklch(0.62 0.11 74);
 
   /* ── Semantic ── */
   --success: oklch(0.62 0.14 145);
@@ -244,9 +244,9 @@
     0 8px 10px oklch(0.22 0.02 72 / 0.04),
     0 0px 4px oklch(0.22 0.02 72 / 0.02);
   --elevation-inset: inset 0 2px 4px oklch(0.22 0.02 72 / 0.06);
-  --elevation-card: 0 1px 3px oklch(0.22 0.02 72 / 0.05),
-    0 6px 16px oklch(0.22 0.02 72 / 0.06),
-    0 0px 1px oklch(0.22 0.02 72 / 0.03);
+  --elevation-card: 0 1px 2px oklch(0.50 0.08 72 / 0.06),
+    0 3px 8px oklch(0.50 0.08 72 / 0.08),
+    0 8px 24px oklch(0.50 0.08 72 / 0.05);
 
   /* ── Glow tokens ── */
   --glow-primary: 0 0 12px oklch(0.82 0.06 72 / 0.25);
@@ -276,31 +276,31 @@
 
 /* ═══════════════════════════════════════════════
    DARK MODE
-   Navy-charcoal: clean cool surfaces, warm-cream text, brighter accents
+   Candlelit: warm amber surfaces, warm-cream text, glowing accents
    ═══════════════════════════════════════════════ */
 .dark {
-  /* ── Surfaces (navy-charcoal) ── */
-  --surface-base: oklch(0.12 0.015 260);
-  --surface-raised: oklch(0.16 0.017 260);
-  --surface-overlay: oklch(0.20 0.018 260);
-  --surface-sunken: oklch(0.09 0.012 260);
-  --surface-interactive: oklch(0.18 0.016 260);
-  --surface-interactive-hover: oklch(0.22 0.018 260);
+  /* ── Surfaces (candlelit amber warmth) ── */
+  --surface-base: oklch(0.10 0.012 55);
+  --surface-raised: oklch(0.14 0.014 58);
+  --surface-overlay: oklch(0.22 0.018 62);
+  --surface-sunken: oklch(0.08 0.010 55);
+  --surface-interactive: oklch(0.16 0.014 55);
+  --surface-interactive-hover: oklch(0.20 0.016 55);
 
   /* ── Text (warm cream) ── */
   --text-primary: oklch(0.94 0.008 78);
-  --text-secondary: oklch(0.72 0.01 78);
-  --text-tertiary: oklch(0.60 0.015 60);
+  --text-secondary: oklch(0.70 0.010 72);
+  --text-tertiary: oklch(0.50 0.008 72);
   --text-inverse: oklch(0.22 0.02 60);
   --text-on-accent: oklch(0.15 0.01 60);
 
-  /* ── Primary: Champagne Nude (brighter in dark) ── */
-  --primary: oklch(0.86 0.05 72);
-  --primary-hover: oklch(0.90 0.06 72);
+  /* ── Primary: Champagne Nude (glows brighter in dark) ── */
+  --primary: oklch(0.84 0.10 72);
+  --primary-hover: oklch(0.88 0.08 72);
   --primary-muted: oklch(0.28 0.04 72);
 
   /* ── Secondary: Dusty Rose ── */
-  --secondary: oklch(0.76 0.07 18);
+  --secondary: oklch(0.76 0.10 18);
   --secondary-hover: oklch(0.80 0.09 18);
   --secondary-muted: oklch(0.22 0.03 18);
 
@@ -309,10 +309,10 @@
   --accent-hover: oklch(0.72 0.07 148);
   --accent-muted: oklch(0.22 0.02 148);
 
-  /* ── Surface tints (navy-charcoal) ── */
-  --surface-warm-1: oklch(0.16 0.016 260);
-  --surface-warm-2: oklch(0.18 0.018 260);
-  --surface-warm-3: oklch(0.20 0.020 260);
+  /* ── Surface tints (candlelit) ── */
+  --surface-warm-1: oklch(0.14 0.012 55);
+  --surface-warm-2: oklch(0.16 0.014 55);
+  --surface-warm-3: oklch(0.18 0.016 55);
 
   /* ── Accent palette (dark) ── */
   --mauve: oklch(0.70 0.08 330);
@@ -341,10 +341,10 @@
   --tier-gold-muted: oklch(0.20 0.04 72);
   --tier-black-muted: oklch(0.30 0.005 60);
 
-  /* ── Borders (navy-charcoal) ── */
-  --border: oklch(0.24 0.015 260);
-  --border-muted: oklch(0.30 0.010 260);
-  --border-accent: oklch(0.86 0.05 72);
+  /* ── Borders (candlelit) ── */
+  --border: oklch(0.22 0.015 55);
+  --border-muted: oklch(0.28 0.010 55);
+  --border-accent: oklch(0.84 0.10 72);
 
   /* ── Elevation / Shadows (glow-based warm elevation) ── */
   --elevation-xs: 0 1px 2px oklch(0 0 0 / 0.15);
@@ -360,14 +360,13 @@
     0 8px 10px oklch(0 0 0 / 0.15),
     0 0px 4px oklch(0 0 0 / 0.08);
   --elevation-inset: inset 0 2px 4px oklch(0 0 0 / 0.2);
-  --elevation-card: inset 0 1px 0 oklch(1 0 0 / 0.06),
-    0 0 1px oklch(0.60 0.04 260 / 0.12),
-    0 4px 12px oklch(0 0 0 / 0.15),
-    0 0 20px oklch(0.50 0.03 260 / 0.06);
+  --elevation-card: inset 0 1px 0 oklch(0.40 0.02 72 / 0.4),
+    0 0 0 1px oklch(0.30 0.015 72 / 0.4),
+    0 4px 16px oklch(0.50 0.06 72 / 0.15);
 
   /* ── Glow tokens (more visible in dark) ── */
-  --glow-primary: 0 0 16px oklch(0.86 0.05 72 / 0.35);
-  --glow-secondary: 0 0 16px oklch(0.76 0.07 18 / 0.35);
+  --glow-primary: 0 0 16px oklch(0.84 0.10 72 / 0.35);
+  --glow-secondary: 0 0 16px oklch(0.76 0.10 18 / 0.35);
   --glow-accent: 0 0 16px oklch(0.68 0.05 148 / 0.35);
   --glow-success: 0 0 16px oklch(0.70 0.12 145 / 0.35);
   --glow-warning: 0 0 16px oklch(0.82 0.12 75 / 0.35);

@@ -136,7 +136,7 @@ export function BookingTray({
         <div className="px-6 pb-4">
           <div className="h-[3px] rounded-full bg-border overflow-hidden">
             <div
-              className="h-full rounded-full bg-primary-hover"
+              className="h-full rounded-full bg-primary"
               style={{
                 width: `${steps.length > 1 ? (activeStep / (steps.length - 1)) * 100 : 0}%`,
                 transition: "width 400ms ease-out",
