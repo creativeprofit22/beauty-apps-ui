@@ -94,6 +94,27 @@ const navItems: NavItemData[] = [
     ),
   },
   {
+    id: "charts",
+    label: "Charts",
+    href: "/charts",
+    icon: (
+      <svg width="20" height="20" viewBox="0 0 20 20" fill="none">
+        <path d="M3 17V9M7 17V5M11 17V11M15 17V3M19 17V7" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" />
+      </svg>
+    ),
+  },
+  {
+    id: "chat",
+    label: "Chat",
+    href: "/chat",
+    icon: (
+      <svg width="20" height="20" viewBox="0 0 20 20" fill="none">
+        <path d="M4 4h12a2 2 0 012 2v7a2 2 0 01-2 2H7l-4 3V6a2 2 0 012-2z" stroke="currentColor" strokeWidth="1.5" strokeLinejoin="round" />
+        <path d="M7 9h6M7 12h3" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" />
+      </svg>
+    ),
+  },
+  {
     id: "engagement",
     label: "Engagement",
     href: "/engagement",

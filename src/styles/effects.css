@@ -295,6 +295,36 @@
   }
 }
 
+/* ── Checkbox check draw-in ── */
+@keyframes check-draw {
+  from {
+    stroke-dashoffset: 12;
+  }
+  to {
+    stroke-dashoffset: 0;
+  }
+}
+
+/* ── Chart line draw-in (stroke-dashoffset wipe) ── */
+@keyframes chart-draw {
+  from {
+    stroke-dashoffset: var(--path-length);
+  }
+  to {
+    stroke-dashoffset: 0;
+  }
+}
+
+/* ── Bar chart grow-up (scaleY from bottom) ── */
+@keyframes bar-grow {
+  from {
+    transform: scaleY(0);
+  }
+  to {
+    transform: scaleY(1);
+  }
+}
+
 /* ── Bubble pop (tap-to-pop burst) ── */
 @keyframes bubble-pop {
   0% {
@@ -308,6 +338,20 @@
   100% {
     transform: scale(1.5);
     opacity: 0;
+  }
+}
+
+/* ── Typing dot bounce (chat typing indicator) ── */
+@keyframes typing-dot {
+  0%,
+  60%,
+  100% {
+    transform: translateY(0);
+    opacity: 0.4;
+  }
+  30% {
+    transform: translateY(-4px);
+    opacity: 1;
   }
 }
 

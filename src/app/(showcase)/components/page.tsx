@@ -9,6 +9,47 @@ import { Badge } from "@/components/primitives/badge";
 import { Input } from "@/components/primitives/input";
 import { Select } from "@/components/primitives/select";
 import { Skeleton } from "@/components/feedback/skeleton";
+import { Toggle } from "@/components/primitives/toggle";
+import { Checkbox } from "@/components/primitives/checkbox";
+import { Avatar } from "@/components/primitives/avatar";
+import { TabBar, type TabItem } from "@/components/navigation/tab-bar";
+import { DropdownMenu, type DropdownMenuEntry } from "@/components/primitives/dropdown-menu";
+
+/* ── Tab demo data ────────────────────────────────── */
+
+const demoTabs: TabItem[] = [
+  { id: "upcoming", label: "Upcoming", count: 3 },
+  { id: "past", label: "Past" },
+  { id: "cancelled", label: "Cancelled", count: 1 },
+  { id: "waitlist", label: "Waitlist" },
+  { id: "packages", label: "Packages", count: 5 },
+];
+
+/* ── Dropdown demo data ───────────────────────────── */
+
+const EditIcon = () => (
+  <svg width="16" height="16" viewBox="0 0 16 16" fill="none">
+    <path d="M11.5 1.5L14.5 4.5L5 14H2V11L11.5 1.5Z" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" />
+  </svg>
+);
+const CopyIcon = () => (
+  <svg width="16" height="16" viewBox="0 0 16 16" fill="none">
+    <rect x="5" y="5" width="9" height="9" rx="1.5" stroke="currentColor" strokeWidth="1.5" />
+    <path d="M11 5V3.5A1.5 1.5 0 009.5 2H3.5A1.5 1.5 0 002 3.5V9.5A1.5 1.5 0 003.5 11H5" stroke="currentColor" strokeWidth="1.5" />
+  </svg>
+);
+const TrashIcon = () => (
+  <svg width="16" height="16" viewBox="0 0 16 16" fill="none">
+    <path d="M2 4H14M5.5 4V2.5A1 1 0 016.5 1.5H9.5A1 1 0 0110.5 2.5V4M12.5 4V13.5A1 1 0 0111.5 14.5H4.5A1 1 0 013.5 13.5V4" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" />
+  </svg>
+);
+
+const demoMenuItems: DropdownMenuEntry[] = [
+  { id: "edit", label: "Edit appointment", icon: <EditIcon />, onSelect: () => {} },
+  { id: "duplicate", label: "Duplicate", icon: <CopyIcon />, onSelect: () => {} },
+  { type: "separator" },
+  { id: "delete", label: "Delete", icon: <TrashIcon />, destructive: true, onSelect: () => {} },
+];
 
 /* ── Select demo options ────────────────────────────── */
 
@@ -26,6 +67,11 @@ export default function ComponentsPage() {
   const [selectValue, setSelectValue] = useState<string>();
   const [inputValue, setInputValue] = useState("");
   const [clickCount, setClickCount] = useState(0);
+  const [toggle1, setToggle1] = useState(false);
+  const [toggle2, setToggle2] = useState(true);
+  const [check1, setCheck1] = useState(false);
+  const [check2, setCheck2] = useState(true);
+  const [checkIndet, setCheckIndet] = useState(false);
 
   return (
     <>
@@ -267,6 +313,179 @@ export default function ComponentsPage() {
                 value="massage"
               />
             </div>
+          </div>
+        </Card>
+      </ShowcaseSection>
+
+      {/* ── Toggle ── */}
+      <ShowcaseSection title="Toggle" className="mb-16">
+        <Card className="p-6 space-y-6">
+          <div className="stagger-child">
+            <p className="text-xs font-medium uppercase tracking-wider text-text-tertiary mb-4">
+              Sizes
+            </p>
+            <div className="flex flex-wrap items-center gap-6">
+              <div className="flex items-center gap-2">
+                <Toggle size="sm" checked={toggle1} onChange={setToggle1} />
+                <span className="text-sm text-text-secondary">Small</span>
+              </div>
+              <div className="flex items-center gap-2">
+                <Toggle size="md" checked={toggle1} onChange={setToggle1} />
+                <span className="text-sm text-text-secondary">Medium</span>
+              </div>
+              <div className="flex items-center gap-2">
+                <Toggle size="lg" checked={toggle2} onChange={setToggle2} />
+                <span className="text-sm text-text-secondary">Large</span>
+              </div>
+            </div>
+          </div>
+
+          <div className="stagger-child">
+            <p className="text-xs font-medium uppercase tracking-wider text-text-tertiary mb-4">
+              States
+            </p>
+            <div className="flex flex-wrap items-center gap-6">
+              <div className="flex items-center gap-2">
+                <Toggle checked={false} disabled />
+                <span className="text-sm text-text-secondary">Disabled off</span>
+              </div>
+              <div className="flex items-center gap-2">
+                <Toggle checked={true} disabled />
+                <span className="text-sm text-text-secondary">Disabled on</span>
+              </div>
+            </div>
+          </div>
+        </Card>
+      </ShowcaseSection>
+
+      {/* ── Checkbox ── */}
+      <ShowcaseSection title="Checkbox" className="mb-16">
+        <Card className="p-6 space-y-6">
+          <div className="stagger-child">
+            <p className="text-xs font-medium uppercase tracking-wider text-text-tertiary mb-4">
+              Interactive
+            </p>
+            <div className="flex flex-col gap-3">
+              <Checkbox
+                label="Accept terms and conditions"
+                checked={check1}
+                onChange={(e) => setCheck1(e.target.checked)}
+              />
+              <Checkbox
+                label="Subscribe to newsletter"
+                checked={check2}
+                onChange={(e) => setCheck2(e.target.checked)}
+              />
+            </div>
+          </div>
+
+          <div className="stagger-child">
+            <p className="text-xs font-medium uppercase tracking-wider text-text-tertiary mb-4">
+              States
+            </p>
+            <div className="flex flex-col gap-3">
+              <Checkbox
+                label="Indeterminate"
+                checked={checkIndet}
+                indeterminate={!checkIndet}
+                onChange={(e) => setCheckIndet(e.target.checked)}
+              />
+              <Checkbox label="Disabled unchecked" disabled />
+              <Checkbox label="Disabled checked" checked disabled />
+            </div>
+          </div>
+        </Card>
+      </ShowcaseSection>
+
+      {/* ── Avatar ── */}
+      <ShowcaseSection title="Avatar" className="mb-16">
+        <Card className="p-6 space-y-6">
+          <div className="stagger-child">
+            <p className="text-xs font-medium uppercase tracking-wider text-text-tertiary mb-4">
+              Sizes with initials
+            </p>
+            <div className="flex items-center gap-4">
+              <Avatar size="sm" initials="JS" />
+              <Avatar size="md" initials="AB" />
+              <Avatar size="lg" initials="CD" />
+            </div>
+          </div>
+
+          <div className="stagger-child">
+            <p className="text-xs font-medium uppercase tracking-wider text-text-tertiary mb-4">
+              Tier rings
+            </p>
+            <div className="flex items-center gap-4">
+              <Avatar size="md" initials="BR" tier="bronze" />
+              <Avatar size="md" initials="SL" tier="silver" />
+              <Avatar size="md" initials="GD" tier="gold" />
+              <Avatar size="md" initials="BK" tier="black" />
+            </div>
+          </div>
+
+          <div className="stagger-child">
+            <p className="text-xs font-medium uppercase tracking-wider text-text-tertiary mb-4">
+              States
+            </p>
+            <div className="flex items-center gap-4">
+              <Avatar size="md" src="/no-image.jpg" initials="FB" alt="Fallback demo" />
+              <Avatar size="md" initials="DI" disabled />
+            </div>
+          </div>
+        </Card>
+      </ShowcaseSection>
+
+      {/* ── Tab Bar ── */}
+      <ShowcaseSection title="Tab Bar" className="mb-16">
+        <Card className="p-6 space-y-6">
+          <div className="stagger-child">
+            <p className="text-xs font-medium uppercase tracking-wider text-text-tertiary mb-4">
+              With badge counts
+            </p>
+            <TabBar tabs={demoTabs} />
+          </div>
+
+          <div className="stagger-child">
+            <p className="text-xs font-medium uppercase tracking-wider text-text-tertiary mb-4">
+              Simple tabs
+            </p>
+            <TabBar
+              tabs={[
+                { id: "details", label: "Details" },
+                { id: "history", label: "History" },
+                { id: "notes", label: "Notes" },
+              ]}
+            />
+          </div>
+        </Card>
+      </ShowcaseSection>
+
+      {/* ── Dropdown Menu ── */}
+      <ShowcaseSection title="Dropdown Menu" className="mb-16">
+        <Card className="p-6 space-y-6">
+          <div className="stagger-child">
+            <p className="text-xs font-medium uppercase tracking-wider text-text-tertiary mb-4">
+              With icons and destructive item
+            </p>
+            <DropdownMenu
+              trigger={<Button variant="secondary">Actions</Button>}
+              items={demoMenuItems}
+            />
+          </div>
+
+          <div className="stagger-child">
+            <p className="text-xs font-medium uppercase tracking-wider text-text-tertiary mb-4">
+              Simple text menu
+            </p>
+            <DropdownMenu
+              trigger={<Button variant="ghost">Options</Button>}
+              items={[
+                { id: "profile", label: "View profile", onSelect: () => {} },
+                { id: "settings", label: "Settings", onSelect: () => {} },
+                { type: "separator" },
+                { id: "logout", label: "Log out", onSelect: () => {} },
+              ]}
+            />
           </div>
         </Card>
       </ShowcaseSection>

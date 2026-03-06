@@ -12,6 +12,10 @@ import { StampCard } from "@/components/engagement/stamp-card";
 import { BookingTray } from "@/components/forms/booking-tray";
 import { SlotGrid } from "@/components/forms/slot-grid";
 import { RadialProgress } from "@/components/data-display/radial-progress";
+import { TierProgress } from "@/components/data-display/tier-progress";
+import { AppointmentCard } from "@/components/data-display/appointment-card";
+import { PlanCard } from "@/components/data-display/plan-card";
+import { ProfileSummary } from "@/components/data-display/profile-summary";
 import { skinConfig } from "@/skin/config";
 
 /* ── Mock data ───────────────────────────────────────── */
@@ -250,6 +254,180 @@ export default function ClientPortalPage() {
             </Button>
           </div>
         </Card>
+      </ShowcaseSection>
+
+      {/* ── Chat Interface (moved to /chat) ── */}
+      <ShowcaseSection title="Chat Interface" className="mb-16">
+        <Card className="p-6">
+          <div className="stagger-child">
+            <p className="text-sm text-text-secondary mb-3">
+              Full-height chat interface demo has moved to a dedicated page.
+            </p>
+            <a
+              href="/chat"
+              className="inline-flex items-center gap-1.5 text-sm font-medium transition-colors hover:opacity-80"
+              style={{ color: "var(--primary)" }}
+            >
+              View Chat showcase
+              <svg width="16" height="16" viewBox="0 0 16 16" fill="none">
+                <path d="M6 4l4 4-4 4" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" />
+              </svg>
+            </a>
+          </div>
+        </Card>
+      </ShowcaseSection>
+
+      {/* ── Tier Progress ── */}
+      <ShowcaseSection title="Tier Progress" className="mb-16">
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+          <div className="stagger-child space-y-4">
+            <TierProgress
+              currentTier="bronze"
+              nextTier="silver"
+              currentPoints={450}
+              targetPoints={1000}
+            />
+            <TierProgress
+              currentTier="silver"
+              nextTier="gold"
+              currentPoints={780}
+              targetPoints={1000}
+            />
+            <TierProgress
+              currentTier="gold"
+              nextTier="black"
+              currentPoints={2400}
+              targetPoints={5000}
+            />
+            <TierProgress
+              currentTier="black"
+              nextTier="black"
+              currentPoints={5000}
+              targetPoints={5000}
+            />
+          </div>
+          <div className="stagger-child">
+            <p className="text-xs text-text-tertiary">
+              Horizontal progress bar between two tier badges. Fill uses a gradient from the current
+              tier color to the next tier color. Points label centered below. Max tier shows full
+              bar with single color.
+            </p>
+          </div>
+        </div>
+      </ShowcaseSection>
+
+      {/* ── Appointment Cards ── */}
+      <ShowcaseSection title="Appointment Cards" className="mb-16">
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
+          <div className="stagger-child">
+            <AppointmentCard
+              serviceName="Hot Stone Massage"
+              staffName="with Sarah Mitchell"
+              dateTime="Mar 12, 2026 · 2:30 PM"
+              status="upcoming"
+              onReschedule={() => {}}
+              onCancel={() => {}}
+            />
+          </div>
+          <div className="stagger-child">
+            <AppointmentCard
+              serviceName="Classic Facial"
+              staffName="with James Chen"
+              dateTime="Feb 28, 2026 · 11:00 AM"
+              status="completed"
+            />
+          </div>
+          <div className="stagger-child">
+            <AppointmentCard
+              serviceName="Gel Manicure"
+              staffName="with Priya Sharma"
+              dateTime="Feb 20, 2026 · 4:00 PM"
+              status="cancelled"
+            />
+          </div>
+        </div>
+        <p className="text-xs text-text-tertiary mt-4">
+          Appointment cards with service name, staff, date/time, and status badge. Upcoming cards
+          show action buttons. Completed shows a checkmark. Cancelled is muted with strikethrough.
+        </p>
+      </ShowcaseSection>
+
+      {/* ── Membership Plans ── */}
+      <ShowcaseSection title="Membership Plans" className="mb-16">
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
+          <div className="stagger-child">
+            <PlanCard
+              name="Essential"
+              price="$29"
+              interval="mo"
+              features={[
+                { label: "1 treatment per month", included: true },
+                { label: "10% product discount", included: true },
+                { label: "Online booking", included: true },
+                { label: "Priority scheduling", included: false },
+                { label: "Guest passes", included: false },
+              ]}
+            />
+          </div>
+          <div className="stagger-child">
+            <PlanCard
+              name="Premium"
+              price="$59"
+              interval="mo"
+              popular
+              features={[
+                { label: "3 treatments per month", included: true },
+                { label: "20% product discount", included: true },
+                { label: "Online booking", included: true },
+                { label: "Priority scheduling", included: true },
+                { label: "Guest passes", included: false },
+              ]}
+            />
+          </div>
+          <div className="stagger-child">
+            <PlanCard
+              name="Black"
+              price="$99"
+              interval="mo"
+              features={[
+                { label: "Unlimited treatments", included: true },
+                { label: "30% product discount", included: true },
+                { label: "Online booking", included: true },
+                { label: "Priority scheduling", included: true },
+                { label: "2 guest passes per month", included: true },
+              ]}
+            />
+          </div>
+        </div>
+        <p className="text-xs text-text-tertiary mt-4">
+          Three-column plan comparison. Popular variant highlights with accent ring and &ldquo;Most Popular&rdquo; badge.
+          Feature checklist with green checkmarks for included items.
+        </p>
+      </ShowcaseSection>
+
+      {/* ── Profile Summary ── */}
+      <ShowcaseSection title="Profile Summary" className="mb-16">
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+          <div className="stagger-child">
+            <ProfileSummary
+              name="Emma Wellington"
+              initials="EW"
+              tier={activeTier}
+              stats={[
+                { label: "Visits", value: "47" },
+                { label: "Total Spend", value: "$3,240" },
+                { label: "Member Since", value: "Jan 2024" },
+              ]}
+              onEdit={() => {}}
+            />
+          </div>
+          <div className="stagger-child">
+            <p className="text-xs text-text-tertiary">
+              Compact profile card with avatar, name, tier badge, key stats row, and edit icon button.
+              Avatar displays tier-colored ring. Stats use tabular-nums for alignment.
+            </p>
+          </div>
+        </div>
       </ShowcaseSection>
 
       {/* Booking tray modal */}
