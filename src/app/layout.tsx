@@ -8,8 +8,8 @@ import "@/styles/globals.css";
 import "@/skin/skin.css";
 
 export const metadata: Metadata = {
-  title: "Spa UI Moodboard",
-  description: "Design system showcase for the spa-ai-platform component library",
+  title: "Beauty Apps UI",
+  description: "Open-source UI component library for beauty & wellness apps. Built by Douro.",
 };
 
 /**

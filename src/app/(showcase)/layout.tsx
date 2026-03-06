@@ -172,7 +172,7 @@ export default function ShowcaseLayout({
         <div className="flex flex-col h-full">
           <div className="p-4 border-b border-border">
             <span className="font-display text-lg font-bold text-gradient text-gradient-primary">
-              Spa UI
+              Beauty Apps UI
             </span>
           </div>
 
@@ -203,6 +203,30 @@ export default function ShowcaseLayout({
               <option value="spring">Spring</option>
               <option value="holiday">Holiday</option>
             </select>
+          </div>
+
+          {/* Douro Digital agency promo */}
+          <div className="px-4 py-4 border-t border-border">
+            <a
+              href="https://wearedouro.agency"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="group block rounded-xl px-4 py-4 bg-surface-sunken hover:bg-surface-interactive transition-colors"
+              style={{ transitionDuration: "var(--duration-normal)" }}
+            >
+              <p className="font-display text-sm font-bold text-text-primary group-hover:text-primary transition-colors" style={{ transitionDuration: "var(--duration-normal)" }}>
+                Built by Douro Digital
+              </p>
+              <p className="mt-1.5 text-xs leading-relaxed text-text-secondary">
+                Revenue systems that pick up the phone, book the call, and make you money while you sleep.
+              </p>
+              <span className="mt-3 inline-flex items-center gap-1.5 text-xs font-semibold text-primary group-hover:gap-2.5 transition-all" style={{ transitionDuration: "var(--duration-normal)" }}>
+                Learn more
+                <svg width="14" height="14" viewBox="0 0 14 14" fill="none" aria-hidden="true">
+                  <path d="M5 3l4 4-4 4" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" />
+                </svg>
+              </span>
+            </a>
           </div>
 
           {/* Theme toggle — admin only (luxury beauty = light mode for client-facing pages) */}

@@ -30,10 +30,10 @@ interface Bubble {
 }
 
 const DEFAULT_COLORS = [
-  "oklch(0.82 0.06 72 / 0.4)",
-  "oklch(0.70 0.08 18 / 0.35)",
-  "oklch(0.62 0.06 148 / 0.3)",
-  "oklch(0.88 0.04 72 / 0.35)",
+  "oklch(0.82 0.06 72 / 0.55)",
+  "oklch(0.70 0.08 18 / 0.5)",
+  "oklch(0.62 0.06 148 / 0.45)",
+  "oklch(0.88 0.04 72 / 0.5)",
 ];
 
 let nextBubbleId = 0;
