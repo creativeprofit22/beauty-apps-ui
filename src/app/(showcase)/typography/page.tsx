@@ -3,6 +3,8 @@
 import { PageHeader } from "@/components/layout/page-header";
 import { ShowcaseSection } from "@/components/layout/showcase-section";
 import { Card } from "@/components/primitives/card";
+import { useLocale } from "@/lib/i18n";
+import { typographyStrings as s } from "@/lib/strings/typography";
 
 /* ── Type scale data ── */
 
@@ -30,22 +32,24 @@ const metricScale = [
 /* ── Page ── */
 
 export default function TypographyPage() {
+  const { t } = useLocale();
+
   return (
     <>
       <PageHeader
-        title="Typography"
-        subtitle="Font specimens, type scale ladder, metric displays, gradient text, and tabular numerals."
+        title={t(s.title)}
+        subtitle={t(s.subtitle)}
       />
 
       {/* ── Font Specimens ── */}
-      <ShowcaseSection title="Font Families" className="mb-16">
+      <ShowcaseSection title={t(s.sectionFontFamilies)} className="mb-16">
         <div className="grid grid-cols-1 lg:grid-cols-3 gap-6">
           {/* Display font */}
           <Card className="p-6">
             <div className="stagger-child space-y-4">
               <div>
                 <p className="text-xs font-medium uppercase tracking-wider text-text-tertiary mb-1">
-                  Display
+                  {t(s.labelDisplay)}
                 </p>
                 <p className="font-data text-xs text-text-tertiary">
                   DM Serif Display
@@ -58,7 +62,7 @@ export default function TypographyPage() {
                 Aa Bb Cc
               </p>
               <p className="font-display text-lg">
-                The quick brown fox jumps over the lazy dog
+                {t(s.specimenPangram)}
               </p>
               <p className="font-display text-base text-text-secondary">
                 ABCDEFGHIJKLMNOPQRSTUVWXYZ
@@ -68,7 +72,7 @@ export default function TypographyPage() {
                 0123456789 !@#$%
               </p>
               <p className="text-xs text-text-tertiary">
-                Used for headings, titles, display text
+                {t(s.usedForDisplay)}
               </p>
             </div>
           </Card>
@@ -78,7 +82,7 @@ export default function TypographyPage() {
             <div className="stagger-child space-y-4">
               <div>
                 <p className="text-xs font-medium uppercase tracking-wider text-text-tertiary mb-1">
-                  Body
+                  {t(s.labelBody)}
                 </p>
                 <p className="font-data text-xs text-text-tertiary">DM Sans</p>
               </div>
@@ -89,7 +93,7 @@ export default function TypographyPage() {
                 Aa Bb Cc
               </p>
               <p className="font-body text-lg">
-                The quick brown fox jumps over the lazy dog
+                {t(s.specimenPangram)}
               </p>
               <p className="font-body text-base text-text-secondary">
                 ABCDEFGHIJKLMNOPQRSTUVWXYZ
@@ -99,7 +103,7 @@ export default function TypographyPage() {
                 0123456789 !@#$%
               </p>
               <p className="text-xs text-text-tertiary">
-                Used for body text, labels, descriptions
+                {t(s.usedForBody)}
               </p>
             </div>
           </Card>
@@ -109,7 +113,7 @@ export default function TypographyPage() {
             <div className="stagger-child space-y-4">
               <div>
                 <p className="text-xs font-medium uppercase tracking-wider text-text-tertiary mb-1">
-                  Data
+                  {t(s.labelData)}
                 </p>
                 <p className="font-data text-xs text-text-tertiary">
                   Fira Code
@@ -125,7 +129,7 @@ export default function TypographyPage() {
                 Aa Bb Cc
               </p>
               <p className="font-data text-lg">
-                The quick brown fox jumps over the lazy dog
+                {t(s.specimenPangram)}
               </p>
               <p className="font-data text-base text-text-secondary">
                 ABCDEFGHIJKLMNOPQRSTUVWXYZ
@@ -135,7 +139,7 @@ export default function TypographyPage() {
                 0123456789 !@#$%
               </p>
               <p className="text-xs text-text-tertiary">
-                Used for metrics, data tables, codes
+                {t(s.usedForData)}
               </p>
             </div>
           </Card>
@@ -143,7 +147,7 @@ export default function TypographyPage() {
       </ShowcaseSection>
 
       {/* ── Type Scale Ladder ── */}
-      <ShowcaseSection title="Type Scale (Minor Third — 1.200)" className="mb-16">
+      <ShowcaseSection title={t(s.sectionTypeScale)} className="mb-16">
         <Card className="p-6 overflow-x-auto">
           <div className="space-y-4">
             {typeScale.map((step) => (
@@ -158,7 +162,7 @@ export default function TypographyPage() {
                   className="font-display font-semibold text-text-primary min-w-0"
                   style={{ fontSize: step.size }}
                 >
-                  Design Tokens
+                  {t(s.designTokens)}
                 </span>
                 <span className="font-data text-xs text-text-tertiary whitespace-nowrap shrink-0">
                   {step.size} ({step.px})
@@ -170,7 +174,7 @@ export default function TypographyPage() {
       </ShowcaseSection>
 
       {/* ── Metric Display Scale ── */}
-      <ShowcaseSection title="Metric Display Scale" className="mb-16">
+      <ShowcaseSection title={t(s.sectionMetricScale)} className="mb-16">
         <Card className="p-6">
           <div className="grid grid-cols-2 lg:grid-cols-4 gap-6">
             {metricScale.map((step) => (
@@ -195,23 +199,23 @@ export default function TypographyPage() {
       </ShowcaseSection>
 
       {/* ── Gradient Text ── */}
-      <ShowcaseSection title="Gradient Text" className="mb-16">
+      <ShowcaseSection title={t(s.sectionGradientText)} className="mb-16">
         <Card className="p-6">
           <div className="space-y-6">
             <div className="stagger-child">
               <p className="text-xs font-medium uppercase tracking-wider text-text-tertiary mb-2">
-                Primary Gradient
+                {t(s.primaryGradient)}
               </p>
               <p className="font-display text-4xl font-bold text-gradient text-gradient-primary">
-                Beautiful Typography
+                {t(s.beautifulTypography)}
               </p>
             </div>
             <div className="stagger-child">
               <p className="text-xs font-medium uppercase tracking-wider text-text-tertiary mb-2">
-                Warm Gradient
+                {t(s.warmGradient)}
               </p>
               <p className="font-display text-4xl font-bold text-gradient text-gradient-warm">
-                Warm Luxury Feel
+                {t(s.warmLuxuryFeel)}
               </p>
             </div>
           </div>
@@ -219,16 +223,16 @@ export default function TypographyPage() {
       </ShowcaseSection>
 
       {/* ── Tabular Nums Demo ── */}
-      <ShowcaseSection title="Tabular Numerals" className="mb-16">
+      <ShowcaseSection title={t(s.sectionTabularNumerals)} className="mb-16">
         <Card className="p-6">
           <div className="stagger-child">
             <p className="text-xs font-medium uppercase tracking-wider text-text-tertiary mb-4">
-              Proportional vs Tabular — numbers align vertically with tabular-nums
+              {t(s.tabularDescription)}
             </p>
             <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
               <div>
                 <p className="text-sm font-medium text-text-secondary mb-2">
-                  Proportional (default)
+                  {t(s.proportionalDefault)}
                 </p>
                 <div className="font-body text-2xl text-text-primary space-y-1">
                   <p>1,111,111</p>
@@ -239,7 +243,7 @@ export default function TypographyPage() {
               </div>
               <div>
                 <p className="text-sm font-medium text-text-secondary mb-2">
-                  Tabular (font-data)
+                  {t(s.tabularFontData)}
                 </p>
                 <div
                   className="font-data text-2xl text-text-primary space-y-1"

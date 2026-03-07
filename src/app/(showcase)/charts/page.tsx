@@ -6,21 +6,25 @@ import { Card } from "@/components/primitives/card";
 import { LineChart } from "@/components/data-display/line-chart";
 import { BarChart } from "@/components/data-display/bar-chart";
 import { DonutChart } from "@/components/data-display/donut-chart";
+import { useLocale } from "@/lib/i18n";
+import { chartsStrings as s } from "@/lib/strings/charts";
 
 export default function ChartsPage() {
+  const { t } = useLocale();
+
   return (
     <>
       <PageHeader
-        title="Charts"
-        subtitle="Line, bar, and donut chart components with multiple datasets — revenue trends, service popularity, and tier distribution."
+        title={t(s.title)}
+        subtitle={t(s.subtitle)}
       />
 
       {/* ── Revenue Trend (Line Chart) ── */}
-      <ShowcaseSection title="Revenue Trend (Line Chart)" className="mb-16">
+      <ShowcaseSection title={t(s.sectionRevenueTrend)} className="mb-16">
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
           <Card className="p-6">
             <p className="text-xs font-medium uppercase tracking-wider text-text-tertiary mb-4">
-              Monthly Revenue — 2026
+              {t(s.monthlyRevenue)}
             </p>
             <div className="stagger-child">
               <LineChart
@@ -39,7 +43,7 @@ export default function ChartsPage() {
           </Card>
           <Card className="p-6">
             <p className="text-xs font-medium uppercase tracking-wider text-text-tertiary mb-4">
-              New Client Sign-ups
+              {t(s.newClientSignups)}
             </p>
             <div className="stagger-child">
               <LineChart
@@ -58,111 +62,109 @@ export default function ChartsPage() {
           </Card>
         </div>
         <p className="text-xs text-text-tertiary mt-4">
-          SVG-based line chart with animated path drawing, dot hover tooltips, and responsive width.
-          Accepts any CSS color variable for theming.
+          {t(s.lineChartDesc)}
         </p>
       </ShowcaseSection>
 
       {/* ── Services by Volume (Bar Chart) ── */}
-      <ShowcaseSection title="Services by Volume (Bar Chart)" className="mb-16">
+      <ShowcaseSection title={t(s.sectionServicesByVolume)} className="mb-16">
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
           <Card className="p-6">
             <p className="text-xs font-medium uppercase tracking-wider text-text-tertiary mb-4">
-              Treatment Popularity
+              {t(s.treatmentPopularity)}
             </p>
             <div className="stagger-child">
               <BarChart
                 data={[
-                  { label: "Massage", value: 142 },
-                  { label: "Facial", value: 98 },
-                  { label: "Mani", value: 76 },
-                  { label: "Pedi", value: 64 },
-                  { label: "Aroma", value: 53 },
-                  { label: "Lash", value: 41 },
+                  { label: t(s.labelMassage), value: 142 },
+                  { label: t(s.labelFacial), value: 98 },
+                  { label: t(s.labelMani), value: 76 },
+                  { label: t(s.labelPedi), value: 64 },
+                  { label: t(s.labelAroma), value: 53 },
+                  { label: t(s.labelLash), value: 41 },
                 ]}
               />
             </div>
           </Card>
           <Card className="p-6">
             <p className="text-xs font-medium uppercase tracking-wider text-text-tertiary mb-4">
-              Revenue by Service
+              {t(s.revenueByService)}
             </p>
             <div className="stagger-child">
               <BarChart
                 data={[
-                  { label: "Massage", value: 17040 },
-                  { label: "Facial", value: 8330 },
-                  { label: "Mani", value: 3420 },
-                  { label: "Pedi", value: 4160 },
-                  { label: "Aroma", value: 5830 },
-                  { label: "Lash", value: 2870 },
+                  { label: t(s.labelMassage), value: 17040 },
+                  { label: t(s.labelFacial), value: 8330 },
+                  { label: t(s.labelMani), value: 3420 },
+                  { label: t(s.labelPedi), value: 4160 },
+                  { label: t(s.labelAroma), value: 5830 },
+                  { label: t(s.labelLash), value: 2870 },
                 ]}
               />
             </div>
           </Card>
         </div>
         <p className="text-xs text-text-tertiary mt-4">
-          SVG bar chart with animated height transitions, hover highlight, and value labels.
+          {t(s.barChartDesc)}
         </p>
       </ShowcaseSection>
 
       {/* ── Tier Distribution (Donut Chart) ── */}
-      <ShowcaseSection title="Loyalty Tier Distribution (Donut Chart)" className="mb-16">
+      <ShowcaseSection title={t(s.sectionTierDistribution)} className="mb-16">
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
           <Card className="p-6 flex justify-center">
             <div className="stagger-child text-center">
               <p className="text-xs font-medium uppercase tracking-wider text-text-tertiary mb-4">
-                Membership Tiers
+                {t(s.membershipTiers)}
               </p>
               <DonutChart
                 data={[
-                  { label: "Bronze", value: 420, color: "var(--tier-bronze)" },
-                  { label: "Silver", value: 280, color: "var(--tier-silver)" },
-                  { label: "Gold", value: 150, color: "var(--tier-gold)" },
-                  { label: "Black", value: 45, color: "var(--tier-black)" },
+                  { label: t(s.labelBronze), value: 420, color: "var(--tier-bronze)" },
+                  { label: t(s.labelSilver), value: 280, color: "var(--tier-silver)" },
+                  { label: t(s.labelGold), value: 150, color: "var(--tier-gold)" },
+                  { label: t(s.labelBlack), value: 45, color: "var(--tier-black)" },
                 ]}
                 centerLabel="895"
-                centerSub="members"
+                centerSub={t(s.members)}
               />
             </div>
           </Card>
           <Card className="p-6 flex justify-center">
             <div className="stagger-child text-center">
               <p className="text-xs font-medium uppercase tracking-wider text-text-tertiary mb-4">
-                Service Category Split
+                {t(s.serviceCategorySplit)}
               </p>
               <DonutChart
                 data={[
-                  { label: "Body", value: 195 },
-                  { label: "Face", value: 139 },
-                  { label: "Nails", value: 140 },
-                  { label: "Lash & Brow", value: 41 },
+                  { label: t(s.labelBody), value: 195 },
+                  { label: t(s.labelFace), value: 139 },
+                  { label: t(s.labelNails), value: 140 },
+                  { label: t(s.labelLashBrow), value: 41 },
                 ]}
                 centerLabel="515"
-                centerSub="bookings"
+                centerSub={t(s.bookings)}
               />
             </div>
           </Card>
           <Card className="p-6 flex justify-center">
             <div className="stagger-child text-center">
               <p className="text-xs font-medium uppercase tracking-wider text-text-tertiary mb-4">
-                Revenue Sources
+                {t(s.revenueSources)}
               </p>
               <DonutChart
                 data={[
-                  { label: "Treatments", value: 68 },
-                  { label: "Products", value: 18 },
-                  { label: "Memberships", value: 14 },
+                  { label: t(s.labelTreatments), value: 68 },
+                  { label: t(s.labelProducts), value: 18 },
+                  { label: t(s.labelMemberships), value: 14 },
                 ]}
                 centerLabel="$41k"
-                centerSub="total"
+                centerSub={t(s.total)}
               />
             </div>
           </Card>
         </div>
         <p className="text-xs text-text-tertiary mt-4">
-          SVG donut chart with animated segment drawing, hover expansion, center label, and legend.
-          Supports custom segment colors or falls back to theme palette.
+          {t(s.donutChartDesc)}
         </p>
       </ShowcaseSection>
     </>

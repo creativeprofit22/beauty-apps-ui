@@ -1,6 +1,8 @@
 "use client";
 
 import { useState } from "react";
+import { useLocale, glossary } from "@/lib/i18n";
+import { adminStrings as s } from "@/lib/strings/admin";
 import { PageHeader } from "@/components/layout/page-header";
 import { ShowcaseSection } from "@/components/layout/showcase-section";
 import { Card } from "@/components/primitives/card";
@@ -23,72 +25,6 @@ import { Calendar } from "@/components/data-display/calendar";
 import { ActivityFeed } from "@/components/data-display/activity-feed";
 import { AuditRow } from "@/components/data-display/audit-row";
 import type { NavItemData } from "@/components/navigation/nav-item";
-
-/* ── Mock admin nav ──────────────────────────────────── */
-
-const adminNavItems: NavItemData[] = [
-  {
-    id: "dashboard",
-    label: "Dashboard",
-    icon: (
-      <svg width="20" height="20" viewBox="0 0 20 20" fill="none">
-        <rect x="3" y="3" width="6" height="6" rx="1.5" stroke="currentColor" strokeWidth="1.5" />
-        <rect x="11" y="3" width="6" height="6" rx="1.5" stroke="currentColor" strokeWidth="1.5" />
-        <rect x="3" y="11" width="6" height="6" rx="1.5" stroke="currentColor" strokeWidth="1.5" />
-        <rect x="11" y="11" width="6" height="6" rx="1.5" stroke="currentColor" strokeWidth="1.5" />
-      </svg>
-    ),
-  },
-  {
-    id: "appointments",
-    label: "Appointments",
-    icon: (
-      <svg width="20" height="20" viewBox="0 0 20 20" fill="none">
-        <rect x="3" y="4" width="14" height="13" rx="2" stroke="currentColor" strokeWidth="1.5" />
-        <path d="M3 8h14M7 4V2M13 4V2" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" />
-      </svg>
-    ),
-  },
-  {
-    id: "clients",
-    label: "Clients",
-    icon: (
-      <svg width="20" height="20" viewBox="0 0 20 20" fill="none">
-        <circle cx="10" cy="7" r="3" stroke="currentColor" strokeWidth="1.5" />
-        <path d="M4 17c0-3.3 2.7-6 6-6s6 2.7 6 6" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" />
-      </svg>
-    ),
-  },
-  {
-    id: "services",
-    label: "Services",
-    icon: (
-      <svg width="20" height="20" viewBox="0 0 20 20" fill="none">
-        <path d="M10 2l7 4v8l-7 4-7-4V6l7-4z" stroke="currentColor" strokeWidth="1.5" strokeLinejoin="round" />
-        <path d="M10 10l7-4M10 10v8M10 10L3 6" stroke="currentColor" strokeWidth="1.5" />
-      </svg>
-    ),
-  },
-  {
-    id: "rewards",
-    label: "Rewards",
-    icon: (
-      <svg width="20" height="20" viewBox="0 0 20 20" fill="none">
-        <path d="M10 2l2.5 5 5.5.8-4 3.9.9 5.3L10 14.5 5.1 17l.9-5.3-4-3.9 5.5-.8L10 2z" stroke="currentColor" strokeWidth="1.5" strokeLinejoin="round" />
-      </svg>
-    ),
-  },
-  {
-    id: "settings",
-    label: "Settings",
-    icon: (
-      <svg width="20" height="20" viewBox="0 0 20 20" fill="none">
-        <circle cx="10" cy="10" r="2.5" stroke="currentColor" strokeWidth="1.5" />
-        <path d="M10 2v2M10 16v2M2 10h2M16 10h2M4.2 4.2l1.4 1.4M14.4 14.4l1.4 1.4M15.8 4.2l-1.4 1.4M5.6 14.4l-1.4 1.4" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" />
-      </svg>
-    ),
-  },
-];
 
 /* ── Mock table data ─────────────────────────────────── */
 
@@ -119,37 +55,53 @@ const statusBadgeVariant: Record<AppointmentRow["status"], "success" | "warning"
   completed: "info",
 };
 
-const appointmentColumns = [
-  { key: "client", header: "Client", mobileLabel: "Client" },
-  { key: "service", header: "Service", mobileLabel: "Service" },
-  { key: "time", header: "Time", mobileLabel: "Time" },
-  {
-    key: "status",
-    header: "Status",
-    mobileLabel: "Status",
-    render: (row: AppointmentRow) => (
-      <Badge variant={statusBadgeVariant[row.status]}>
-        {row.status.charAt(0).toUpperCase() + row.status.slice(1)}
-      </Badge>
-    ),
-  },
-  {
-    key: "revenue",
-    header: "Revenue",
-    numeric: true,
-    mobileLabel: "Revenue",
-  },
-  {
-    key: "trend",
-    header: "Trend",
-    mobileLabel: "Trend",
-    render: (row: AppointmentRow) => <SparkBar percent={row.trend} />,
-  },
-];
+/* ── Sidebar icons ─────────────────────────────────── */
+
+const navIcons = {
+  dashboard: (
+    <svg width="20" height="20" viewBox="0 0 20 20" fill="none">
+      <rect x="3" y="3" width="6" height="6" rx="1.5" stroke="currentColor" strokeWidth="1.5" />
+      <rect x="11" y="3" width="6" height="6" rx="1.5" stroke="currentColor" strokeWidth="1.5" />
+      <rect x="3" y="11" width="6" height="6" rx="1.5" stroke="currentColor" strokeWidth="1.5" />
+      <rect x="11" y="11" width="6" height="6" rx="1.5" stroke="currentColor" strokeWidth="1.5" />
+    </svg>
+  ),
+  appointments: (
+    <svg width="20" height="20" viewBox="0 0 20 20" fill="none">
+      <rect x="3" y="4" width="14" height="13" rx="2" stroke="currentColor" strokeWidth="1.5" />
+      <path d="M3 8h14M7 4V2M13 4V2" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" />
+    </svg>
+  ),
+  clients: (
+    <svg width="20" height="20" viewBox="0 0 20 20" fill="none">
+      <circle cx="10" cy="7" r="3" stroke="currentColor" strokeWidth="1.5" />
+      <path d="M4 17c0-3.3 2.7-6 6-6s6 2.7 6 6" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" />
+    </svg>
+  ),
+  services: (
+    <svg width="20" height="20" viewBox="0 0 20 20" fill="none">
+      <path d="M10 2l7 4v8l-7 4-7-4V6l7-4z" stroke="currentColor" strokeWidth="1.5" strokeLinejoin="round" />
+      <path d="M10 10l7-4M10 10v8M10 10L3 6" stroke="currentColor" strokeWidth="1.5" />
+    </svg>
+  ),
+  rewards: (
+    <svg width="20" height="20" viewBox="0 0 20 20" fill="none">
+      <path d="M10 2l2.5 5 5.5.8-4 3.9.9 5.3L10 14.5 5.1 17l.9-5.3-4-3.9 5.5-.8L10 2z" stroke="currentColor" strokeWidth="1.5" strokeLinejoin="round" />
+    </svg>
+  ),
+  settings: (
+    <svg width="20" height="20" viewBox="0 0 20 20" fill="none">
+      <circle cx="10" cy="10" r="2.5" stroke="currentColor" strokeWidth="1.5" />
+      <path d="M10 2v2M10 16v2M2 10h2M16 10h2M4.2 4.2l1.4 1.4M14.4 14.4l1.4 1.4M15.8 4.2l-1.4 1.4M5.6 14.4l-1.4 1.4" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" />
+    </svg>
+  ),
+};
 
 /* ── Page ──────────────────────────────────────────── */
 
 export default function AdminPage() {
+  const { t } = useLocale();
+
   const [sidebarActiveId, setSidebarActiveId] = useState("dashboard");
   const [sidebarCollapsed, setSidebarCollapsed] = useState(false);
   const [dialogOpen, setDialogOpen] = useState(false);
@@ -171,32 +123,64 @@ export default function AdminPage() {
     setToast({ open: true, type, title, detail });
   };
 
+  const adminNavItems: NavItemData[] = [
+    { id: "dashboard", label: t(s.navDashboard), icon: navIcons.dashboard },
+    { id: "appointments", label: t(s.navAppointments), icon: navIcons.appointments },
+    { id: "clients", label: t(s.navClients), icon: navIcons.clients },
+    { id: "services", label: t(s.navServices), icon: navIcons.services },
+    { id: "rewards", label: t(s.navRewards), icon: navIcons.rewards },
+    { id: "settings", label: t(s.navSettings), icon: navIcons.settings },
+  ];
+
+  const appointmentColumns = [
+    { key: "client", header: t(s.colClient), mobileLabel: t(s.colClient) },
+    { key: "service", header: t(s.colService), mobileLabel: t(s.colService) },
+    { key: "time", header: t(s.colTime), mobileLabel: t(s.colTime) },
+    {
+      key: "status",
+      header: t(s.colStatus),
+      mobileLabel: t(s.colStatus),
+      render: (row: AppointmentRow) => (
+        <Badge variant={statusBadgeVariant[row.status]}>
+          {t(glossary.statuses[row.status])}
+        </Badge>
+      ),
+    },
+    {
+      key: "revenue",
+      header: t(s.colRevenue),
+      numeric: true,
+      mobileLabel: t(s.colRevenue),
+    },
+    {
+      key: "trend",
+      header: t(s.colTrend),
+      mobileLabel: t(s.colTrend),
+      render: (row: AppointmentRow) => <SparkBar percent={row.trend} />,
+    },
+  ];
+
   return (
     <>
       <PageHeader
-        title="Admin"
-        subtitle="Dashboard stat cards, sidebar navigation, data tables, and toast notifications — the back-office experience."
+        title={t(s.title)}
+        subtitle={t(s.subtitle)}
       />
 
       {/* ── Stat Cards Grid ── */}
-      <ShowcaseSection title="Dashboard Stats" className="mb-16">
+      <ShowcaseSection title={t(s.sectionDashboardStats)} className="mb-16">
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
           <div className="stagger-child">
             <StatCard
-              label="Today's Bookings"
+              label={t(s.statTodaysBookings)}
               value="24"
               progress={75}
-              icon={
-                <svg width="20" height="20" viewBox="0 0 20 20" fill="none">
-                  <rect x="3" y="4" width="14" height="13" rx="2" stroke="currentColor" strokeWidth="1.5" />
-                  <path d="M3 8h14M7 4V2M13 4V2" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" />
-                </svg>
-              }
+              icon={navIcons.appointments}
             />
           </div>
           <div className="stagger-child">
             <StatCard
-              label="Revenue"
+              label={t(s.statRevenue)}
               value="$2,840"
               progress={62}
               icon={
@@ -208,48 +192,39 @@ export default function AdminPage() {
           </div>
           <div className="stagger-child">
             <StatCard
-              label="New Clients"
+              label={t(s.statNewClients)}
               value="7"
               progress={35}
-              icon={
-                <svg width="20" height="20" viewBox="0 0 20 20" fill="none">
-                  <circle cx="10" cy="7" r="3" stroke="currentColor" strokeWidth="1.5" />
-                  <path d="M4 17c0-3.3 2.7-6 6-6s6 2.7 6 6" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" />
-                </svg>
-              }
+              icon={navIcons.clients}
             />
           </div>
           <div className="stagger-child">
             <StatCard
-              label="Loyalty Points Earned"
+              label={t(s.statLoyaltyPoints)}
               value="1,250"
               progress={88}
-              icon={
-                <svg width="20" height="20" viewBox="0 0 20 20" fill="none">
-                  <path d="M10 2l2.5 5 5.5.8-4 3.9.9 5.3L10 14.5 5.1 17l.9-5.3-4-3.9 5.5-.8L10 2z" stroke="currentColor" strokeWidth="1.5" strokeLinejoin="round" />
-                </svg>
-              }
+              icon={navIcons.rewards}
             />
           </div>
         </div>
       </ShowcaseSection>
 
       {/* ── Sidebar Preview ── */}
-      <ShowcaseSection title="Sidebar Navigation" className="mb-16">
+      <ShowcaseSection title={t(s.sectionSidebarNav)} className="mb-16">
         <div className="stagger-child flex items-start gap-4 mb-4">
           <Button
             size="sm"
             variant={sidebarCollapsed ? "primary" : "secondary"}
             onClick={() => setSidebarCollapsed(false)}
           >
-            Expanded
+            {t(s.expanded)}
           </Button>
           <Button
             size="sm"
             variant={sidebarCollapsed ? "secondary" : "primary"}
             onClick={() => setSidebarCollapsed(true)}
           >
-            Collapsed
+            {t(s.collapsed)}
           </Button>
         </div>
         <Card className="p-0 overflow-hidden">
@@ -267,13 +242,13 @@ export default function AdminPage() {
             </div>
             <div className="flex-1 min-w-0 p-6">
               <p className="text-sm text-text-secondary">
-                Active:{" "}
+                {t(s.activePrefix)}
                 <span className="font-medium text-text-primary">
                   {adminNavItems.find((n) => n.id === sidebarActiveId)?.label}
                 </span>
               </p>
               <p className="text-xs text-text-tertiary mt-1">
-                Click sidebar items to navigate. Toggle collapsed mode for icon-only view.
+                {t(s.sidebarHint)}
               </p>
             </div>
           </div>
@@ -281,21 +256,21 @@ export default function AdminPage() {
       </ShowcaseSection>
 
       {/* ── Search & Filter ── */}
-      <ShowcaseSection title="Search &amp; Filter" className="mb-16">
+      <ShowcaseSection title={t(s.sectionSearchFilter)} className="mb-16">
         <Card className="p-6">
           <div className="stagger-child space-y-4">
             <p className="text-sm text-text-secondary">
-              Search bar with debounced callback and clear button. Filter pills in single-select and multi-select modes.
+              {t(s.searchFilterDesc)}
             </p>
-            <SearchBar placeholder="Search appointments\u2026" />
+            <SearchBar placeholder={t(s.searchPlaceholder)} />
             <div>
-              <p className="text-xs text-text-tertiary mb-2">Single-select</p>
-              <FilterPills options={["Massage", "Facial", "Manicure", "Pedicure", "Aromatherapy"]} />
+              <p className="text-xs text-text-tertiary mb-2">{t(s.singleSelect)}</p>
+              <FilterPills options={[t(s.filterMassage), t(s.filterFacial), t(s.filterManicure), t(s.filterPedicure), t(s.filterAromatherapy)]} />
             </div>
             <div>
-              <p className="text-xs text-text-tertiary mb-2">Multi-select</p>
+              <p className="text-xs text-text-tertiary mb-2">{t(s.multiSelect)}</p>
               <FilterPills
-                options={["Confirmed", "Pending", "Completed", "Cancelled"]}
+                options={[t(glossary.statuses.confirmed), t(glossary.statuses.pending), t(glossary.statuses.completed), t(glossary.statuses.cancelled)]}
                 mode="multi"
               />
             </div>
@@ -304,7 +279,7 @@ export default function AdminPage() {
       </ShowcaseSection>
 
       {/* ── Table Ledger ── */}
-      <ShowcaseSection title="Appointments Ledger" className="mb-16">
+      <ShowcaseSection title={t(s.sectionAppointmentsLedger)} className="mb-16">
         <Card className="p-0 overflow-hidden">
           <div className="stagger-child">
             <Table<AppointmentRow>
@@ -317,11 +292,11 @@ export default function AdminPage() {
       </ShowcaseSection>
 
       {/* ── Toast Triggers ── */}
-      <ShowcaseSection title="Toast Notifications" className="mb-16">
+      <ShowcaseSection title={t(s.sectionToastNotifications)} className="mb-16">
         <Card className="p-6">
           <div className="stagger-child">
             <p className="text-sm text-text-secondary mb-4">
-              Trigger toast notifications to preview their appearance and auto-dismiss behavior.
+              {t(s.toastDesc)}
             </p>
             <div className="flex flex-wrap gap-3">
               <Button
@@ -330,12 +305,12 @@ export default function AdminPage() {
                 onClick={() =>
                   showToast(
                     "success",
-                    "Booking confirmed",
-                    "Hot Stone Massage with Emma — Today at 9:00 AM",
+                    t(s.toastBookingConfirmed),
+                    t(s.toastBookingDetail),
                   )
                 }
               >
-                Success Toast
+                {t(s.btnSuccessToast)}
               </Button>
               <Button
                 variant="secondary"
@@ -343,12 +318,12 @@ export default function AdminPage() {
                 onClick={() =>
                   showToast(
                     "warning",
-                    "Schedule conflict",
-                    "Two bookings overlap at 2:00 PM — please review",
+                    t(s.toastScheduleConflict),
+                    t(s.toastScheduleDetail),
                   )
                 }
               >
-                Warning Toast
+                {t(s.btnWarningToast)}
               </Button>
               <Button
                 variant="ghost"
@@ -356,12 +331,12 @@ export default function AdminPage() {
                 onClick={() =>
                   showToast(
                     "error",
-                    "Payment failed",
-                    "Card ending in 4242 was declined — try another method",
+                    t(s.toastPaymentFailed),
+                    t(s.toastPaymentDetail),
                   )
                 }
               >
-                Error Toast
+                {t(s.btnErrorToast)}
               </Button>
               <Button
                 variant="secondary"
@@ -369,12 +344,12 @@ export default function AdminPage() {
                 onClick={() =>
                   showToast(
                     "info",
-                    "New client signed up",
-                    "Isabella L. created an account and booked Aromatherapy",
+                    t(s.toastNewClientSignedUp),
+                    t(s.toastNewClientDetail),
                   )
                 }
               >
-                Info Toast
+                {t(s.btnInfoToast)}
               </Button>
             </div>
           </div>
@@ -382,14 +357,14 @@ export default function AdminPage() {
       </ShowcaseSection>
 
       {/* ── Dialog ── */}
-      <ShowcaseSection title="Dialog" className="mb-16">
+      <ShowcaseSection title={t(s.sectionDialog)} className="mb-16">
         <Card className="p-6">
           <div className="stagger-child">
             <p className="text-sm text-text-secondary mb-4">
-              Centered modal with backdrop blur, title/description/footer slots, escape-to-close, and focus trap.
+              {t(s.dialogDesc)}
             </p>
             <Button variant="primary" size="sm" onClick={() => setDialogOpen(true)}>
-              Open Dialog
+              {t(s.btnOpenDialog)}
             </Button>
           </div>
         </Card>
@@ -398,48 +373,48 @@ export default function AdminPage() {
       <Dialog
         open={dialogOpen}
         onClose={() => setDialogOpen(false)}
-        title="Edit Service"
-        description="Update the details for this service offering."
+        title={t(s.dialogEditServiceTitle)}
+        description={t(s.dialogEditServiceDesc)}
         footer={
           <>
             <Button variant="ghost" size="sm" onClick={() => setDialogOpen(false)}>
-              Cancel
+              {t(glossary.actions.cancel)}
             </Button>
             <Button variant="primary" size="sm" onClick={() => setDialogOpen(false)}>
-              Save Changes
+              {t(s.saveChanges)}
             </Button>
           </>
         }
       >
         <div className="space-y-3">
           <div>
-            <label className="block text-sm font-medium text-text-primary mb-1">Service Name</label>
+            <label className="block text-sm font-medium text-text-primary mb-1">{t(s.labelServiceName)}</label>
             <div className="h-10 rounded-md bg-surface-sunken ring-1 ring-border px-3 flex items-center text-sm text-text-secondary">
-              Hot Stone Massage
+              {t(s.mockHotStoneMassage)}
             </div>
           </div>
           <div>
-            <label className="block text-sm font-medium text-text-primary mb-1">Duration</label>
+            <label className="block text-sm font-medium text-text-primary mb-1">{t(s.labelDuration)}</label>
             <div className="h-10 rounded-md bg-surface-sunken ring-1 ring-border px-3 flex items-center text-sm text-text-secondary">
-              60 minutes
+              {t(s.mockDuration60)}
             </div>
           </div>
         </div>
       </Dialog>
 
       {/* ── Confirmation Dialog ── */}
-      <ShowcaseSection title="Confirmation Dialog" className="mb-16">
+      <ShowcaseSection title={t(s.sectionConfirmationDialog)} className="mb-16">
         <Card className="p-6">
           <div className="stagger-child">
             <p className="text-sm text-text-secondary mb-4">
-              Wraps Dialog with confirm/cancel buttons. Destructive variant shows red confirm button with loading state.
+              {t(s.confirmDialogDesc)}
             </p>
             <div className="flex flex-wrap gap-3">
               <Button variant="secondary" size="sm" onClick={() => setConfirmOpen(true)}>
-                Standard Confirm
+                {t(s.btnStandardConfirm)}
               </Button>
               <Button variant="ghost" size="sm" onClick={() => setConfirmDestructiveOpen(true)}>
-                Destructive Confirm
+                {t(s.btnDestructiveConfirm)}
               </Button>
             </div>
           </div>
@@ -450,9 +425,9 @@ export default function AdminPage() {
         open={confirmOpen}
         onClose={() => setConfirmOpen(false)}
         onConfirm={() => setConfirmOpen(false)}
-        title="Reschedule Appointment"
-        message="This will move Emma W.'s Hot Stone Massage from 9:00 AM to 2:00 PM. The client will be notified via email."
-        confirmLabel="Reschedule"
+        title={t(s.confirmRescheduleTitle)}
+        message={t(s.confirmRescheduleMsg)}
+        confirmLabel={t(s.confirmRescheduleLabel)}
         icon={
           <svg width="20" height="20" viewBox="0 0 20 20" fill="none">
             <rect x="3" y="4" width="14" height="13" rx="2" stroke="currentColor" strokeWidth="1.5" />
@@ -468,9 +443,9 @@ export default function AdminPage() {
           setConfirmLoading(true);
           setTimeout(() => { setConfirmDestructiveOpen(false); setConfirmLoading(false); }, 1500);
         }}
-        title="Cancel Appointment"
-        message="This will permanently cancel Ava M.'s Luxury Pedicure and issue a refund of $65. This action cannot be undone."
-        confirmLabel="Cancel Appointment"
+        title={t(s.confirmCancelTitle)}
+        message={t(s.confirmCancelMsg)}
+        confirmLabel={t(s.confirmCancelLabel)}
         destructive
         loading={confirmLoading}
         icon={
@@ -482,32 +457,32 @@ export default function AdminPage() {
       />
 
       {/* ── Calendar ── */}
-      <ShowcaseSection title="Month Calendar" className="mb-16">
+      <ShowcaseSection title={t(s.sectionMonthCalendar)} className="mb-16">
         <Card className="p-6">
           <div className="stagger-child">
             <Calendar
               appointments={[
-                { date: 2, label: "Hot Stone — Emma W.", staff: "bronze" },
-                { date: 2, label: "Facial — Sofia R.", staff: "silver" },
-                { date: 5, label: "Gel Manicure — Maya J.", staff: "gold" },
-                { date: 5, label: "Swedish — Olivia T.", staff: "bronze" },
-                { date: 5, label: "Pedicure — Ava M.", staff: "black" },
-                { date: 5, label: "Aromatherapy — Isabella L.", staff: "silver" },
-                { date: 8, label: "Deep Tissue — Emma W.", staff: "bronze" },
-                { date: 10, label: "Classic Facial — Sofia R.", staff: "silver" },
-                { date: 10, label: "Lash Lift — Maya J.", staff: "gold" },
-                { date: 12, label: "Hot Stone — Olivia T.", staff: "bronze" },
-                { date: 15, label: "Gel Manicure — Ava M.", staff: "black" },
-                { date: 15, label: "Swedish — Emma W.", staff: "bronze" },
-                { date: 18, label: "Aromatherapy — Isabella L.", staff: "silver" },
-                { date: 18, label: "Classic Facial — Sofia R.", staff: "gold" },
-                { date: 18, label: "Pedicure — Maya J.", staff: "black" },
-                { date: 18, label: "Hot Stone — Olivia T.", staff: "bronze" },
-                { date: 20, label: "Deep Tissue — Ava M.", staff: "silver" },
-                { date: 22, label: "Lash Lift — Emma W.", staff: "gold" },
-                { date: 25, label: "Swedish — Sofia R.", staff: "bronze" },
-                { date: 25, label: "Gel Manicure — Maya J.", staff: "silver" },
-                { date: 28, label: "Aromatherapy — Olivia T.", staff: "gold" },
+                { date: 2, label: t(s.calHotStoneEmma), staff: "bronze" },
+                { date: 2, label: t(s.calFacialSofia), staff: "silver" },
+                { date: 5, label: t(s.calGelManicureMaya), staff: "gold" },
+                { date: 5, label: t(s.calSwedishOlivia), staff: "bronze" },
+                { date: 5, label: t(s.calPedicureAva), staff: "black" },
+                { date: 5, label: t(s.calAromatherapyIsabella), staff: "silver" },
+                { date: 8, label: t(s.calDeepTissueEmma), staff: "bronze" },
+                { date: 10, label: t(s.calClassicFacialSofia), staff: "silver" },
+                { date: 10, label: t(s.calLashLiftMaya), staff: "gold" },
+                { date: 12, label: t(s.calHotStoneOlivia), staff: "bronze" },
+                { date: 15, label: t(s.calGelManicureAva), staff: "black" },
+                { date: 15, label: t(s.calSwedishEmma), staff: "bronze" },
+                { date: 18, label: t(s.calAromatherapyIsabella), staff: "silver" },
+                { date: 18, label: t(s.calClassicFacialSofia), staff: "gold" },
+                { date: 18, label: t(s.calPedicureMaya), staff: "black" },
+                { date: 18, label: t(s.calHotStoneOlivia), staff: "bronze" },
+                { date: 20, label: t(s.calDeepTissueAva), staff: "silver" },
+                { date: 22, label: t(s.calLashLiftEmma), staff: "gold" },
+                { date: 25, label: t(s.calSwedishSofia), staff: "bronze" },
+                { date: 25, label: t(s.calGelManicureMayaB), staff: "silver" },
+                { date: 28, label: t(s.calAromatherapyOlivia), staff: "gold" },
               ]}
             />
           </div>
@@ -515,18 +490,18 @@ export default function AdminPage() {
       </ShowcaseSection>
 
       {/* ── Charts (moved to /charts) ── */}
-      <ShowcaseSection title="Charts" className="mb-16">
+      <ShowcaseSection title={t(s.sectionCharts)} className="mb-16">
         <Card className="p-6">
           <div className="stagger-child">
             <p className="text-sm text-text-secondary mb-3">
-              Line, bar, and donut chart demos have moved to a dedicated page for better performance.
+              {t(s.chartsDesc)}
             </p>
             <a
               href="/charts"
               className="inline-flex items-center gap-1.5 text-sm font-medium transition-colors hover:opacity-80"
               style={{ color: "var(--primary)" }}
             >
-              View Charts showcase
+              {t(s.viewChartsShowcase)}
               <svg width="16" height="16" viewBox="0 0 16 16" fill="none">
                 <path d="M6 4l4 4-4 4" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" />
               </svg>
@@ -536,14 +511,14 @@ export default function AdminPage() {
       </ShowcaseSection>
 
       {/* ── Empty State ── */}
-      <ShowcaseSection title="Empty State" className="mb-16">
+      <ShowcaseSection title={t(s.sectionEmptyState)} className="mb-16">
         <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
           <Card className="p-0 overflow-hidden">
             <div className="stagger-child">
               <EmptyState
-                heading="No appointments yet"
-                description="When clients book services, their appointments will appear here."
-                action={{ label: "Create Appointment", onClick: () => {} }}
+                heading={t(s.emptyNoAppointmentsHeading)}
+                description={t(s.emptyNoAppointmentsDesc)}
+                action={{ label: t(s.emptyCreateAppointment), onClick: () => {} }}
                 icon={
                   <svg width="48" height="48" viewBox="0 0 48 48" fill="none">
                     <rect x="8" y="10" width="32" height="30" rx="4" stroke="currentColor" strokeWidth="1.5" />
@@ -557,8 +532,8 @@ export default function AdminPage() {
           <Card className="p-0 overflow-hidden">
             <div className="stagger-child">
               <EmptyState
-                heading="No reviews found"
-                description="Client reviews and ratings will be displayed in this section."
+                heading={t(s.emptyNoReviewsHeading)}
+                description={t(s.emptyNoReviewsDesc)}
                 icon={
                   <svg width="48" height="48" viewBox="0 0 48 48" fill="none">
                     <path d="M24 6l6 12 13 2-9.5 9 2.3 13L24 35.5 11.2 42l2.3-13L4 20l13-2 7-12z" stroke="currentColor" strokeWidth="1.5" strokeLinejoin="round" />
@@ -571,11 +546,11 @@ export default function AdminPage() {
       </ShowcaseSection>
 
       {/* ── Status Indicator ── */}
-      <ShowcaseSection title="Status Indicator" className="mb-16">
+      <ShowcaseSection title={t(s.sectionStatusIndicator)} className="mb-16">
         <Card className="p-6">
           <div className="stagger-child">
             <p className="text-sm text-text-secondary mb-4">
-              Inline status dots with semantic colors. The &ldquo;live&rdquo; state includes a pulse animation.
+              {t(s.statusIndicatorDesc)}
             </p>
             <div className="flex flex-wrap gap-6">
               <StatusIndicator state="live" />
@@ -589,11 +564,11 @@ export default function AdminPage() {
       </ShowcaseSection>
 
       {/* ── Integration Cards ── */}
-      <ShowcaseSection title="Integration Cards" className="mb-16">
+      <ShowcaseSection title={t(s.sectionIntegrationCards)} className="mb-16">
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
           <div className="stagger-child">
             <IntegrationCard
-              name="Stripe"
+              name={t(s.integrationStripe)}
               connected
               apiKey="sk_live_51HG3jK2eZvKYlo2C0EXAMPLE"
               icon={
@@ -605,19 +580,14 @@ export default function AdminPage() {
           </div>
           <div className="stagger-child">
             <IntegrationCard
-              name="Google Calendar"
+              name={t(s.integrationGoogleCalendar)}
               connected={false}
-              icon={
-                <svg width="20" height="20" viewBox="0 0 20 20" fill="none">
-                  <rect x="3" y="4" width="14" height="13" rx="2" stroke="currentColor" strokeWidth="1.5" />
-                  <path d="M3 8h14M7 4V2M13 4V2" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" />
-                </svg>
-              }
+              icon={navIcons.appointments}
             />
           </div>
           <div className="stagger-child">
             <IntegrationCard
-              name="Twilio SMS"
+              name={t(s.integrationTwilioSms)}
               connected
               apiKey="AC2a3b4c5d6e7f8g9h0iEXAMPLE"
               icon={
@@ -632,14 +602,14 @@ export default function AdminPage() {
       </ShowcaseSection>
 
       {/* ── Settings Panel ── */}
-      <ShowcaseSection title="Settings Panel" className="mb-16">
+      <ShowcaseSection title={t(s.sectionSettingsPanel)} className="mb-16">
         <Card className="p-6">
           <div className="stagger-child">
             <SettingsPanel
               sections={[
                 {
-                  heading: "Business Profile",
-                  description: "Your business name, logo, and contact details visible to clients.",
+                  heading: t(s.settingsBusinessProfile),
+                  description: t(s.settingsBusinessProfileDesc),
                   content: (
                     <div className="space-y-3 max-w-md">
                       <div className="h-10 rounded-md bg-surface-sunken ring-1 ring-border px-3 flex items-center text-sm text-text-secondary">
@@ -652,24 +622,24 @@ export default function AdminPage() {
                   ),
                 },
                 {
-                  heading: "Booking Preferences",
-                  description: "Configure default booking durations, buffer times, and cancellation policies.",
+                  heading: t(s.settingsBookingPrefs),
+                  description: t(s.settingsBookingPrefsDesc),
                   content: (
                     <div className="flex flex-wrap gap-3">
-                      <Badge>30 min buffer</Badge>
-                      <Badge variant="info">24h cancellation</Badge>
-                      <Badge variant="success">Auto-confirm</Badge>
+                      <Badge>{t(s.badge30MinBuffer)}</Badge>
+                      <Badge variant="info">{t(s.badge24hCancellation)}</Badge>
+                      <Badge variant="success">{t(s.badgeAutoConfirm)}</Badge>
                     </div>
                   ),
                 },
                 {
-                  heading: "Notifications",
-                  description: "Choose which events trigger email or SMS notifications to your team.",
+                  heading: t(s.settingsNotifications),
+                  description: t(s.settingsNotificationsDesc),
                   content: (
                     <div className="space-y-2 text-sm text-text-secondary">
-                      <p>New booking — Email + SMS</p>
-                      <p>Cancellation — Email only</p>
-                      <p>Review received — Push notification</p>
+                      <p>{t(s.notifNewBooking)}</p>
+                      <p>{t(s.notifCancellation)}</p>
+                      <p>{t(s.notifReviewReceived)}</p>
                     </div>
                   ),
                 },
@@ -680,18 +650,18 @@ export default function AdminPage() {
       </ShowcaseSection>
 
       {/* ── Activity Feed ── */}
-      <ShowcaseSection title="Activity Feed" className="mb-16">
+      <ShowcaseSection title={t(s.sectionActivityFeed)} className="mb-16">
         <Card className="p-6">
           <div className="stagger-child">
             <ActivityFeed
               items={[
-                { id: "a1", initials: "SW", action: "Sarah booked Hot Stone Massage", timestamp: "2 min ago", detail: { label: "Booking", variant: "success" } },
-                { id: "a2", initials: "EW", action: "Emma cancelled Gel Manicure appointment", timestamp: "18 min ago", detail: { label: "Cancellation", variant: "error" } },
-                { id: "a3", initials: "MJ", action: "Maya redeemed 500 loyalty points", timestamp: "45 min ago", detail: { label: "Rewards", variant: "info" } },
-                { id: "a4", initials: "OT", action: "Olivia left a 5-star review for Swedish Massage", timestamp: "1 hr ago" },
-                { id: "a5", initials: "AM", action: "Ava upgraded to Gold tier", timestamp: "2 hr ago", detail: { label: "Tier Up", variant: "warning" } },
-                { id: "a6", initials: "IL", action: "Isabella rescheduled Aromatherapy to Friday", timestamp: "3 hr ago" },
-                { id: "a7", initials: "SR", action: "Sofia completed Classic Facial checkout", timestamp: "4 hr ago", detail: { label: "Payment", variant: "success" } },
+                { id: "a1", initials: "SW", action: t(s.actSarahBooked), timestamp: t(s.time2MinAgo), detail: { label: t(s.detailBooking), variant: "success" } },
+                { id: "a2", initials: "EW", action: t(s.actEmmaCancelled), timestamp: t(s.time18MinAgo), detail: { label: t(s.detailCancellation), variant: "error" } },
+                { id: "a3", initials: "MJ", action: t(s.actMayaRedeemed), timestamp: t(s.time45MinAgo), detail: { label: t(s.detailRewards), variant: "info" } },
+                { id: "a4", initials: "OT", action: t(s.actOliviaReview), timestamp: t(s.time1HrAgo) },
+                { id: "a5", initials: "AM", action: t(s.actAvaUpgraded), timestamp: t(s.time2HrAgo), detail: { label: t(s.detailTierUp), variant: "warning" } },
+                { id: "a6", initials: "IL", action: t(s.actIsabellaRescheduled), timestamp: t(s.time3HrAgo) },
+                { id: "a7", initials: "SR", action: t(s.actSofiaCompleted), timestamp: t(s.time4HrAgo), detail: { label: t(s.detailPayment), variant: "success" } },
               ]}
             />
           </div>
@@ -699,15 +669,15 @@ export default function AdminPage() {
       </ShowcaseSection>
 
       {/* ── Audit Log ── */}
-      <ShowcaseSection title="Audit Log" className="mb-16">
+      <ShowcaseSection title={t(s.sectionAuditLog)} className="mb-16">
         <Card className="p-0 overflow-hidden">
           <div className="stagger-child">
-            <AuditRow initials="AD" verb="Created" entity="service Hot Stone Massage" timestamp="Today 9:12 AM" ip="192.168.1.42" />
-            <AuditRow initials="AD" verb="Updated" entity="pricing for Gel Manicure" timestamp="Today 9:08 AM" ip="192.168.1.42" />
-            <AuditRow initials="MG" verb="Deleted" entity="expired promo SUMMER25" timestamp="Today 8:55 AM" ip="10.0.0.15" />
-            <AuditRow initials="AD" verb="Approved" entity="refund #RF-1042 ($65.00)" timestamp="Yesterday 4:30 PM" ip="192.168.1.42" />
-            <AuditRow initials="MG" verb="Invited" entity="staff member elena@spa.com" timestamp="Yesterday 2:15 PM" ip="10.0.0.15" />
-            <AuditRow initials="AD" verb="Toggled" entity="SMS notifications ON" timestamp="Yesterday 11:00 AM" ip="192.168.1.42" />
+            <AuditRow initials="AD" verb={t(s.auditCreated)} entity={t(s.auditEntityHotStone)} timestamp={t(s.auditTimeToday912)} ip="192.168.1.42" />
+            <AuditRow initials="AD" verb={t(s.auditUpdated)} entity={t(s.auditEntityGelPricing)} timestamp={t(s.auditTimeToday908)} ip="192.168.1.42" />
+            <AuditRow initials="MG" verb={t(s.auditDeleted)} entity={t(s.auditEntityExpiredPromo)} timestamp={t(s.auditTimeToday855)} ip="10.0.0.15" />
+            <AuditRow initials="AD" verb={t(s.auditApproved)} entity={t(s.auditEntityRefund)} timestamp={t(s.auditTimeYesterday430)} ip="192.168.1.42" />
+            <AuditRow initials="MG" verb={t(s.auditInvited)} entity={t(s.auditEntityStaffInvite)} timestamp={t(s.auditTimeYesterday215)} ip="10.0.0.15" />
+            <AuditRow initials="AD" verb={t(s.auditToggled)} entity={t(s.auditEntitySmsToggle)} timestamp={t(s.auditTimeYesterday1100)} ip="192.168.1.42" />
           </div>
         </Card>
       </ShowcaseSection>

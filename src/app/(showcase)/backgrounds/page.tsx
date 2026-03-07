@@ -3,19 +3,32 @@
 import { PageHeader } from "@/components/layout/page-header";
 import { ShowcaseSection } from "@/components/layout/showcase-section";
 import { Card } from "@/components/primitives/card";
+import { useLocale } from "@/lib/i18n";
+import { backgroundsStrings as s } from "@/lib/strings/backgrounds";
 
 /* ── Page ── */
 
 export default function BackgroundsPage() {
+  const { t } = useLocale();
+
+  const surfaces = [
+    { nameKey: s.surfaceBase, var: "--surface-base", descKey: s.descPageBackground },
+    { nameKey: s.surfaceSunken, var: "--surface-sunken", descKey: s.descInsetWells },
+    { nameKey: s.surfaceRaised, var: "--surface-raised", descKey: s.descCardsElevated },
+    { nameKey: s.surfaceOverlay, var: "--surface-overlay", descKey: s.descModalsPopovers },
+    { nameKey: s.surfaceInteractive, var: "--surface-interactive", descKey: s.descButtonsControls },
+    { nameKey: s.surfaceInteractiveHover, var: "--surface-interactive-hover", descKey: s.descHoverState },
+  ];
+
   return (
     <>
       <PageHeader
-        title="Backgrounds"
-        subtitle="Surface hierarchy, gradient treatments, noise textures, and ambient effects across light and dark modes."
+        title={t(s.title)}
+        subtitle={t(s.subtitle)}
       />
 
       {/* ── Drifting Warm Gradient ── */}
-      <ShowcaseSection title="Drifting Warm Gradient" className="mb-16">
+      <ShowcaseSection title={t(s.sectionDriftingGradient)} className="mb-16">
         <Card className="p-0 overflow-hidden">
           <div className="stagger-child relative h-64 md:h-80">
             <div
@@ -30,7 +43,7 @@ export default function BackgroundsPage() {
             />
             <div className="absolute inset-0 flex items-center justify-center">
               <p className="font-display text-2xl font-bold text-text-primary">
-                Ambient Gradient
+                {t(s.ambientGradient)}
               </p>
             </div>
           </div>
@@ -44,7 +57,7 @@ export default function BackgroundsPage() {
       </ShowcaseSection>
 
       {/* ── Noise Texture Overlay ── */}
-      <ShowcaseSection title="Noise Texture Overlay" className="mb-16">
+      <ShowcaseSection title={t(s.sectionNoiseTexture)} className="mb-16">
         <Card className="p-0 overflow-hidden">
           <div className="stagger-child relative h-64 md:h-80">
             <div
@@ -61,7 +74,7 @@ export default function BackgroundsPage() {
             />
             <div className="absolute inset-0 flex items-center justify-center">
               <p className="font-display text-2xl font-bold text-text-primary">
-                Noise Texture
+                {t(s.noiseTexture)}
               </p>
             </div>
           </div>
@@ -69,30 +82,23 @@ export default function BackgroundsPage() {
       </ShowcaseSection>
 
       {/* ── Surface Hierarchy ── */}
-      <ShowcaseSection title="Surface Hierarchy" className="mb-16">
+      <ShowcaseSection title={t(s.sectionSurfaceHierarchy)} className="mb-16">
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
           {/* Light mode */}
           <Card className="p-6">
             <p className="text-xs font-medium uppercase tracking-wider text-text-tertiary mb-4">
-              Light Mode
+              {t(s.lightMode)}
             </p>
             <div className="stagger-child space-y-3">
-              {[
-                { name: "Base", var: "--surface-base", desc: "Page background" },
-                { name: "Sunken", var: "--surface-sunken", desc: "Inset wells, inputs" },
-                { name: "Raised", var: "--surface-raised", desc: "Cards, elevated content" },
-                { name: "Overlay", var: "--surface-overlay", desc: "Modals, popovers" },
-                { name: "Interactive", var: "--surface-interactive", desc: "Buttons, controls" },
-                { name: "Interactive Hover", var: "--surface-interactive-hover", desc: "Hover state" },
-              ].map((surface) => (
+              {surfaces.map((surface) => (
                 <div
-                  key={surface.name}
+                  key={surface.var}
                   className="flex items-center gap-4 rounded-lg p-3 border border-border-muted"
                   style={{ backgroundColor: `var(${surface.var})` }}
                 >
                   <div className="flex-1 min-w-0">
-                    <p className="text-sm font-medium text-text-primary">{surface.name}</p>
-                    <p className="text-xs text-text-tertiary">{surface.desc}</p>
+                    <p className="text-sm font-medium text-text-primary">{t(surface.nameKey)}</p>
+                    <p className="text-xs text-text-tertiary">{t(surface.descKey)}</p>
                   </div>
                   <span className="font-data text-xs text-text-tertiary truncate">
                     {surface.var}
@@ -105,25 +111,18 @@ export default function BackgroundsPage() {
           {/* Dark mode */}
           <Card className="p-6 dark">
             <p className="text-xs font-medium uppercase tracking-wider text-text-tertiary mb-4">
-              Dark Mode
+              {t(s.darkMode)}
             </p>
             <div className="stagger-child space-y-3">
-              {[
-                { name: "Base", var: "--surface-base", desc: "Page background" },
-                { name: "Sunken", var: "--surface-sunken", desc: "Inset wells, inputs" },
-                { name: "Raised", var: "--surface-raised", desc: "Cards, elevated content" },
-                { name: "Overlay", var: "--surface-overlay", desc: "Modals, popovers" },
-                { name: "Interactive", var: "--surface-interactive", desc: "Buttons, controls" },
-                { name: "Interactive Hover", var: "--surface-interactive-hover", desc: "Hover state" },
-              ].map((surface) => (
+              {surfaces.map((surface) => (
                 <div
-                  key={surface.name}
+                  key={surface.var}
                   className="flex items-center gap-4 rounded-lg p-3 border border-border-muted"
                   style={{ backgroundColor: `var(${surface.var})` }}
                 >
                   <div className="flex-1 min-w-0">
-                    <p className="text-sm font-medium text-text-primary">{surface.name}</p>
-                    <p className="text-xs text-text-tertiary">{surface.desc}</p>
+                    <p className="text-sm font-medium text-text-primary">{t(surface.nameKey)}</p>
+                    <p className="text-xs text-text-tertiary">{t(surface.descKey)}</p>
                   </div>
                   <span className="font-data text-xs text-text-tertiary truncate">
                     {surface.var}
@@ -136,12 +135,12 @@ export default function BackgroundsPage() {
       </ShowcaseSection>
 
       {/* ── Light vs Dark Side-by-Side ── */}
-      <ShowcaseSection title="Light vs Dark — Side by Side" className="mb-16">
+      <ShowcaseSection title={t(s.sectionLightVsDark)} className="mb-16">
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
           {/* Light card stack */}
           <Card className="p-6 overflow-hidden">
             <p className="text-xs font-medium uppercase tracking-wider text-text-tertiary mb-4">
-              Light
+              {t(s.light)}
             </p>
             <div
               className="stagger-child rounded-xl p-6 space-y-4"
@@ -152,10 +151,10 @@ export default function BackgroundsPage() {
                 style={{ backgroundColor: "var(--surface-raised)" }}
               >
                 <p className="font-display text-lg font-semibold text-text-primary">
-                  Raised Card
+                  {t(s.raisedCard)}
                 </p>
                 <p className="text-sm text-text-secondary mt-1">
-                  Content sits on an elevated surface with three-layer shadow.
+                  {t(s.raisedCardDesc)}
                 </p>
               </div>
               <div className="flex flex-wrap gap-3">
@@ -166,7 +165,7 @@ export default function BackgroundsPage() {
                     color: "var(--text-primary)",
                   }}
                 >
-                  Primary
+                  {t(s.primary)}
                 </div>
                 <div
                   className="rounded-md px-4 py-2 text-sm font-medium"
@@ -175,7 +174,7 @@ export default function BackgroundsPage() {
                     color: "var(--text-primary)",
                   }}
                 >
-                  Secondary
+                  {t(s.secondary)}
                 </div>
                 <div
                   className="rounded-md px-4 py-2 text-sm font-medium"
@@ -184,7 +183,7 @@ export default function BackgroundsPage() {
                     color: "var(--text-primary)",
                   }}
                 >
-                  Accent
+                  {t(s.accent)}
                 </div>
               </div>
               <div
@@ -195,7 +194,7 @@ export default function BackgroundsPage() {
                 }}
               >
                 <p className="text-sm text-text-secondary">
-                  Sunken surface for inset wells and input areas.
+                  {t(s.sunkenSurfaceDesc)}
                 </p>
               </div>
             </div>
@@ -204,7 +203,7 @@ export default function BackgroundsPage() {
           {/* Dark card stack */}
           <Card className="p-6 overflow-hidden dark">
             <p className="text-xs font-medium uppercase tracking-wider text-text-tertiary mb-4">
-              Dark
+              {t(s.dark)}
             </p>
             <div
               className="stagger-child rounded-xl p-6 space-y-4"
@@ -215,10 +214,10 @@ export default function BackgroundsPage() {
                 style={{ backgroundColor: "var(--surface-raised)" }}
               >
                 <p className="font-display text-lg font-semibold text-text-primary">
-                  Raised Card
+                  {t(s.raisedCard)}
                 </p>
                 <p className="text-sm text-text-secondary mt-1">
-                  Content sits on an elevated surface with three-layer shadow.
+                  {t(s.raisedCardDesc)}
                 </p>
               </div>
               <div className="flex flex-wrap gap-3">
@@ -229,7 +228,7 @@ export default function BackgroundsPage() {
                     color: "var(--text-on-accent)",
                   }}
                 >
-                  Primary
+                  {t(s.primary)}
                 </div>
                 <div
                   className="rounded-md px-4 py-2 text-sm font-medium"
@@ -238,7 +237,7 @@ export default function BackgroundsPage() {
                     color: "var(--text-on-accent)",
                   }}
                 >
-                  Secondary
+                  {t(s.secondary)}
                 </div>
                 <div
                   className="rounded-md px-4 py-2 text-sm font-medium"
@@ -247,7 +246,7 @@ export default function BackgroundsPage() {
                     color: "var(--text-on-accent)",
                   }}
                 >
-                  Accent
+                  {t(s.accent)}
                 </div>
               </div>
               <div
@@ -258,7 +257,7 @@ export default function BackgroundsPage() {
                 }}
               >
                 <p className="text-sm text-text-secondary">
-                  Sunken surface for inset wells and input areas.
+                  {t(s.sunkenSurfaceDesc)}
                 </p>
               </div>
             </div>

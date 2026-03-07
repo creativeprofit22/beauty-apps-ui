@@ -14,18 +14,11 @@ import { Checkbox } from "@/components/primitives/checkbox";
 import { Avatar } from "@/components/primitives/avatar";
 import { TabBar, type TabItem } from "@/components/navigation/tab-bar";
 import { DropdownMenu, type DropdownMenuEntry } from "@/components/primitives/dropdown-menu";
+import { useLocale } from "@/lib/i18n";
+import { glossary } from "@/lib/i18n";
+import { componentsStrings as s } from "@/lib/strings/components";
 
-/* ── Tab demo data ────────────────────────────────── */
-
-const demoTabs: TabItem[] = [
-  { id: "upcoming", label: "Upcoming", count: 3 },
-  { id: "past", label: "Past" },
-  { id: "cancelled", label: "Cancelled", count: 1 },
-  { id: "waitlist", label: "Waitlist" },
-  { id: "packages", label: "Packages", count: 5 },
-];
-
-/* ── Dropdown demo data ───────────────────────────── */
+/* ── Icon components (no text) ───────────────────── */
 
 const EditIcon = () => (
   <svg width="16" height="16" viewBox="0 0 16 16" fill="none">
@@ -44,26 +37,10 @@ const TrashIcon = () => (
   </svg>
 );
 
-const demoMenuItems: DropdownMenuEntry[] = [
-  { id: "edit", label: "Edit appointment", icon: <EditIcon />, onSelect: () => {} },
-  { id: "duplicate", label: "Duplicate", icon: <CopyIcon />, onSelect: () => {} },
-  { type: "separator" },
-  { id: "delete", label: "Delete", icon: <TrashIcon />, destructive: true, onSelect: () => {} },
-];
-
-/* ── Select demo options ────────────────────────────── */
-
-const serviceOptions = [
-  { value: "facial", label: "Classic Facial" },
-  { value: "massage", label: "Swedish Massage" },
-  { value: "manicure", label: "Gel Manicure" },
-  { value: "pedicure", label: "Luxury Pedicure" },
-  { value: "body-wrap", label: "Detox Body Wrap" },
-];
-
 /* ── Page ──────────────────────────────────────────── */
 
 export default function ComponentsPage() {
+  const { t } = useLocale();
   const [selectValue, setSelectValue] = useState<string>();
   const [inputValue, setInputValue] = useState("");
   const [clickCount, setClickCount] = useState(0);
@@ -73,42 +50,65 @@ export default function ComponentsPage() {
   const [check2, setCheck2] = useState(true);
   const [checkIndet, setCheckIndet] = useState(false);
 
+  /* ── Translated demo data ──────────────────────── */
+
+  const demoTabs: TabItem[] = [
+    { id: "upcoming", label: t(s.tabUpcoming), count: 3 },
+    { id: "past", label: t(s.tabPast) },
+    { id: "cancelled", label: t(s.tabCancelled), count: 1 },
+    { id: "waitlist", label: t(s.tabWaitlist) },
+    { id: "packages", label: t(s.tabPackages), count: 5 },
+  ];
+
+  const demoMenuItems: DropdownMenuEntry[] = [
+    { id: "edit", label: t(s.editAppointment), icon: <EditIcon />, onSelect: () => {} },
+    { id: "duplicate", label: t(s.duplicate), icon: <CopyIcon />, onSelect: () => {} },
+    { type: "separator" },
+    { id: "delete", label: t(s.deleteLabel), icon: <TrashIcon />, destructive: true, onSelect: () => {} },
+  ];
+
+  const serviceOptions = [
+    { value: "facial", label: t(s.classicFacial) },
+    { value: "massage", label: t(s.swedishMassage) },
+    { value: "manicure", label: t(s.gelManicure) },
+    { value: "pedicure", label: t(s.luxuryPedicure) },
+    { value: "body-wrap", label: t(s.detoxBodyWrap) },
+  ];
+
   return (
     <>
       <PageHeader
-        title="Components"
-        subtitle="Interactive demos of every primitive — cards, buttons, badges, inputs, and selects in all their variant glory."
+        title={t(s.title)}
+        subtitle={t(s.subtitle)}
       />
 
       {/* ── Cards ── */}
-      <ShowcaseSection title="Card" className="mb-16">
+      <ShowcaseSection title={t(s.sectionCard)} className="mb-16">
         <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
           <div className="stagger-child">
             <p className="text-xs font-medium uppercase tracking-wider text-text-tertiary mb-3">
-              Default
+              {t(s.cardDefault)}
             </p>
             <Card className="p-6">
               <h3 className="font-display text-lg font-semibold text-text-primary">
-                Lifted Paper
+                {t(s.cardLiftedPaper)}
               </h3>
               <p className="text-sm text-text-secondary mt-1">
-                Three-layer shadow stack — contact, cast, and ambient. No border, no
-                backdrop-filter. Pure shadow depth.
+                {t(s.cardLiftedPaperDesc)}
               </p>
             </Card>
           </div>
 
           <div className="stagger-child">
             <p className="text-xs font-medium uppercase tracking-wider text-text-tertiary mb-3">
-              Hover variant
+              {t(s.cardHoverVariant)}
             </p>
             <Card hover className="p-6">
               <h3 className="font-display text-lg font-semibold text-text-primary">
-                Hover me
+                {t(s.cardHoverMe)}
               </h3>
               <p className="text-sm text-text-secondary mt-1">
-                Scales to 1.02× with elevated shadow on hover. Smooth transition on
-                both transform and box-shadow.
+                {t(s.cardHoverDesc)}
               </p>
             </Card>
           </div>
@@ -116,59 +116,59 @@ export default function ComponentsPage() {
       </ShowcaseSection>
 
       {/* ── Buttons ── */}
-      <ShowcaseSection title="Button" className="mb-16">
+      <ShowcaseSection title={t(s.sectionButton)} className="mb-16">
         <Card className="p-6 space-y-8">
           {/* Variants */}
           <div className="stagger-child">
             <p className="text-xs font-medium uppercase tracking-wider text-text-tertiary mb-4">
-              Variants
+              {t(s.variants)}
             </p>
             <div className="flex flex-wrap gap-3">
               <Button variant="primary" onClick={() => setClickCount((c) => c + 1)}>
-                Primary{clickCount > 0 ? ` (${clickCount})` : ""}
+                {t(s.primary)}{clickCount > 0 ? ` (${clickCount})` : ""}
               </Button>
-              <Button variant="secondary">Secondary</Button>
-              <Button variant="ghost">Ghost</Button>
-              <Button variant="cta">Call to Action</Button>
+              <Button variant="secondary">{t(s.secondary)}</Button>
+              <Button variant="ghost">{t(s.ghost)}</Button>
+              <Button variant="cta">{t(s.callToAction)}</Button>
             </div>
           </div>
 
           {/* Sizes */}
           <div className="stagger-child">
             <p className="text-xs font-medium uppercase tracking-wider text-text-tertiary mb-4">
-              Sizes
+              {t(s.sizes)}
             </p>
             <div className="flex flex-wrap items-center gap-3">
-              <Button size="sm">Small</Button>
-              <Button size="md">Medium</Button>
-              <Button size="lg">Large</Button>
+              <Button size="sm">{t(s.small)}</Button>
+              <Button size="md">{t(s.medium)}</Button>
+              <Button size="lg">{t(s.large)}</Button>
             </div>
           </div>
 
           {/* Radius */}
           <div className="stagger-child">
             <p className="text-xs font-medium uppercase tracking-wider text-text-tertiary mb-4">
-              Radius
+              {t(s.radius)}
             </p>
             <div className="flex flex-wrap gap-3">
-              <Button radius="standard">Standard</Button>
-              <Button radius="pill">Pill</Button>
-              <Button variant="cta" radius="pill">CTA Pill</Button>
+              <Button radius="standard">{t(s.standard)}</Button>
+              <Button radius="pill">{t(s.pill)}</Button>
+              <Button variant="cta" radius="pill">{t(s.ctaPill)}</Button>
             </div>
           </div>
 
           {/* States */}
           <div className="stagger-child">
             <p className="text-xs font-medium uppercase tracking-wider text-text-tertiary mb-4">
-              States
+              {t(s.states)}
             </p>
             <div className="flex flex-wrap gap-3">
-              <Button disabled>Disabled</Button>
+              <Button disabled>{t(s.disabled)}</Button>
               <Button variant="secondary" disabled>
-                Disabled
+                {t(s.disabled)}
               </Button>
               <Button variant="ghost" disabled>
-                Disabled
+                {t(s.disabled)}
               </Button>
             </div>
           </div>
@@ -176,81 +176,81 @@ export default function ComponentsPage() {
       </ShowcaseSection>
 
       {/* ── Badges ── */}
-      <ShowcaseSection title="Badge" className="mb-16">
+      <ShowcaseSection title={t(s.sectionBadge)} className="mb-16">
         <Card className="p-6 space-y-6">
           {/* Semantic variants */}
           <div className="stagger-child">
             <p className="text-xs font-medium uppercase tracking-wider text-text-tertiary mb-4">
-              Semantic variants
+              {t(s.semanticVariants)}
             </p>
             <div className="flex flex-wrap gap-2">
-              <Badge>Default</Badge>
-              <Badge variant="success">Confirmed</Badge>
-              <Badge variant="warning">Pending</Badge>
-              <Badge variant="error">Cancelled</Badge>
-              <Badge variant="info">Rescheduled</Badge>
+              <Badge>{t(s.badgeDefault)}</Badge>
+              <Badge variant="success">{t(glossary.statuses.confirmed)}</Badge>
+              <Badge variant="warning">{t(glossary.statuses.pending)}</Badge>
+              <Badge variant="error">{t(glossary.statuses.cancelled)}</Badge>
+              <Badge variant="info">{t(s.rescheduled)}</Badge>
             </div>
           </div>
 
           {/* Tier variants */}
           <div className="stagger-child">
             <p className="text-xs font-medium uppercase tracking-wider text-text-tertiary mb-4">
-              Tier variants
+              {t(s.tierVariants)}
             </p>
             <div className="flex flex-wrap gap-2">
-              <Badge tier="bronze">Bronze</Badge>
-              <Badge tier="silver">Silver</Badge>
-              <Badge tier="gold">Gold</Badge>
-              <Badge tier="black">Black</Badge>
+              <Badge tier="bronze">{t(glossary.tiers.bronze)}</Badge>
+              <Badge tier="silver">{t(glossary.tiers.silver)}</Badge>
+              <Badge tier="gold">{t(glossary.tiers.gold)}</Badge>
+              <Badge tier="black">{t(s.tierBlack)}</Badge>
             </div>
           </div>
         </Card>
       </ShowcaseSection>
 
       {/* ── Input ── */}
-      <ShowcaseSection title="Input" className="mb-16">
+      <ShowcaseSection title={t(s.sectionInput)} className="mb-16">
         <Card className="p-6 space-y-6">
           <div className="stagger-child grid grid-cols-1 md:grid-cols-2 gap-6">
             <div className="space-y-2">
               <label className="text-sm font-medium text-text-primary">
-                Default input
+                {t(s.defaultInput)}
               </label>
               <Input
-                placeholder="Enter your name..."
+                placeholder={t(s.enterYourName)}
                 value={inputValue}
                 onChange={(e) => setInputValue(e.target.value)}
               />
               {inputValue && (
                 <p className="text-xs text-text-tertiary">
-                  Value: {inputValue}
+                  {t(s.valuePrefix)}{inputValue}
                 </p>
               )}
             </div>
 
             <div className="space-y-2">
               <label className="text-sm font-medium text-text-primary">
-                Error state
+                {t(s.errorState)}
               </label>
               <Input
-                placeholder="Invalid email..."
-                defaultValue="not-an-email"
+                placeholder={t(s.invalidEmail)}
+                defaultValue={t(s.notAnEmail)}
                 error
               />
               <p className="text-xs text-error">
-                Please enter a valid email address
+                {t(s.pleaseEnterValidEmail)}
               </p>
             </div>
 
             <div className="space-y-2">
               <label className="text-sm font-medium text-text-primary">
-                Disabled
+                {t(s.disabled)}
               </label>
-              <Input placeholder="Cannot edit..." disabled />
+              <Input placeholder={t(s.cannotEdit)} disabled />
             </div>
 
             <div className="space-y-2">
               <label className="text-sm font-medium text-text-primary">
-                With value
+                {t(s.withValue)}
               </label>
               <Input defaultValue="jane@example.com" readOnly />
             </div>
@@ -259,54 +259,54 @@ export default function ComponentsPage() {
       </ShowcaseSection>
 
       {/* ── Select ── */}
-      <ShowcaseSection title="Select" className="mb-16">
+      <ShowcaseSection title={t(s.sectionSelect)} className="mb-16">
         <Card className="p-6 space-y-6">
           <div className="stagger-child grid grid-cols-1 md:grid-cols-2 gap-6">
             <div className="space-y-2">
               <label className="text-sm font-medium text-text-primary">
-                Service type
+                {t(s.serviceType)}
               </label>
               <Select
                 options={serviceOptions}
                 value={selectValue}
                 onChange={setSelectValue}
-                placeholder="Choose a service..."
+                placeholder={t(s.chooseAService)}
               />
               {selectValue && (
                 <p className="text-xs text-text-tertiary">
-                  Selected: {serviceOptions.find((o) => o.value === selectValue)?.label}
+                  {t(s.selectedPrefix)}{serviceOptions.find((o) => o.value === selectValue)?.label}
                 </p>
               )}
             </div>
 
             <div className="space-y-2">
               <label className="text-sm font-medium text-text-primary">
-                Disabled
+                {t(s.disabled)}
               </label>
               <Select
                 options={serviceOptions}
-                placeholder="Not available"
+                placeholder={t(s.notAvailable)}
                 disabled
               />
             </div>
 
             <div className="space-y-2">
               <label className="text-sm font-medium text-text-primary">
-                Error state
+                {t(s.errorState)}
               </label>
               <Select
                 options={serviceOptions}
-                placeholder="Required field"
+                placeholder={t(s.requiredField)}
                 error
               />
               <p className="text-xs text-error">
-                Please select a service
+                {t(s.pleaseSelectService)}
               </p>
             </div>
 
             <div className="space-y-2">
               <label className="text-sm font-medium text-text-primary">
-                Pre-selected
+                {t(s.preSelected)}
               </label>
               <Select
                 options={serviceOptions}
@@ -318,40 +318,40 @@ export default function ComponentsPage() {
       </ShowcaseSection>
 
       {/* ── Toggle ── */}
-      <ShowcaseSection title="Toggle" className="mb-16">
+      <ShowcaseSection title={t(s.sectionToggle)} className="mb-16">
         <Card className="p-6 space-y-6">
           <div className="stagger-child">
             <p className="text-xs font-medium uppercase tracking-wider text-text-tertiary mb-4">
-              Sizes
+              {t(s.sizes)}
             </p>
             <div className="flex flex-wrap items-center gap-6">
               <div className="flex items-center gap-2">
                 <Toggle size="sm" checked={toggle1} onChange={setToggle1} />
-                <span className="text-sm text-text-secondary">Small</span>
+                <span className="text-sm text-text-secondary">{t(s.small)}</span>
               </div>
               <div className="flex items-center gap-2">
                 <Toggle size="md" checked={toggle1} onChange={setToggle1} />
-                <span className="text-sm text-text-secondary">Medium</span>
+                <span className="text-sm text-text-secondary">{t(s.medium)}</span>
               </div>
               <div className="flex items-center gap-2">
                 <Toggle size="lg" checked={toggle2} onChange={setToggle2} />
-                <span className="text-sm text-text-secondary">Large</span>
+                <span className="text-sm text-text-secondary">{t(s.large)}</span>
               </div>
             </div>
           </div>
 
           <div className="stagger-child">
             <p className="text-xs font-medium uppercase tracking-wider text-text-tertiary mb-4">
-              States
+              {t(s.states)}
             </p>
             <div className="flex flex-wrap items-center gap-6">
               <div className="flex items-center gap-2">
                 <Toggle checked={false} disabled />
-                <span className="text-sm text-text-secondary">Disabled off</span>
+                <span className="text-sm text-text-secondary">{t(s.disabledOff)}</span>
               </div>
               <div className="flex items-center gap-2">
                 <Toggle checked={true} disabled />
-                <span className="text-sm text-text-secondary">Disabled on</span>
+                <span className="text-sm text-text-secondary">{t(s.disabledOn)}</span>
               </div>
             </div>
           </div>
@@ -359,20 +359,20 @@ export default function ComponentsPage() {
       </ShowcaseSection>
 
       {/* ── Checkbox ── */}
-      <ShowcaseSection title="Checkbox" className="mb-16">
+      <ShowcaseSection title={t(s.sectionCheckbox)} className="mb-16">
         <Card className="p-6 space-y-6">
           <div className="stagger-child">
             <p className="text-xs font-medium uppercase tracking-wider text-text-tertiary mb-4">
-              Interactive
+              {t(s.interactive)}
             </p>
             <div className="flex flex-col gap-3">
               <Checkbox
-                label="Accept terms and conditions"
+                label={t(s.acceptTerms)}
                 checked={check1}
                 onChange={(e) => setCheck1(e.target.checked)}
               />
               <Checkbox
-                label="Subscribe to newsletter"
+                label={t(s.subscribeNewsletter)}
                 checked={check2}
                 onChange={(e) => setCheck2(e.target.checked)}
               />
@@ -381,28 +381,28 @@ export default function ComponentsPage() {
 
           <div className="stagger-child">
             <p className="text-xs font-medium uppercase tracking-wider text-text-tertiary mb-4">
-              States
+              {t(s.states)}
             </p>
             <div className="flex flex-col gap-3">
               <Checkbox
-                label="Indeterminate"
+                label={t(s.indeterminate)}
                 checked={checkIndet}
                 indeterminate={!checkIndet}
                 onChange={(e) => setCheckIndet(e.target.checked)}
               />
-              <Checkbox label="Disabled unchecked" disabled />
-              <Checkbox label="Disabled checked" checked disabled />
+              <Checkbox label={t(s.disabledUnchecked)} disabled />
+              <Checkbox label={t(s.disabledChecked)} checked disabled />
             </div>
           </div>
         </Card>
       </ShowcaseSection>
 
       {/* ── Avatar ── */}
-      <ShowcaseSection title="Avatar" className="mb-16">
+      <ShowcaseSection title={t(s.sectionAvatar)} className="mb-16">
         <Card className="p-6 space-y-6">
           <div className="stagger-child">
             <p className="text-xs font-medium uppercase tracking-wider text-text-tertiary mb-4">
-              Sizes with initials
+              {t(s.sizesWithInitials)}
             </p>
             <div className="flex items-center gap-4">
               <Avatar size="sm" initials="JS" />
@@ -413,7 +413,7 @@ export default function ComponentsPage() {
 
           <div className="stagger-child">
             <p className="text-xs font-medium uppercase tracking-wider text-text-tertiary mb-4">
-              Tier rings
+              {t(s.tierRings)}
             </p>
             <div className="flex items-center gap-4">
               <Avatar size="md" initials="BR" tier="bronze" />
@@ -425,10 +425,10 @@ export default function ComponentsPage() {
 
           <div className="stagger-child">
             <p className="text-xs font-medium uppercase tracking-wider text-text-tertiary mb-4">
-              States
+              {t(s.states)}
             </p>
             <div className="flex items-center gap-4">
-              <Avatar size="md" src="/no-image.jpg" initials="FB" alt="Fallback demo" />
+              <Avatar size="md" src="/no-image.jpg" initials="FB" alt={t(s.fallbackDemo)} />
               <Avatar size="md" initials="DI" disabled />
             </div>
           </div>
@@ -436,24 +436,24 @@ export default function ComponentsPage() {
       </ShowcaseSection>
 
       {/* ── Tab Bar ── */}
-      <ShowcaseSection title="Tab Bar" className="mb-16">
+      <ShowcaseSection title={t(s.sectionTabBar)} className="mb-16">
         <Card className="p-6 space-y-6">
           <div className="stagger-child">
             <p className="text-xs font-medium uppercase tracking-wider text-text-tertiary mb-4">
-              With badge counts
+              {t(s.withBadgeCounts)}
             </p>
             <TabBar tabs={demoTabs} />
           </div>
 
           <div className="stagger-child">
             <p className="text-xs font-medium uppercase tracking-wider text-text-tertiary mb-4">
-              Simple tabs
+              {t(s.simpleTabs)}
             </p>
             <TabBar
               tabs={[
-                { id: "details", label: "Details" },
-                { id: "history", label: "History" },
-                { id: "notes", label: "Notes" },
+                { id: "details", label: t(s.tabDetails) },
+                { id: "history", label: t(s.tabHistory) },
+                { id: "notes", label: t(s.tabNotes) },
               ]}
             />
           </div>
@@ -461,29 +461,29 @@ export default function ComponentsPage() {
       </ShowcaseSection>
 
       {/* ── Dropdown Menu ── */}
-      <ShowcaseSection title="Dropdown Menu" className="mb-16">
+      <ShowcaseSection title={t(s.sectionDropdownMenu)} className="mb-16">
         <Card className="p-6 space-y-6">
           <div className="stagger-child">
             <p className="text-xs font-medium uppercase tracking-wider text-text-tertiary mb-4">
-              With icons and destructive item
+              {t(s.withIconsAndDestructive)}
             </p>
             <DropdownMenu
-              trigger={<Button variant="secondary">Actions</Button>}
+              trigger={<Button variant="secondary">{t(s.actions)}</Button>}
               items={demoMenuItems}
             />
           </div>
 
           <div className="stagger-child">
             <p className="text-xs font-medium uppercase tracking-wider text-text-tertiary mb-4">
-              Simple text menu
+              {t(s.simpleTextMenu)}
             </p>
             <DropdownMenu
-              trigger={<Button variant="ghost">Options</Button>}
+              trigger={<Button variant="ghost">{t(s.options)}</Button>}
               items={[
-                { id: "profile", label: "View profile", onSelect: () => {} },
-                { id: "settings", label: "Settings", onSelect: () => {} },
+                { id: "profile", label: t(s.viewProfile), onSelect: () => {} },
+                { id: "settings", label: t(s.settings), onSelect: () => {} },
                 { type: "separator" },
-                { id: "logout", label: "Log out", onSelect: () => {} },
+                { id: "logout", label: t(s.logOut), onSelect: () => {} },
               ]}
             />
           </div>
@@ -491,11 +491,11 @@ export default function ComponentsPage() {
       </ShowcaseSection>
 
       {/* ── Skeleton ── */}
-      <ShowcaseSection title="Skeleton" className="mb-16">
+      <ShowcaseSection title={t(s.sectionSkeleton)} className="mb-16">
         <Card className="p-6 space-y-8">
           <div className="stagger-child">
             <p className="text-xs font-medium uppercase tracking-wider text-text-tertiary mb-4">
-              Text lines
+              {t(s.textLines)}
             </p>
             <div className="space-y-2 max-w-sm">
               <Skeleton variant="text" width="60%" />
@@ -506,7 +506,7 @@ export default function ComponentsPage() {
 
           <div className="stagger-child">
             <p className="text-xs font-medium uppercase tracking-wider text-text-tertiary mb-4">
-              Circle (avatar)
+              {t(s.circleAvatar)}
             </p>
             <div className="flex items-center gap-4">
               <Skeleton variant="circle" width={48} height={48} />
@@ -517,7 +517,7 @@ export default function ComponentsPage() {
 
           <div className="stagger-child">
             <p className="text-xs font-medium uppercase tracking-wider text-text-tertiary mb-4">
-              Card
+              {t(s.skeletonCard)}
             </p>
             <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 max-w-lg">
               <Skeleton variant="card" height={120} />
@@ -527,7 +527,7 @@ export default function ComponentsPage() {
 
           <div className="stagger-child">
             <p className="text-xs font-medium uppercase tracking-wider text-text-tertiary mb-4">
-              Composed (profile card)
+              {t(s.composedProfileCard)}
             </p>
             <div className="flex items-start gap-4 max-w-sm">
               <Skeleton variant="circle" width={48} height={48} />
@@ -540,8 +540,8 @@ export default function ComponentsPage() {
           </div>
         </Card>
         <p className="text-xs text-text-tertiary mt-4">
-          Warm breathing skeleton with shimmer gradient overlay. Variants: text (line), circle (avatar), card (block).
-          Uses <code className="font-data">spa-skeleton</code> + <code className="font-data">shimmer</code> keyframes.
+          {t(s.skeletonDesc)}
+          {" "}{t(s.skeletonUses)}<code className="font-data">spa-skeleton</code> + <code className="font-data">shimmer</code>{t(s.skeletonKeyframes)}
         </p>
       </ShowcaseSection>
     </>

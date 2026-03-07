@@ -17,10 +17,13 @@ import { PeelBack } from "@/components/engagement/peel-back";
 import { SlotMachine } from "@/components/engagement/slot-machine";
 import { BubblePop } from "@/components/engagement/bubble-pop";
 import { skinConfig } from "@/skin/config";
+import { useLocale } from "@/lib/i18n";
+import { engagementStrings as s } from "@/lib/strings/engagement";
 
 /* ── Page ──────────────────────────────────────────── */
 
 export default function EngagementPage() {
+  const { t } = useLocale();
   const [scratchKey, setScratchKey] = useState(0);
   const [scratchRevealed, setScratchRevealed] = useState(false);
   const [confettiActive, setConfettiActive] = useState(false);
@@ -60,16 +63,16 @@ export default function EngagementPage() {
   return (
     <>
       <PageHeader
-        title="Engagement"
-        subtitle="Interactive reward mechanics — scratch cards, confetti celebrations, tier upgrades, floating points, and stamp collection."
+        title={t(s.title)}
+        subtitle={t(s.subtitle)}
       />
 
       {/* ── Scratch Card ── */}
-      <ShowcaseSection title="Scratch Card" className="mb-16">
+      <ShowcaseSection title={t(s.sectionScratchCard)} className="mb-16">
         <Card className="p-6 space-y-6">
           <div className="stagger-child">
             <p className="text-sm text-text-secondary mb-4">
-              Scratch the foil overlay to reveal the reward beneath. Auto-completes at 35% coverage.
+              {t(s.scratchDesc)}
             </p>
             <div className="flex flex-wrap items-center gap-6">
               <ScratchCard
@@ -81,25 +84,25 @@ export default function EngagementPage() {
               >
                 <div className="flex flex-col items-center justify-center gap-1 bg-surface-raised rounded-xl w-full h-full">
                   <span className="font-display text-2xl font-bold text-secondary">
-                    20% OFF
+                    {t(s.scratchDiscount)}
                   </span>
                   <span className="text-xs text-text-secondary">
-                    Your next treatment
+                    {t(s.scratchNextTreatment)}
                   </span>
                 </div>
               </ScratchCard>
               <div className="hidden sm:block space-y-2">
                 <p className="text-xs text-text-tertiary">
-                  {scratchRevealed ? "Reward revealed!" : "Scratch to reveal..."}
+                  {scratchRevealed ? t(s.scratchRevealed) : t(s.scratchToReveal)}
                 </p>
                 <Button size="sm" variant="ghost" onClick={resetScratch}>
-                  Reset Card
+                  {t(s.resetCard)}
                 </Button>
               </div>
             </div>
             <div className="sm:hidden mt-3">
               <Button size="sm" variant="ghost" onClick={resetScratch}>
-                Reset Card
+                {t(s.resetCard)}
               </Button>
             </div>
           </div>
@@ -107,26 +110,25 @@ export default function EngagementPage() {
       </ShowcaseSection>
 
       {/* ── Confetti ── */}
-      <ShowcaseSection title="Confetti" className="mb-16">
+      <ShowcaseSection title={t(s.sectionConfetti)} className="mb-16">
         <Card className="p-6">
           <div className="stagger-child">
             <p className="text-sm text-text-secondary mb-4">
-              CSS confetti via DOM elements with 3 speed variants (slow, medium, fast).
-              Self-cleans via animationend events. Respects prefers-reduced-motion.
+              {t(s.confettiDesc)}
             </p>
             <div className="flex flex-wrap gap-3">
               <Button
                 variant="cta"
                 onClick={() => setConfettiActive(true)}
               >
-                Launch Confetti
+                {t(s.launchConfetti)}
               </Button>
               <Button
                 variant="secondary"
                 size="sm"
                 onClick={() => setConfettiActive(false)}
               >
-                Stop
+                {t(s.stop)}
               </Button>
             </div>
           </div>
@@ -139,22 +141,21 @@ export default function EngagementPage() {
       </ShowcaseSection>
 
       {/* ── Tier Upgrade ── */}
-      <ShowcaseSection title="Tier Upgrade" className="mb-16">
+      <ShowcaseSection title={t(s.sectionTierUpgrade)} className="mb-16">
         <Card className="p-6 space-y-6">
           <div className="stagger-child">
             <p className="text-sm text-text-secondary mb-4">
-              Full-screen overlay with radial gradient ink-bleed wash, tier badge springs in,
-              then auto-dismisses. Select a tier and trigger the animation.
+              {t(s.tierUpgradeDesc)}
             </p>
             <div className="flex flex-wrap gap-3 mb-4">
-              {(["bronze", "silver", "gold", "black"] as const).map((t) => (
+              {(["bronze", "silver", "gold", "black"] as const).map((tier) => (
                 <Button
-                  key={t}
+                  key={tier}
                   size="sm"
-                  variant={upgradeTier === t ? "primary" : "secondary"}
-                  onClick={() => setUpgradeTier(t)}
+                  variant={upgradeTier === tier ? "primary" : "secondary"}
+                  onClick={() => setUpgradeTier(tier)}
                 >
-                  {t.charAt(0).toUpperCase() + t.slice(1)}
+                  {tier.charAt(0).toUpperCase() + tier.slice(1)}
                 </Button>
               ))}
             </div>
@@ -162,7 +163,7 @@ export default function EngagementPage() {
               variant="cta"
               onClick={() => setUpgradeActive(true)}
             >
-              Trigger Upgrade
+              {t(s.triggerUpgrade)}
             </Button>
           </div>
         </Card>
@@ -174,12 +175,11 @@ export default function EngagementPage() {
       </ShowcaseSection>
 
       {/* ── Points Float ── */}
-      <ShowcaseSection title="Points Float" className="mb-16">
+      <ShowcaseSection title={t(s.sectionPointsFloat)} className="mb-16">
         <Card className="p-6">
           <div className="stagger-child">
             <p className="text-sm text-text-secondary mb-4">
-              Floating &ldquo;+N pts&rdquo; counter animates upward and fades out over 1200ms.
-              Click the button to spawn new floats.
+              {t(s.pointsFloatDesc)}
             </p>
             <div className="flex items-center gap-6">
               <div className="relative">
@@ -189,7 +189,7 @@ export default function EngagementPage() {
                     setEarnValue(Math.floor(Math.random() * 75) + 10);
                   }}
                 >
-                  Earn Points
+                  {t(s.earnPoints)}
                 </Button>
                 <PointsFloat
                   points={earnValue}
@@ -198,7 +198,7 @@ export default function EngagementPage() {
                 />
               </div>
               <p className="text-xs text-text-tertiary">
-                Each click spawns a new floating counter with a random point value.
+                {t(s.pointsFloatHint)}
               </p>
             </div>
           </div>
@@ -206,11 +206,11 @@ export default function EngagementPage() {
       </ShowcaseSection>
 
       {/* ── Stamp Card Fill ── */}
-      <ShowcaseSection title="Stamp Collection" className="mb-16">
+      <ShowcaseSection title={t(s.sectionStampCollection)} className="mb-16">
         <Card className="p-6 space-y-6">
           <div className="stagger-child">
             <p className="text-xs font-medium uppercase tracking-wider text-text-tertiary mb-4">
-              Fill animation — {stampCount} of 10
+              {t(s.stampFillLabel)} — {stampCount} {t(s.stampOf)} 10
             </p>
             <div className="max-w-xs relative">
               <StampCard earned={stampCount} />
@@ -231,14 +231,14 @@ export default function EngagementPage() {
               onClick={handleStampFill}
               disabled={stampCount >= 10}
             >
-              Collect Stamp
+              {t(s.collectStamp)}
             </Button>
             <Button
               size="sm"
               variant="ghost"
               onClick={() => setStampCount(0)}
             >
-              Reset
+              {t(s.reset)}
             </Button>
             {stampCount >= 10 && (
               <Button
@@ -249,25 +249,23 @@ export default function EngagementPage() {
                   setStampCount(0);
                 }}
               >
-                Claim Reward
+                {t(s.claimReward)}
               </Button>
             )}
           </div>
 
           <p className="text-xs text-text-tertiary stagger-child">
-            Each stamp earned triggers a floating points counter.
-            Complete all 10 stamps to claim a reward with confetti celebration.
+            {t(s.stampHint)}
           </p>
         </Card>
       </ShowcaseSection>
 
       {/* ── Envelope Reveal ── */}
-      <ShowcaseSection title="Envelope Reveal" className="mb-16">
+      <ShowcaseSection title={t(s.sectionEnvelopeReveal)} className="mb-16">
         <Card className="p-6">
           <div className="stagger-child">
             <p className="text-sm text-text-secondary mb-4">
-              Sealed envelope with 3D flap animation. Tap to open — flap lifts via CSS 3D rotateX,
-              then inner card slides up with spring easing. Keyboard accessible (Enter/Space).
+              {t(s.envelopeDesc)}
             </p>
             <div className="flex flex-wrap items-start gap-6">
               <EnvelopeReveal
@@ -278,25 +276,25 @@ export default function EngagementPage() {
               >
                 <div className="text-center">
                   <span className="font-display text-lg font-bold text-secondary">
-                    Free Treatment
+                    {t(s.freeTreatment)}
                   </span>
                   <p className="text-2xs text-text-tertiary mt-1">
-                    Your exclusive reward
+                    {t(s.exclusiveReward)}
                   </p>
                 </div>
               </EnvelopeReveal>
               <div className="hidden sm:block space-y-2">
                 <p className="text-xs text-text-tertiary">
-                  Tap the envelope to reveal the reward inside.
+                  {t(s.envelopeHint)}
                 </p>
                 <Button size="sm" variant="ghost" onClick={() => setEnvelopeKey((k) => k + 1)}>
-                  Reset Envelope
+                  {t(s.resetEnvelope)}
                 </Button>
               </div>
             </div>
             <div className="sm:hidden mt-3">
               <Button size="sm" variant="ghost" onClick={() => setEnvelopeKey((k) => k + 1)}>
-                Reset Envelope
+                {t(s.resetEnvelope)}
               </Button>
             </div>
           </div>
@@ -304,12 +302,11 @@ export default function EngagementPage() {
       </ShowcaseSection>
 
       {/* ── Gift Box ── */}
-      <ShowcaseSection title="Gift Box" className="mb-16">
+      <ShowcaseSection title={t(s.sectionGiftBox)} className="mb-16">
         <Card className="p-6">
           <div className="stagger-child">
             <p className="text-sm text-text-secondary mb-4">
-              Gift box with ribbon cross. Tap to unwrap — ribbon unties via SVG stroke-dashoffset,
-              then lid lifts with spring easing. Reward content floats up from inside.
+              {t(s.giftBoxDesc)}
             </p>
             <div className="flex flex-wrap items-start gap-6">
               <GiftBox
@@ -320,25 +317,25 @@ export default function EngagementPage() {
               >
                 <div className="text-center">
                   <span className="font-display text-xl font-bold text-accent">
-                    50% OFF
+                    {t(s.giftDiscount)}
                   </span>
                   <p className="text-2xs text-text-tertiary mt-1">
-                    Next visit
+                    {t(s.nextVisit)}
                   </p>
                 </div>
               </GiftBox>
               <div className="hidden sm:block space-y-2">
                 <p className="text-xs text-text-tertiary">
-                  Tap the gift box to unwrap your reward.
+                  {t(s.giftBoxHint)}
                 </p>
                 <Button size="sm" variant="ghost" onClick={() => setGiftKey((k) => k + 1)}>
-                  Reset Gift
+                  {t(s.resetGift)}
                 </Button>
               </div>
             </div>
             <div className="sm:hidden mt-3">
               <Button size="sm" variant="ghost" onClick={() => setGiftKey((k) => k + 1)}>
-                Reset Gift
+                {t(s.resetGift)}
               </Button>
             </div>
           </div>
@@ -346,12 +343,11 @@ export default function EngagementPage() {
       </ShowcaseSection>
 
       {/* ── Wax Seal ── */}
-      <ShowcaseSection title="Wax Seal" className="mb-16">
+      <ShowcaseSection title={t(s.sectionWaxSeal)} className="mb-16">
         <Card className="p-6">
           <div className="stagger-child">
             <p className="text-sm text-text-secondary mb-4">
-              Luxury wax seal with fracture animation. Tap to break — fracture lines animate
-              in via SVG stroke-dashoffset (staggered), seal splits into halves. Premium feel.
+              {t(s.waxSealDesc)}
             </p>
             <div className="flex flex-wrap items-start gap-6">
               <WaxSeal
@@ -367,16 +363,16 @@ export default function EngagementPage() {
               </WaxSeal>
               <div className="hidden sm:block space-y-2">
                 <p className="text-xs text-text-tertiary">
-                  Tap the wax seal to break it open.
+                  {t(s.waxSealHint)}
                 </p>
                 <Button size="sm" variant="ghost" onClick={() => setSealKey((k) => k + 1)}>
-                  Reset Seal
+                  {t(s.resetSeal)}
                 </Button>
               </div>
             </div>
             <div className="sm:hidden mt-3">
               <Button size="sm" variant="ghost" onClick={() => setSealKey((k) => k + 1)}>
-                Reset Seal
+                {t(s.resetSeal)}
               </Button>
             </div>
           </div>
@@ -384,12 +380,11 @@ export default function EngagementPage() {
       </ShowcaseSection>
 
       {/* ── Peel-Back Corner ── */}
-      <ShowcaseSection title="Peel-Back Corner" className="mb-16">
+      <ShowcaseSection title={t(s.sectionPeelBack)} className="mb-16">
         <Card className="p-6">
           <div className="stagger-child">
             <p className="text-sm text-text-secondary mb-4">
-              Card with a peelable bottom-right corner. Drag or tap to peel — auto-completes
-              at 40% peel. Pure CSS transforms, no canvas. Keyboard accessible (Enter/Space).
+              {t(s.peelBackDesc)}
             </p>
             <div className="flex flex-wrap items-start gap-6">
               <PeelBack
@@ -397,31 +392,31 @@ export default function EngagementPage() {
                 onComplete={() => setConfettiActive(true)}
                 frontContent={
                   <span className="font-display text-base text-text-secondary">
-                    Mystery Reward
+                    {t(s.mysteryReward)}
                   </span>
                 }
               >
                 <div className="text-center">
                   <span className="font-display text-xl font-bold text-accent">
-                    30% OFF
+                    {t(s.peelDiscount)}
                   </span>
                   <p className="text-xs text-text-tertiary mt-1">
-                    Your next booking
+                    {t(s.nextBooking)}
                   </p>
                 </div>
               </PeelBack>
               <div className="hidden sm:block space-y-2">
                 <p className="text-xs text-text-tertiary">
-                  Peel the corner to reveal the reward underneath.
+                  {t(s.peelHint)}
                 </p>
                 <Button size="sm" variant="ghost" onClick={() => setPeelKey((k) => k + 1)}>
-                  Reset Peel
+                  {t(s.resetPeel)}
                 </Button>
               </div>
             </div>
             <div className="sm:hidden mt-3">
               <Button size="sm" variant="ghost" onClick={() => setPeelKey((k) => k + 1)}>
-                Reset Peel
+                {t(s.resetPeel)}
               </Button>
             </div>
           </div>
@@ -429,12 +424,11 @@ export default function EngagementPage() {
       </ShowcaseSection>
 
       {/* ── Slot Machine ── */}
-      <ShowcaseSection title="Slot Machine" className="mb-16">
+      <ShowcaseSection title={t(s.sectionSlotMachine)} className="mb-16">
         <Card className="p-6">
           <div className="stagger-child">
             <p className="text-sm text-text-secondary mb-4">
-              3-reel slot machine with staggered stops. Match all 3 symbols for a jackpot
-              with confetti celebration. Symbols are skin-configurable.
+              {t(s.slotMachineDesc)}
             </p>
             <SlotMachine
               symbols={skinConfig.slotSymbols}
@@ -445,12 +439,11 @@ export default function EngagementPage() {
       </ShowcaseSection>
 
       {/* ── Bubble Pop ── */}
-      <ShowcaseSection title="Bubble Pop" className="mb-16">
+      <ShowcaseSection title={t(s.sectionBubblePop)} className="mb-16">
         <Card className="p-6 space-y-4">
           <div className="stagger-child">
             <p className="text-sm text-text-secondary mb-4">
-              Floating bubbles rise from the bottom. Tap to pop them and earn points.
-              Skin-configurable bubble colors. Respects prefers-reduced-motion.
+              {t(s.bubblePopDesc)}
             </p>
             <div className="flex flex-wrap items-center gap-3 mb-4">
               <Button
@@ -460,18 +453,18 @@ export default function EngagementPage() {
                   setBubbleScore(0);
                 }}
               >
-                Launch Bubbles
+                {t(s.launchBubbles)}
               </Button>
               <Button
                 variant="secondary"
                 size="sm"
                 onClick={() => setBubblesActive(false)}
               >
-                Stop
+                {t(s.stop)}
               </Button>
               {bubbleScore > 0 && (
                 <span className="text-sm font-display font-bold text-primary">
-                  Score: {bubbleScore} pts
+                  {t(s.scoreLabel)} {bubbleScore} {t(s.scorePts)}
                 </span>
               )}
             </div>

@@ -42,7 +42,7 @@ design/                     # Soul docs (brand, specs, interactions, tokens, typ
 - **CSS cascade:** `globals.css` → `tokens.css` → `base.css` → `effects.css` → `fonts.css`
 - **Fonts:** DM Serif Display (display), DM Sans (body), Fira Code (data) — skins override via CSS custom properties
 
-**Phase:** UI Refinement "Alive, Not SaaS" — Chunk 1/6
+**Phase:** i18n EN/ES Language Toggle — Chunk 0/8
 
 ## Design Principles
 
@@ -59,7 +59,6 @@ SKIN=spa bun run dev        # Dev server (Turbopack)
 SKIN=barber bun run build   # Production build
 bun run typecheck           # TypeScript check (tsc --noEmit)
 ```
-
 ## Code Quality
 
 After editing ANY file, run:

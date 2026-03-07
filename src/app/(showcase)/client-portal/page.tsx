@@ -17,6 +17,8 @@ import { AppointmentCard } from "@/components/data-display/appointment-card";
 import { PlanCard } from "@/components/data-display/plan-card";
 import { ProfileSummary } from "@/components/data-display/profile-summary";
 import { skinConfig } from "@/skin/config";
+import { useLocale } from "@/lib/i18n";
+import { clientPortalStrings as s } from "@/lib/strings/client-portal";
 
 /* ── Mock data ───────────────────────────────────────── */
 
@@ -33,62 +35,70 @@ const mockSlots = [
   { id: "s8", time: "12:30", status: "available" as const },
 ];
 
-const bookingSteps = [
-  { id: "service", label: "Choose service", summary: "" },
-  { id: "time", label: "Select time", summary: "" },
-  { id: "confirm", label: "Confirm", summary: "" },
-];
-
 /* ── Page ──────────────────────────────────────────── */
 
 export default function ClientPortalPage() {
+  const { t } = useLocale();
   const [activeTier, setActiveTier] = useState<(typeof tiers)[number]>("gold");
   const [stampCount, setStampCount] = useState(6);
   const [bookingOpen, setBookingOpen] = useState(false);
   const [bookingStep, setBookingStep] = useState(0);
   const [selectedSlot, setSelectedSlot] = useState<string>();
 
-  const slots = mockSlots.map((s) => ({
-    ...s,
-    status: s.id === selectedSlot ? ("selected" as const) : s.status,
+  const bookingSteps = [
+    { id: "service", label: t(s.stepChooseService), summary: "" },
+    { id: "time", label: t(s.stepSelectTime), summary: "" },
+    { id: "confirm", label: t(s.stepConfirm), summary: "" },
+  ];
+
+  const slots = mockSlots.map((sl) => ({
+    ...sl,
+    status: sl.id === selectedSlot ? ("selected" as const) : sl.status,
   }));
 
   const stepsWithSummary = bookingSteps.map((step, i) => {
     if (i === 0 && bookingStep > 0) {
-      return { ...step, summary: "Hot Stone Massage" };
+      return { ...step, summary: t(s.svcHotStoneMassage) };
     }
     if (i === 1 && bookingStep > 1 && selectedSlot) {
-      const slot = mockSlots.find((s) => s.id === selectedSlot);
+      const slot = mockSlots.find((sl) => sl.id === selectedSlot);
       return { ...step, summary: slot?.time ?? step.label };
     }
     return step;
   });
 
   const handleSlotSelect = (id: string) => {
-    const slot = mockSlots.find((s) => s.id === id);
+    const slot = mockSlots.find((sl) => sl.id === id);
     if (slot && slot.status === "available") {
       setSelectedSlot(id);
     }
   };
 
+  const bookingServices = [
+    { id: "hot-stone", name: t(s.svcHotStoneMassage), price: "$120", duration: t(s.dur90Min) },
+    { id: "facial", name: t(s.svcClassicFacial), price: "$85", duration: t(s.dur60Min) },
+    { id: "manicure", name: t(s.svcGelManicure), price: "$45", duration: t(s.dur45Min) },
+    { id: "pedicure", name: t(s.svcLuxuryPedicure), price: "$65", duration: t(s.dur60Min) },
+  ];
+
   return (
     <>
       <PageHeader
-        title="Client Portal"
-        subtitle="Loyalty cards, tier progress, reward offers, and booking flow — the member-facing experience."
+        title={t(s.title)}
+        subtitle={t(s.subtitle)}
       />
 
       {/* ── Loyalty Card ── */}
-      <ShowcaseSection title="Loyalty Card" className="mb-16">
+      <ShowcaseSection title={t(s.sectionLoyaltyCard)} className="mb-16">
         <div className="stagger-child flex flex-wrap gap-3 mb-6">
-          {tiers.map((t) => (
+          {tiers.map((tier) => (
             <Button
-              key={t}
+              key={tier}
               size="sm"
-              variant={activeTier === t ? "primary" : "secondary"}
-              onClick={() => setActiveTier(t)}
+              variant={activeTier === tier ? "primary" : "secondary"}
+              onClick={() => setActiveTier(tier)}
             >
-              {t.charAt(0).toUpperCase() + t.slice(1)}
+              {tier.charAt(0).toUpperCase() + tier.slice(1)}
             </Button>
           ))}
         </div>
@@ -103,11 +113,11 @@ export default function ClientPortalPage() {
           </div>
           <div className="space-y-3">
             <p className="text-xs font-medium uppercase tracking-wider text-text-tertiary">
-              Card details
+              {t(s.cardDetails)}
             </p>
             <div className="space-y-2">
               <div className="flex justify-between text-sm">
-                <span className="text-text-secondary">Tier</span>
+                <span className="text-text-secondary">{t(s.tier)}</span>
                 <Badge tier={activeTier}>
                   <span className={(activeTier === "gold" || activeTier === "black") ? "text-chrome" : ""}>
                     {activeTier.charAt(0).toUpperCase() + activeTier.slice(1)}
@@ -115,15 +125,15 @@ export default function ClientPortalPage() {
                 </Badge>
               </div>
               <div className="flex justify-between text-sm">
-                <span className="text-text-secondary">Points balance</span>
+                <span className="text-text-secondary">{t(s.pointsBalance)}</span>
                 <span className="font-data font-semibold text-text-primary tabular-nums">
                   4,280
                 </span>
               </div>
               <div className="flex justify-between text-sm">
-                <span className="text-text-secondary">Next tier</span>
+                <span className="text-text-secondary">{t(s.nextTier)}</span>
                 <span className="text-text-primary">
-                  {activeTier === "black" ? "Max tier" : "760 pts away"}
+                  {activeTier === "black" ? t(s.maxTier) : t(s.ptsAway)}
                 </span>
               </div>
             </div>
@@ -132,12 +142,10 @@ export default function ClientPortalPage() {
                 value={activeTier === "black" ? 100 : 85}
                 size={72}
                 strokeWidth={6}
-                label={activeTier === "black" ? "Max" : "3 more"}
+                label={activeTier === "black" ? t(s.radialMax) : t(s.radial3More)}
               />
               <p className="text-xs text-text-secondary max-w-[12rem]">
-                {activeTier === "black"
-                  ? "You've reached the highest tier. Enjoy all benefits!"
-                  : "3 more visits to reach the next tier level."}
+                {activeTier === "black" ? t(s.maxTierMsg) : t(s.nextTierMsg)}
               </p>
             </div>
             {/* Nail polish swatch motif — renders only when skin provides swatchColors */}
@@ -153,19 +161,18 @@ export default function ClientPortalPage() {
               </div>
             )}
             <p className="text-xs text-text-tertiary mt-2">
-              Embossed membership card with foil sheen, watermark pattern, and tier-specific gradients.
-              Hover to see the subtle tilt interaction.
+              {t(s.loyaltyCardDesc)}
             </p>
           </div>
         </div>
       </ShowcaseSection>
 
       {/* ── Stamp Card ── */}
-      <ShowcaseSection title="Stamp Card" className="mb-16">
+      <ShowcaseSection title={t(s.sectionStampCard)} className="mb-16">
         <Card className="p-6 space-y-6">
           <div className="stagger-child">
             <p className="text-xs font-medium uppercase tracking-wider text-text-tertiary mb-4">
-              Progress: {stampCount} of 10
+              {t(s.stampProgress)} {stampCount} {t(s.stampOf)} 10
             </p>
             <div className="max-w-xs">
               <StampCard earned={stampCount} />
@@ -179,7 +186,7 @@ export default function ClientPortalPage() {
               onClick={() => setStampCount((c) => Math.min(10, c + 1))}
               disabled={stampCount >= 10}
             >
-              Add Stamp
+              {t(s.addStamp)}
             </Button>
             <Button
               size="sm"
@@ -187,88 +194,86 @@ export default function ClientPortalPage() {
               onClick={() => setStampCount((c) => Math.max(0, c - 1))}
               disabled={stampCount <= 0}
             >
-              Remove Stamp
+              {t(s.removeStamp)}
             </Button>
             <Button
               size="sm"
               variant="ghost"
               onClick={() => setStampCount(0)}
             >
-              Reset
+              {t(s.reset)}
             </Button>
           </div>
 
           <p className="text-xs text-text-tertiary stagger-child">
-            5×2 grid of circular stamps. Earned stamps show accent fill with check icon.
-            The next stamp pulses with a dashed border animation.
+            {t(s.stampCardDesc)}
           </p>
         </Card>
       </ShowcaseSection>
 
       {/* ── Offer Cards ── */}
-      <ShowcaseSection title="Reward Offers" className="mb-16">
+      <ShowcaseSection title={t(s.sectionRewardOffers)} className="mb-16">
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
           <div className="stagger-child">
             <OfferCard
               offerValue="20% OFF"
-              title="Birthday Special"
-              description="Valid on any full-price treatment during your birthday month."
+              title={t(s.offerBirthdayTitle)}
+              description={t(s.offerBirthdayDesc)}
               expiryPercent={72}
-              expiryLabel="18 days remaining"
+              expiryLabel={t(s.offerBirthdayExpiry)}
             />
           </div>
           <div className="stagger-child">
             <OfferCard
               offerValue="$15"
-              title="Referral Reward"
-              description="Credit applied when a friend completes their first visit."
+              title={t(s.offerReferralTitle)}
+              description={t(s.offerReferralDesc)}
               expiryPercent={15}
-              expiryLabel="3 days remaining"
+              expiryLabel={t(s.offerReferralExpiry)}
             />
           </div>
           <div className="stagger-child">
             <OfferCard
               offerValue="FREE"
-              title="Loyalty Facial"
-              description="Complimentary classic facial — earned with 10 stamps."
+              title={t(s.offerLoyaltyTitle)}
+              description={t(s.offerLoyaltyDesc)}
               expiryPercent={3}
-              expiryLabel="Expires today"
+              expiryLabel={t(s.offerLoyaltyExpiry)}
             />
           </div>
         </div>
         <p className="text-xs text-text-tertiary mt-4">
-          Tear-off coupon style with perforation cutouts. Expiry bar shifts from accent to amber at 20%
-          and pulses red below 5%.
+          {t(s.offerCardsDesc)}
         </p>
       </ShowcaseSection>
 
       {/* ── Booking Preview ── */}
-      <ShowcaseSection title="Quick Booking" className="mb-16">
+      <ShowcaseSection title={t(s.sectionQuickBooking)} className="mb-16">
         <Card className="p-6">
           <div className="stagger-child">
             <p className="text-sm text-text-secondary mb-4">
-              Multi-step booking tray with compressed step chips. Previous selections summarize into the chip labels.
+              {t(s.bookingDesc)}
             </p>
             <Button onClick={() => { setBookingOpen(true); setBookingStep(0); setSelectedSlot(undefined); }}>
-              Book an Appointment
+              {t(s.bookAnAppointment)}
             </Button>
           </div>
         </Card>
       </ShowcaseSection>
 
       {/* ── Chat Interface (moved to /chat) ── */}
-      <ShowcaseSection title="Chat Interface" className="mb-16">
+      <ShowcaseSection title={t(s.sectionChatInterface)} className="mb-16">
         <Card className="p-6">
           <div className="stagger-child">
             <p className="text-sm text-text-secondary mb-3">
-              Full-height chat interface demo has moved to a dedicated page.
+              {t(s.chatDesc)}
             </p>
             <a
               href="/chat"
               className="inline-flex items-center gap-1.5 text-sm font-medium transition-colors hover:opacity-80"
               style={{ color: "var(--primary)" }}
             >
-              View Chat showcase
+              {t(s.viewChatShowcase)}
               <svg width="16" height="16" viewBox="0 0 16 16" fill="none">
                 <path d="M6 4l4 4-4 4" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" />
               </svg>
@@ -278,7 +283,7 @@ export default function ClientPortalPage() {
       </ShowcaseSection>
 
       {/* ── Tier Progress ── */}
-      <ShowcaseSection title="Tier Progress" className="mb-16">
+      <ShowcaseSection title={t(s.sectionTierProgress)} className="mb-16">
         <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
           <div className="stagger-child space-y-4">
             <TierProgress
@@ -308,21 +313,19 @@ export default function ClientPortalPage() {
           </div>
           <div className="stagger-child">
             <p className="text-xs text-text-tertiary">
-              Horizontal progress bar between two tier badges. Fill uses a gradient from the current
-              tier color to the next tier color. Points label centered below. Max tier shows full
-              bar with single color.
+              {t(s.tierProgressDesc)}
             </p>
           </div>
         </div>
       </ShowcaseSection>
 
       {/* ── Appointment Cards ── */}
-      <ShowcaseSection title="Appointment Cards" className="mb-16">
+      <ShowcaseSection title={t(s.sectionAppointmentCards)} className="mb-16">
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
           <div className="stagger-child">
             <AppointmentCard
-              serviceName="Hot Stone Massage"
-              staffName="with Sarah Mitchell"
+              serviceName={t(s.apptHotStoneMassage)}
+              staffName={t(s.apptWithSarah)}
               dateTime="Mar 12, 2026 · 2:30 PM"
               status="upcoming"
               onReschedule={() => {}}
@@ -331,82 +334,80 @@ export default function ClientPortalPage() {
           </div>
           <div className="stagger-child">
             <AppointmentCard
-              serviceName="Classic Facial"
-              staffName="with James Chen"
+              serviceName={t(s.apptClassicFacial)}
+              staffName={t(s.apptWithJames)}
               dateTime="Feb 28, 2026 · 11:00 AM"
               status="completed"
             />
           </div>
           <div className="stagger-child">
             <AppointmentCard
-              serviceName="Gel Manicure"
-              staffName="with Priya Sharma"
+              serviceName={t(s.apptGelManicure)}
+              staffName={t(s.apptWithPriya)}
               dateTime="Feb 20, 2026 · 4:00 PM"
               status="cancelled"
             />
           </div>
         </div>
         <p className="text-xs text-text-tertiary mt-4">
-          Appointment cards with service name, staff, date/time, and status badge. Upcoming cards
-          show action buttons. Completed shows a checkmark. Cancelled is muted with strikethrough.
+          {t(s.apptCardsDesc)}
         </p>
       </ShowcaseSection>
 
       {/* ── Membership Plans ── */}
-      <ShowcaseSection title="Membership Plans" className="mb-16">
+      <ShowcaseSection title={t(s.sectionMembershipPlans)} className="mb-16">
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
           <div className="stagger-child">
             <PlanCard
-              name="Essential"
+              name={t(s.planEssential)}
               price="$29"
-              interval="mo"
+              interval={t(s.planInterval)}
               features={[
-                { label: "1 treatment per month", included: true },
-                { label: "10% product discount", included: true },
-                { label: "Online booking", included: true },
-                { label: "Priority scheduling", included: false },
-                { label: "Guest passes", included: false },
+                { label: t(s.feat1Treatment), included: true },
+                { label: t(s.feat10Discount), included: true },
+                { label: t(s.featOnlineBooking), included: true },
+                { label: t(s.featPriorityScheduling), included: false },
+                { label: t(s.featGuestPasses), included: false },
               ]}
             />
           </div>
           <div className="stagger-child">
             <PlanCard
-              name="Premium"
+              name={t(s.planPremium)}
               price="$59"
-              interval="mo"
+              interval={t(s.planInterval)}
               popular
               features={[
-                { label: "3 treatments per month", included: true },
-                { label: "20% product discount", included: true },
-                { label: "Online booking", included: true },
-                { label: "Priority scheduling", included: true },
-                { label: "Guest passes", included: false },
+                { label: t(s.feat3Treatments), included: true },
+                { label: t(s.feat20Discount), included: true },
+                { label: t(s.featOnlineBooking), included: true },
+                { label: t(s.featPriorityScheduling), included: true },
+                { label: t(s.featGuestPasses), included: false },
               ]}
             />
           </div>
           <div className="stagger-child">
             <PlanCard
-              name="Black"
+              name={t(s.planBlack)}
               price="$99"
-              interval="mo"
+              interval={t(s.planInterval)}
               features={[
-                { label: "Unlimited treatments", included: true },
-                { label: "30% product discount", included: true },
-                { label: "Online booking", included: true },
-                { label: "Priority scheduling", included: true },
-                { label: "2 guest passes per month", included: true },
+                { label: t(s.featUnlimited), included: true },
+                { label: t(s.feat30Discount), included: true },
+                { label: t(s.featOnlineBooking), included: true },
+                { label: t(s.featPriorityScheduling), included: true },
+                { label: t(s.feat2GuestPasses), included: true },
               ]}
             />
           </div>
         </div>
         <p className="text-xs text-text-tertiary mt-4">
-          Three-column plan comparison. Popular variant highlights with accent ring and &ldquo;Most Popular&rdquo; badge.
-          Feature checklist with green checkmarks for included items.
+          {t(s.planCardsDesc)}
         </p>
       </ShowcaseSection>
 
       {/* ── Profile Summary ── */}
-      <ShowcaseSection title="Profile Summary" className="mb-16">
+      <ShowcaseSection title={t(s.sectionProfileSummary)} className="mb-16">
         <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
           <div className="stagger-child">
             <ProfileSummary
@@ -414,17 +415,16 @@ export default function ClientPortalPage() {
               initials="EW"
               tier={activeTier}
               stats={[
-                { label: "Visits", value: "47" },
-                { label: "Total Spend", value: "$3,240" },
-                { label: "Member Since", value: "Jan 2024" },
+                { label: t(s.statVisits), value: "47" },
+                { label: t(s.statTotalSpend), value: "$3,240" },
+                { label: t(s.statMemberSince), value: "Jan 2024" },
               ]}
               onEdit={() => {}}
             />
           </div>
           <div className="stagger-child">
             <p className="text-xs text-text-tertiary">
-              Compact profile card with avatar, name, tier badge, key stats row, and edit icon button.
-              Avatar displays tier-colored ring. Stats use tabular-nums for alignment.
+              {t(s.profileDesc)}
             </p>
           </div>
         </div>
@@ -440,14 +440,9 @@ export default function ClientPortalPage() {
       >
         {bookingStep === 0 && (
           <div className="space-y-4">
-            <p className="text-sm font-medium text-text-primary">Choose a service</p>
+            <p className="text-sm font-medium text-text-primary">{t(s.chooseAService)}</p>
             <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
-              {[
-                { id: "hot-stone", name: "Hot Stone Massage", price: "$120", duration: "90 min" },
-                { id: "facial", name: "Classic Facial", price: "$85", duration: "60 min" },
-                { id: "manicure", name: "Gel Manicure", price: "$45", duration: "45 min" },
-                { id: "pedicure", name: "Luxury Pedicure", price: "$65", duration: "60 min" },
-              ].map((svc) => (
+              {bookingServices.map((svc) => (
                 <button
                   key={svc.id}
                   type="button"
@@ -467,7 +462,7 @@ export default function ClientPortalPage() {
 
         {bookingStep === 1 && (
           <div className="space-y-4">
-            <p className="text-sm font-medium text-text-primary">Select a time</p>
+            <p className="text-sm font-medium text-text-primary">{t(s.selectATime)}</p>
             <SlotGrid
               slots={slots}
               onSelect={(id) => {
@@ -480,20 +475,20 @@ export default function ClientPortalPage() {
 
         {bookingStep === 2 && (
           <div className="space-y-4">
-            <p className="text-sm font-medium text-text-primary">Confirm booking</p>
+            <p className="text-sm font-medium text-text-primary">{t(s.confirmBooking)}</p>
             <div className="rounded-lg bg-surface-sunken p-4 space-y-2">
               <div className="flex justify-between text-sm">
-                <span className="text-text-secondary">Service</span>
-                <span className="font-medium text-text-primary">Hot Stone Massage</span>
+                <span className="text-text-secondary">{t(s.service)}</span>
+                <span className="font-medium text-text-primary">{t(s.svcHotStoneMassage)}</span>
               </div>
               <div className="flex justify-between text-sm">
-                <span className="text-text-secondary">Time</span>
+                <span className="text-text-secondary">{t(s.time)}</span>
                 <span className="font-medium text-text-primary">
-                  {mockSlots.find((s) => s.id === selectedSlot)?.time ?? "—"}
+                  {mockSlots.find((sl) => sl.id === selectedSlot)?.time ?? "\u2014"}
                 </span>
               </div>
               <div className="flex justify-between text-sm border-t border-border pt-2 mt-2">
-                <span className="text-text-secondary">Total</span>
+                <span className="text-text-secondary">{t(s.total)}</span>
                 <span className="font-semibold text-text-primary">$120</span>
               </div>
             </div>
@@ -502,7 +497,7 @@ export default function ClientPortalPage() {
               className="w-full"
               onClick={() => setBookingOpen(false)}
             >
-              Confirm Booking
+              {t(s.confirmBookingBtn)}
             </Button>
           </div>
         )}

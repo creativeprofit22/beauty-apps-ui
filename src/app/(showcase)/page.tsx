@@ -4,6 +4,8 @@ import { PageHeader } from "@/components/layout/page-header";
 import { ShowcaseSection } from "@/components/layout/showcase-section";
 import { Card } from "@/components/primitives/card";
 import { cn } from "@/lib/utils";
+import { useLocale } from "@/lib/i18n";
+import { tokensStrings as s } from "@/lib/strings/tokens";
 
 /* ── Token data ────────────────────────────────────────── */
 
@@ -131,12 +133,12 @@ function ColorSwatch({
 
 /* ── Side-by-side light/dark wrapper ──────────────────── */
 
-function LightDarkPair({ children }: { children: (mode: "light" | "dark") => React.ReactNode }) {
+function LightDarkPair({ children, lightLabel, darkLabel }: { children: (mode: "light" | "dark") => React.ReactNode; lightLabel: string; darkLabel: string }) {
   return (
     <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
       <Card className="p-6 overflow-hidden">
         <p className="text-xs font-medium uppercase tracking-wider text-text-tertiary mb-4">
-          Light
+          {lightLabel}
         </p>
         <div className="bg-surface-base rounded-lg p-4 space-y-4">
           {children("light")}
@@ -144,7 +146,7 @@ function LightDarkPair({ children }: { children: (mode: "light" | "dark") => Rea
       </Card>
       <Card className="p-6 overflow-hidden dark">
         <p className="text-xs font-medium uppercase tracking-wider text-text-tertiary mb-4">
-          Dark
+          {darkLabel}
         </p>
         <div className="bg-surface-sunken rounded-lg p-4 space-y-4">
           {children("dark")}
@@ -157,16 +159,18 @@ function LightDarkPair({ children }: { children: (mode: "light" | "dark") => Rea
 /* ── Page ──────────────────────────────────────────────── */
 
 export default function TokensPage() {
+  const { t } = useLocale();
+
   return (
     <>
       <PageHeader
-        title="Design Tokens"
-        subtitle="Color swatches, spacing, radii, shadows, and glows — the foundational values that drive every component."
+        title={t(s.title)}
+        subtitle={t(s.subtitle)}
       />
 
       {/* ── Surface Colors ── */}
-      <ShowcaseSection title="Surfaces" className="mb-16">
-        <LightDarkPair>
+      <ShowcaseSection title={t(s.surfaces)} className="mb-16">
+        <LightDarkPair lightLabel={t(s.light)} darkLabel={t(s.dark)}>
           {() => (
             <div className="grid grid-cols-2 md:grid-cols-3 gap-4">
               {surfaceTokens.map((t) => (
@@ -178,8 +182,8 @@ export default function TokensPage() {
       </ShowcaseSection>
 
       {/* ── Text Colors ── */}
-      <ShowcaseSection title="Text" className="mb-16">
-        <LightDarkPair>
+      <ShowcaseSection title={t(s.text)} className="mb-16">
+        <LightDarkPair lightLabel={t(s.light)} darkLabel={t(s.dark)}>
           {() => (
             <div className="grid grid-cols-2 md:grid-cols-3 gap-4">
               {textTokens.map((t) => (
@@ -191,8 +195,8 @@ export default function TokensPage() {
       </ShowcaseSection>
 
       {/* ── Brand / Accent Colors ── */}
-      <ShowcaseSection title="Brand & Accent" className="mb-16">
-        <LightDarkPair>
+      <ShowcaseSection title={t(s.brandAccent)} className="mb-16">
+        <LightDarkPair lightLabel={t(s.light)} darkLabel={t(s.dark)}>
           {() => (
             <div className="grid grid-cols-2 md:grid-cols-3 gap-4">
               {accentTokens.map((t) => (
@@ -204,8 +208,8 @@ export default function TokensPage() {
       </ShowcaseSection>
 
       {/* ── Semantic Colors ── */}
-      <ShowcaseSection title="Semantic" className="mb-16">
-        <LightDarkPair>
+      <ShowcaseSection title={t(s.semantic)} className="mb-16">
+        <LightDarkPair lightLabel={t(s.light)} darkLabel={t(s.dark)}>
           {() => (
             <div className="grid grid-cols-2 sm:grid-cols-2 lg:grid-cols-4 gap-4">
               {semanticTokens.map((t) => (
@@ -217,8 +221,8 @@ export default function TokensPage() {
       </ShowcaseSection>
 
       {/* ── Tier Colors ── */}
-      <ShowcaseSection title="Tiers" className="mb-16">
-        <LightDarkPair>
+      <ShowcaseSection title={t(s.tiers)} className="mb-16">
+        <LightDarkPair lightLabel={t(s.light)} darkLabel={t(s.dark)}>
           {() => (
             <div className="grid grid-cols-2 sm:grid-cols-2 lg:grid-cols-4 gap-4">
               {tierTokens.map((t) => (
@@ -230,7 +234,7 @@ export default function TokensPage() {
       </ShowcaseSection>
 
       {/* ── Spacing Scale ── */}
-      <ShowcaseSection title="Spacing Scale" className="mb-16">
+      <ShowcaseSection title={t(s.spacingScale)} className="mb-16">
         <Card className="p-6 overflow-x-auto">
           <div className="space-y-3">
             {spacingScale.map((s) => (
@@ -250,7 +254,7 @@ export default function TokensPage() {
       </ShowcaseSection>
 
       {/* ── Radius Samples ── */}
-      <ShowcaseSection title="Border Radii" className="mb-16">
+      <ShowcaseSection title={t(s.borderRadii)} className="mb-16">
         <Card className="p-6">
           <div className="flex flex-wrap gap-6">
             {radiusTokens.map((r) => (
@@ -268,8 +272,8 @@ export default function TokensPage() {
       </ShowcaseSection>
 
       {/* ── Shadow Samples ── */}
-      <ShowcaseSection title="Elevation / Shadows" className="mb-16">
-        <LightDarkPair>
+      <ShowcaseSection title={t(s.elevationShadows)} className="mb-16">
+        <LightDarkPair lightLabel={t(s.light)} darkLabel={t(s.dark)}>
           {() => (
             <div className="flex flex-wrap gap-6">
               {shadowTokens.map((s) => (
@@ -287,8 +291,8 @@ export default function TokensPage() {
       </ShowcaseSection>
 
       {/* ── Glow Samples ── */}
-      <ShowcaseSection title="Glows" className="mb-16">
-        <LightDarkPair>
+      <ShowcaseSection title={t(s.glows)} className="mb-16">
+        <LightDarkPair lightLabel={t(s.light)} darkLabel={t(s.dark)}>
           {() => (
             <div className="flex flex-wrap gap-6">
               {glowTokens.map((g) => (
@@ -306,15 +310,14 @@ export default function TokensPage() {
       </ShowcaseSection>
 
       {/* ── Seasonal Accent Preview ── */}
-      <ShowcaseSection title="Seasonal Theming" className="mb-16">
+      <ShowcaseSection title={t(s.seasonalTheming)} className="mb-16">
         <p className="text-sm text-text-secondary mb-6">
-          Lightweight accent layers activated via <code className="font-data text-xs bg-surface-sunken px-1.5 py-0.5 rounded">data-season</code> on the root element.
-          Use the season dropdown in the sidebar to preview live. Below shows reference colors per season.
+          {t(s.seasonalDesc)} <code className="font-data text-xs bg-surface-sunken px-1.5 py-0.5 rounded">data-season</code> {t(s.seasonalDescSuffix)}
         </p>
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
           {([
             {
-              label: "Default",
+              label: t(s.seasonDefault),
               colors: [
                 { token: "--accent", value: "oklch(0.62 0.06 148)" },
                 { token: "--accent-hover", value: "oklch(0.56 0.08 148)" },
@@ -323,7 +326,7 @@ export default function TokensPage() {
               ],
             },
             {
-              label: "Valentine",
+              label: t(s.seasonValentine),
               colors: [
                 { token: "--accent", value: "oklch(0.65 0.14 358)" },
                 { token: "--accent-hover", value: "oklch(0.58 0.16 358)" },
@@ -332,7 +335,7 @@ export default function TokensPage() {
               ],
             },
             {
-              label: "Spring",
+              label: t(s.seasonSpring),
               colors: [
                 { token: "--accent", value: "oklch(0.68 0.10 145)" },
                 { token: "--accent-hover", value: "oklch(0.62 0.12 145)" },
@@ -341,7 +344,7 @@ export default function TokensPage() {
               ],
             },
             {
-              label: "Holiday",
+              label: t(s.seasonHoliday),
               colors: [
                 { token: "--accent", value: "oklch(0.55 0.12 145)" },
                 { token: "--accent-hover", value: "oklch(0.50 0.14 145)" },
@@ -371,7 +374,7 @@ export default function TokensPage() {
           ))}
         </div>
         <p className="text-xs text-text-tertiary mt-4">
-          Seasonal layers override only accent and border-accent tokens — a lightweight accent shift, not a full skin swap.
+          {t(s.seasonalFootnote)}
         </p>
       </ShowcaseSection>
     </>
