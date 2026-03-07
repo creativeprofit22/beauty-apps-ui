@@ -52,12 +52,12 @@ export default function FormsPage() {
   const [bookingStep, setBookingStep] = useState(0);
 
   const services = [
-    { id: "hot-stone", name: t(s.svcHotStoneMassage), price: "$120", duration: t(s.dur90Min) },
-    { id: "facial", name: t(s.svcClassicFacial), price: "$85", duration: t(s.dur60Min) },
-    { id: "manicure", name: t(s.svcGelManicure), price: "$45", duration: t(s.dur45Min) },
-    { id: "pedicure", name: t(s.svcLuxuryPedicure), price: "$65", duration: t(s.dur60Min) },
-    { id: "aromatherapy", name: t(s.svcAromatherapy), price: "$110", duration: t(s.dur75Min) },
-    { id: "body-wrap", name: t(s.svcDetoxBodyWrap), price: "$95", duration: t(s.dur60Min) },
+    { id: "hot-stone", name: t(s.svcHotStoneMassage), price: "$120", duration: t(s.dur90Min), image: "/services/hot-stone.png" },
+    { id: "facial", name: t(s.svcClassicFacial), price: "$85", duration: t(s.dur60Min), image: "/services/facial.png" },
+    { id: "manicure", name: t(s.svcGelManicure), price: "$45", duration: t(s.dur45Min), image: "/services/manicure.png" },
+    { id: "pedicure", name: t(s.svcLuxuryPedicure), price: "$65", duration: t(s.dur60Min), image: "/services/pedicure.png" },
+    { id: "aromatherapy", name: t(s.svcAromatherapy), price: "$110", duration: t(s.dur75Min), image: "/services/aromatherapy.png" },
+    { id: "body-wrap", name: t(s.svcDetoxBodyWrap), price: "$95", duration: t(s.dur60Min), image: "/services/body-wrap.png" },
   ];
 
   const bookingSteps = [
