@@ -4,6 +4,8 @@ Free, open-source UI component kit built specifically for beauty apps — spas, 
 
 Built with Next.js 16, React 19, Tailwind CSS v4, and GSAP animations. Bilingual out of the box (English / Spanish).
 
+Made by **[Douro Digital](https://wearedouro.agency)** — we build revenue systems for beauty businesses that pick up the phone, book the call, and make you money while you sleep.
+
 ![Next.js](https://img.shields.io/badge/Next.js-16-black?logo=next.js)
 ![React](https://img.shields.io/badge/React-19-blue?logo=react)
 ![Tailwind](https://img.shields.io/badge/Tailwind_CSS-4-06B6D4?logo=tailwindcss)
