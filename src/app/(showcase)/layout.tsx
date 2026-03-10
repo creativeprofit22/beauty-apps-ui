@@ -6,6 +6,7 @@ import { Shell } from "@/components/layout/shell";
 import { Sidebar } from "@/components/navigation/sidebar";
 import { BottomNav } from "@/components/navigation/bottom-nav";
 import { useTheme } from "@/hooks/useTheme";
+import { SkinSwitcher } from "@/components/navigation/skin-switcher";
 import { LocaleProvider, useLocale, type Locale } from "@/lib/i18n";
 import { layoutStrings as s } from "@/lib/strings/layout";
 import { glossary } from "@/lib/i18n";
@@ -167,6 +168,11 @@ function ShowcaseLayoutInner({ children }: { children: React.ReactNode }) {
               activeId={activeId}
               collapsed={collapsed}
             />
+          </div>
+
+          {/* Skin switcher */}
+          <div className="px-4 py-2 border-t border-border">
+            <SkinSwitcher />
           </div>
 
           {/* Seasonal accent toggle */}

@@ -16,7 +16,7 @@ import { TierProgress } from "@/components/data-display/tier-progress";
 import { AppointmentCard } from "@/components/data-display/appointment-card";
 import { PlanCard } from "@/components/data-display/plan-card";
 import { ProfileSummary } from "@/components/data-display/profile-summary";
-import { skinConfig } from "@/skin/config";
+import { useSkin } from "@/hooks/useSkin";
 import { useLocale } from "@/lib/i18n";
 import { clientPortalStrings as s } from "@/lib/strings/client-portal";
 
@@ -39,6 +39,7 @@ const mockSlots = [
 
 export default function ClientPortalPage() {
   const { t } = useLocale();
+  const { skinConfig } = useSkin();
   const [activeTier, setActiveTier] = useState<(typeof tiers)[number]>("gold");
   const [stampCount, setStampCount] = useState(6);
   const [bookingOpen, setBookingOpen] = useState(false);

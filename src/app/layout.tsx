@@ -5,7 +5,10 @@ import "@fontsource/fira-code/400.css";
 import "@fontsource/fira-code/500.css";
 import "@fontsource/fira-code/600.css";
 import "@/styles/globals.css";
-import "@/skin/skin.css";
+import "../../skins/spa/skin.css";
+import "../../skins/barber/skin.css";
+import "../../skins/nail-salon/skin.css";
+import "../../skins/tattoo/skin.css";
 
 export const metadata: Metadata = {
   title: "Beauty Apps UI",
@@ -22,6 +25,10 @@ const themeScript = `
     var theme = localStorage.getItem('theme');
     if (theme === 'dark' || (!theme && window.matchMedia('(prefers-color-scheme: dark)').matches)) {
       document.documentElement.classList.add('dark');
+    }
+    var skin = localStorage.getItem('skin');
+    if (skin && ['spa','barber','nail-salon','tattoo'].indexOf(skin) !== -1) {
+      document.documentElement.dataset.skin = skin;
     }
   } catch(e) {}
 })();

@@ -16,7 +16,7 @@ import { WaxSeal } from "@/components/engagement/wax-seal";
 import { PeelBack } from "@/components/engagement/peel-back";
 import { SlotMachine } from "@/components/engagement/slot-machine";
 import { BubblePop } from "@/components/engagement/bubble-pop";
-import { skinConfig } from "@/skin/config";
+import { useSkin } from "@/hooks/useSkin";
 import { useLocale } from "@/lib/i18n";
 import { engagementStrings as s } from "@/lib/strings/engagement";
 
@@ -24,6 +24,7 @@ import { engagementStrings as s } from "@/lib/strings/engagement";
 
 export default function EngagementPage() {
   const { t } = useLocale();
+  const { skinConfig } = useSkin();
   const [scratchKey, setScratchKey] = useState(0);
   const [scratchRevealed, setScratchRevealed] = useState(false);
   const [confettiActive, setConfettiActive] = useState(false);
