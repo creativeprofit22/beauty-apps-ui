@@ -1,6 +1,6 @@
 "use client";
 
-import { useState, useCallback } from "react";
+import { useState, useCallback, useRef, useEffect } from "react";
 import { useLocale, type Locale } from "@/lib/i18n";
 
 export interface ChatMessage {
@@ -56,6 +56,14 @@ export function useChat() {
     createMessage("assistant", welcomeMessage[locale]),
   ]);
   const [isTyping, setIsTyping] = useState(false);
+  const timersRef = useRef<ReturnType<typeof setTimeout>[]>([]);
+
+  useEffect(() => {
+    return () => {
+      timersRef.current.forEach(clearTimeout);
+      timersRef.current = [];
+    };
+  }, []);
 
   const send = useCallback((content: string) => {
     if (!content.trim()) return;
@@ -68,10 +76,12 @@ export function useChat() {
     const responses = assistantResponses[locale];
     const reply = responses[Math.floor(Math.random() * responses.length)] ?? "...";
 
-    setTimeout(() => {
+    const timer = setTimeout(() => {
       setMessages((prev) => [...prev, createMessage("assistant", reply)]);
       setIsTyping(false);
+      timersRef.current = timersRef.current.filter((t) => t !== timer);
     }, delay);
+    timersRef.current.push(timer);
   }, [locale]);
 
   return { messages, isTyping, send };

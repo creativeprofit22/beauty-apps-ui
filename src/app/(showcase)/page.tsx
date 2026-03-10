@@ -3,7 +3,6 @@
 import { PageHeader } from "@/components/layout/page-header";
 import { ShowcaseSection } from "@/components/layout/showcase-section";
 import { Card } from "@/components/primitives/card";
-import { cn } from "@/lib/utils";
 import { useLocale } from "@/lib/i18n";
 import { tokensStrings as s } from "@/lib/strings/tokens";
 

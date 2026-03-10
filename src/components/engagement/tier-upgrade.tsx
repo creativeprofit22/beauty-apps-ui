@@ -1,6 +1,6 @@
 "use client";
 
-import { useEffect, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import { cn } from "@/lib/utils";
 
 type Tier = "bronze" | "silver" | "gold" | "black";
@@ -53,6 +53,10 @@ export function TierUpgrade({
   dismissDelay = 3000,
 }: TierUpgradeProps) {
   const [phase, setPhase] = useState<"idle" | "wash" | "badge" | "out">("idle");
+  const onDismissRef = useRef(onDismiss);
+  useEffect(() => {
+    onDismissRef.current = onDismiss;
+  }, [onDismiss]);
 
   useEffect(() => {
     if (!active) {
@@ -67,7 +71,7 @@ export function TierUpgrade({
     const outTimer = setTimeout(() => setPhase("out"), dismissDelay - 400);
     const dismissTimer = setTimeout(() => {
       setPhase("idle");
-      onDismiss?.();
+      onDismissRef.current?.();
     }, dismissDelay);
 
     return () => {
@@ -75,7 +79,7 @@ export function TierUpgrade({
       clearTimeout(outTimer);
       clearTimeout(dismissTimer);
     };
-  }, [active, dismissDelay, onDismiss]);
+  }, [active, dismissDelay]);
 
   if (phase === "idle") return null;
 

@@ -127,33 +127,6 @@
   }
 }
 
-/* ── Gentle arrive (scroll-triggered entrance) ── */
-@keyframes gentle-arrive {
-  from {
-    transform: translateY(12px);
-    opacity: 0;
-    filter: blur(1px);
-  }
-  to {
-    transform: translateY(0);
-    opacity: 1;
-    filter: blur(0);
-  }
-}
-
-/* ── Soft breathe (ambient premium surface pulse) ── */
-@keyframes soft-breathe {
-  0%,
-  100% {
-    opacity: 0.6;
-    transform: scale(1);
-  }
-  50% {
-    opacity: 0.9;
-    transform: scale(1.01);
-  }
-}
-
 /* ── Spa skeleton (warm breathing loader) ── */
 @keyframes spa-skeleton {
   0%,
@@ -162,21 +135,6 @@
   }
   50% {
     background-color: var(--surface-warm-1, oklch(0.96 0.003 72));
-  }
-}
-
-/* ── Petal fall (celebration moment) ── */
-@keyframes petal-fall {
-  0% {
-    transform: translateY(-20px) rotate(-15deg) scale(0.8);
-    opacity: 0;
-  }
-  20% {
-    opacity: 1;
-  }
-  100% {
-    transform: translateY(60px) rotate(25deg) scale(1);
-    opacity: 0;
   }
 }
 
@@ -202,48 +160,6 @@
   }
 }
 
-/* ── Envelope flap open (3D hinge from top) ── */
-@keyframes envelope-flap {
-  0% {
-    transform: rotateX(0deg);
-  }
-  100% {
-    transform: rotateX(-180deg);
-  }
-}
-
-/* ── Card slide up from envelope interior ── */
-@keyframes card-slide-up {
-  0% {
-    transform: translateY(100%);
-    opacity: 0;
-  }
-  100% {
-    transform: translateY(0);
-    opacity: 1;
-  }
-}
-
-/* ── Ribbon untie (stroke-dashoffset wipe) ── */
-@keyframes ribbon-untie {
-  0% {
-    stroke-dashoffset: 0;
-  }
-  100% {
-    stroke-dashoffset: var(--ribbon-length);
-  }
-}
-
-/* ── Gift box lid lift ── */
-@keyframes lid-lift {
-  0% {
-    transform: translateY(0) rotateX(0deg);
-  }
-  100% {
-    transform: translateY(-30px) rotateX(-20deg);
-  }
-}
-
 /* ── Wax seal crack (fracture line draw-in) ── */
 @keyframes seal-crack {
   0% {
@@ -251,28 +167,6 @@
   }
   100% {
     stroke-dashoffset: 0;
-  }
-}
-
-/* ── Peel curl (corner peel-back) ── */
-@keyframes peel-curl {
-  0% {
-    clip-path: polygon(100% 100%, 100% 100%, 100% 100%);
-    transform: rotate(0deg);
-  }
-  100% {
-    clip-path: polygon(60% 100%, 100% 60%, 100% 100%);
-    transform: rotate(-5deg);
-  }
-}
-
-/* ── Reel spin (slot machine reel scroll) ── */
-@keyframes reel-spin {
-  0% {
-    transform: translateY(0);
-  }
-  100% {
-    transform: translateY(var(--reel-offset));
   }
 }
 
@@ -302,26 +196,6 @@
   }
   to {
     stroke-dashoffset: 0;
-  }
-}
-
-/* ── Chart line draw-in (stroke-dashoffset wipe) ── */
-@keyframes chart-draw {
-  from {
-    stroke-dashoffset: var(--path-length);
-  }
-  to {
-    stroke-dashoffset: 0;
-  }
-}
-
-/* ── Bar chart grow-up (scaleY from bottom) ── */
-@keyframes bar-grow {
-  from {
-    transform: scaleY(0);
-  }
-  to {
-    transform: scaleY(1);
   }
 }
 

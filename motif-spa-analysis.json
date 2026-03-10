@@ -1,0 +1,1562 @@
+{
+  "projectSignals": {
+    "name": "spa-ai-platform",
+    "dependencies": [
+      "@ai-sdk/openai",
+      "@ai-sdk/react",
+      "@auth/prisma-adapter",
+      "@fontsource-variable/inter",
+      "@fontsource-variable/space-grotesk",
+      "@fontsource/fira-code",
+      "@fullcalendar/core",
+      "@fullcalendar/daygrid",
+      "@fullcalendar/interaction",
+      "@fullcalendar/react",
+      "@fullcalendar/timegrid",
+      "@hookform/resolvers",
+      "@mastra/core",
+      "@mastra/memory",
+      "@mastra/pg",
+      "@openrouter/ai-sdk-provider",
+      "@prisma/adapter-pg",
+      "@prisma/client",
+      "@sentry/nextjs",
+      "@t3-oss/env-nextjs",
+      "@tailwindcss/postcss",
+      "@tanstack/react-query",
+      "@tanstack/react-table",
+      "@trpc/client",
+      "@trpc/server",
+      "@trpc/tanstack-react-query",
+      "@upstash/ratelimit",
+      "@upstash/redis",
+      "ai",
+      "bcrypt-ts",
+      "class-variance-authority",
+      "clsx",
+      "date-fns",
+      "date-fns-tz",
+      "echarts",
+      "lucide-react",
+      "next",
+      "next-auth",
+      "papaparse",
+      "pg",
+      "pino",
+      "postcss",
+      "radix-ui",
+      "react",
+      "react-dom",
+      "react-hook-form",
+      "resend",
+      "server-only",
+      "sonner",
+      "stripe",
+      "superjson",
+      "tailwind-merge",
+      "tailwindcss",
+      "zod"
+    ],
+    "devDependencies": [
+      "@playwright/test",
+      "@types/papaparse",
+      "@types/pg",
+      "@types/react",
+      "@types/react-dom",
+      "@typescript-eslint/eslint-plugin",
+      "@typescript-eslint/parser",
+      "@typescript-eslint/utils",
+      "@vitejs/plugin-react",
+      "bun-types",
+      "eslint",
+      "eslint-config-next",
+      "eslint-config-prettier",
+      "eslint-plugin-prettier",
+      "husky",
+      "jsdom",
+      "lint-staged",
+      "pino-pretty",
+      "prettier",
+      "prisma",
+      "shadcn",
+      "tsx",
+      "tw-animate-css",
+      "typescript",
+      "typescript-eslint",
+      "vite-tsconfig-paths",
+      "vitest",
+      "vitest-mock-extended"
+    ],
+    "routes": [
+      {
+        "path": "/agents",
+        "depth": 1,
+        "isDynamic": true
+      },
+      {
+        "path": "/agents/:id",
+        "depth": 2,
+        "isDynamic": true
+      },
+      {
+        "path": "/analytics",
+        "depth": 1,
+        "isDynamic": true
+      },
+      {
+        "path": "/audit-log",
+        "depth": 1,
+        "isDynamic": true
+      },
+      {
+        "path": "/calendar",
+        "depth": 1,
+        "isDynamic": true
+      },
+      {
+        "path": "/clients/import",
+        "depth": 2,
+        "isDynamic": true
+      },
+      {
+        "path": "/clients",
+        "depth": 1,
+        "isDynamic": true
+      },
+      {
+        "path": "/clients/:id",
+        "depth": 2,
+        "isDynamic": true
+      },
+      {
+        "path": "/consents",
+        "depth": 1,
+        "isDynamic": true
+      },
+      {
+        "path": "/dashboard",
+        "depth": 1,
+        "isDynamic": true
+      },
+      {
+        "path": "/",
+        "depth": 0,
+        "isDynamic": true
+      },
+      {
+        "path": "/loyalty",
+        "depth": 1,
+        "isDynamic": true
+      },
+      {
+        "path": "/memberships",
+        "depth": 1,
+        "isDynamic": true
+      },
+      {
+        "path": "/offers",
+        "depth": 1,
+        "isDynamic": true
+      },
+      {
+        "path": "/payments",
+        "depth": 1,
+        "isDynamic": true
+      },
+      {
+        "path": "/reports",
+        "depth": 1,
+        "isDynamic": true
+      },
+      {
+        "path": "/services",
+        "depth": 1,
+        "isDynamic": true
+      },
+      {
+        "path": "/settings",
+        "depth": 1,
+        "isDynamic": true
+      },
+      {
+        "path": "/staff",
+        "depth": 1,
+        "isDynamic": true
+      },
+      {
+        "path": "/login",
+        "depth": 1,
+        "isDynamic": true
+      },
+      {
+        "path": "/register",
+        "depth": 1,
+        "isDynamic": true
+      },
+      {
+        "path": "/c/appointments",
+        "depth": 2,
+        "isDynamic": true
+      },
+      {
+        "path": "/c/book",
+        "depth": 2,
+        "isDynamic": true
+      },
+      {
+        "path": "/c/chat",
+        "depth": 2,
+        "isDynamic": true
+      },
+      {
+        "path": "/c/login",
+        "depth": 2,
+        "isDynamic": true
+      },
+      {
+        "path": "/c/loyalty",
+        "depth": 2,
+        "isDynamic": true
+      },
+      {
+        "path": "/c/memberships",
+        "depth": 2,
+        "isDynamic": true
+      },
+      {
+        "path": "/c/offers",
+        "depth": 2,
+        "isDynamic": true
+      },
+      {
+        "path": "/c/privacy",
+        "depth": 2,
+        "isDynamic": true
+      },
+      {
+        "path": "/c/profile",
+        "depth": 2,
+        "isDynamic": true
+      },
+      {
+        "path": "/c/verify",
+        "depth": 2,
+        "isDynamic": true
+      },
+      {
+        "path": "/m/:slug/book",
+        "depth": 3,
+        "isDynamic": true
+      },
+      {
+        "path": "/m/:slug",
+        "depth": 2,
+        "isDynamic": true
+      },
+      {
+        "path": "/api/admin-chat",
+        "depth": 2,
+        "isDynamic": false
+      },
+      {
+        "path": "/api/auth/:...nextauth",
+        "depth": 3,
+        "isDynamic": true
+      },
+      {
+        "path": "/api/chat",
+        "depth": 2,
+        "isDynamic": false
+      },
+      {
+        "path": "/api/cron/offers",
+        "depth": 3,
+        "isDynamic": false
+      },
+      {
+        "path": "/api/cron/reminders",
+        "depth": 3,
+        "isDynamic": false
+      },
+      {
+        "path": "/api/cron/reports",
+        "depth": 3,
+        "isDynamic": false
+      },
+      {
+        "path": "/api/cron/retention",
+        "depth": 3,
+        "isDynamic": false
+      },
+      {
+        "path": "/api/health",
+        "depth": 2,
+        "isDynamic": false
+      },
+      {
+        "path": "/api/trpc/:trpc",
+        "depth": 3,
+        "isDynamic": true
+      },
+      {
+        "path": "/api/webhooks/stripe",
+        "depth": 3,
+        "isDynamic": false
+      }
+    ],
+    "components": [
+      {
+        "name": "admin-chatbox",
+        "filePath": "src/components/admin/admin-chatbox.tsx",
+        "hasProps": false,
+        "hasChildren": false
+      },
+      {
+        "name": "admin-header",
+        "filePath": "src/components/admin/admin-header.tsx",
+        "hasProps": true,
+        "hasChildren": true
+      },
+      {
+        "name": "app-sidebar",
+        "filePath": "src/components/admin/app-sidebar.tsx",
+        "hasProps": false,
+        "hasChildren": false
+      },
+      {
+        "name": "notification-bell",
+        "filePath": "src/components/admin/notification-bell.tsx",
+        "hasProps": false,
+        "hasChildren": false
+      },
+      {
+        "name": "bottom-nav",
+        "filePath": "src/components/client/bottom-nav.tsx",
+        "hasProps": false,
+        "hasChildren": false
+      },
+      {
+        "name": "session-provider",
+        "filePath": "src/components/providers/session-provider.tsx",
+        "hasProps": true,
+        "hasChildren": true
+      },
+      {
+        "name": "cookie-consent",
+        "filePath": "src/components/shared/cookie-consent.tsx",
+        "hasProps": false,
+        "hasChildren": false
+      },
+      {
+        "name": "data-table-pagination",
+        "filePath": "src/components/shared/data-table-pagination.tsx",
+        "hasProps": false,
+        "hasChildren": false
+      },
+      {
+        "name": "data-table",
+        "filePath": "src/components/shared/data-table.tsx",
+        "hasProps": false,
+        "hasChildren": false
+      },
+      {
+        "name": "echarts-chart",
+        "filePath": "src/components/shared/echarts-chart.tsx",
+        "hasProps": true,
+        "hasChildren": false
+      },
+      {
+        "name": "period-selector",
+        "filePath": "src/components/shared/period-selector.tsx",
+        "hasProps": true,
+        "hasChildren": false
+      },
+      {
+        "name": "stat-card",
+        "filePath": "src/components/shared/stat-card.tsx",
+        "hasProps": true,
+        "hasChildren": false
+      },
+      {
+        "name": "user-picker",
+        "filePath": "src/components/shared/user-picker.tsx",
+        "hasProps": true,
+        "hasChildren": false
+      },
+      {
+        "name": "alert-dialog",
+        "filePath": "src/components/ui/alert-dialog.tsx",
+        "hasProps": false,
+        "hasChildren": false
+      },
+      {
+        "name": "avatar",
+        "filePath": "src/components/ui/avatar.tsx",
+        "hasProps": false,
+        "hasChildren": false
+      },
+      {
+        "name": "badge",
+        "filePath": "src/components/ui/badge.tsx",
+        "hasProps": false,
+        "hasChildren": false
+      },
+      {
+        "name": "button",
+        "filePath": "src/components/ui/button.tsx",
+        "hasProps": false,
+        "hasChildren": false
+      },
+      {
+        "name": "card",
+        "filePath": "src/components/ui/card.tsx",
+        "hasProps": false,
+        "hasChildren": false
+      },
+      {
+        "name": "checkbox",
+        "filePath": "src/components/ui/checkbox.tsx",
+        "hasProps": false,
+        "hasChildren": false
+      },
+      {
+        "name": "dialog",
+        "filePath": "src/components/ui/dialog.tsx",
+        "hasProps": false,
+        "hasChildren": true
+      },
+      {
+        "name": "dropdown-menu",
+        "filePath": "src/components/ui/dropdown-menu.tsx",
+        "hasProps": false,
+        "hasChildren": true
+      },
+      {
+        "name": "form",
+        "filePath": "src/components/ui/form.tsx",
+        "hasProps": false,
+        "hasChildren": true
+      },
+      {
+        "name": "input",
+        "filePath": "src/components/ui/input.tsx",
+        "hasProps": false,
+        "hasChildren": false
+      },
+      {
+        "name": "label",
+        "filePath": "src/components/ui/label.tsx",
+        "hasProps": false,
+        "hasChildren": false
+      },
+      {
+        "name": "popover",
+        "filePath": "src/components/ui/popover.tsx",
+        "hasProps": false,
+        "hasChildren": false
+      },
+      {
+        "name": "select",
+        "filePath": "src/components/ui/select.tsx",
+        "hasProps": false,
+        "hasChildren": true
+      },
+      {
+        "name": "separator",
+        "filePath": "src/components/ui/separator.tsx",
+        "hasProps": false,
+        "hasChildren": false
+      },
+      {
+        "name": "sheet",
+        "filePath": "src/components/ui/sheet.tsx",
+        "hasProps": false,
+        "hasChildren": true
+      },
+      {
+        "name": "sidebar",
+        "filePath": "src/components/ui/sidebar.tsx",
+        "hasProps": true,
+        "hasChildren": true
+      },
+      {
+        "name": "skeleton",
+        "filePath": "src/components/ui/skeleton.tsx",
+        "hasProps": false,
+        "hasChildren": false
+      },
+      {
+        "name": "sonner",
+        "filePath": "src/components/ui/sonner.tsx",
+        "hasProps": false,
+        "hasChildren": false
+      },
+      {
+        "name": "switch",
+        "filePath": "src/components/ui/switch.tsx",
+        "hasProps": false,
+        "hasChildren": false
+      },
+      {
+        "name": "table",
+        "filePath": "src/components/ui/table.tsx",
+        "hasProps": false,
+        "hasChildren": false
+      },
+      {
+        "name": "tabs",
+        "filePath": "src/components/ui/tabs.tsx",
+        "hasProps": false,
+        "hasChildren": false
+      },
+      {
+        "name": "textarea",
+        "filePath": "src/components/ui/textarea.tsx",
+        "hasProps": false,
+        "hasChildren": false
+      },
+      {
+        "name": "tooltip",
+        "filePath": "src/components/ui/tooltip.tsx",
+        "hasProps": false,
+        "hasChildren": true
+      }
+    ],
+    "headings": [
+      {
+        "text": "{config.name}",
+        "level": 2,
+        "filePath": "src/app/(admin)/agents/[id]/_components/agent-detail.tsx"
+      },
+      {
+        "text": "Greeting",
+        "level": 3,
+        "filePath": "src/app/(admin)/agents/[id]/_components/agent-detail.tsx"
+      },
+      {
+        "text": "Personality",
+        "level": 3,
+        "filePath": "src/app/(admin)/agents/[id]/_components/agent-detail.tsx"
+      },
+      {
+        "text": "No assistants yet",
+        "level": 3,
+        "filePath": "src/app/(admin)/agents/_components/agent-table.tsx"
+      },
+      {
+        "text": "Appointment Overview",
+        "level": 3,
+        "filePath": "src/app/(admin)/analytics/_components/appointment-overview.tsx"
+      },
+      {
+        "text": "Churn Financial Impact",
+        "level": 3,
+        "filePath": "src/app/(admin)/analytics/_components/churn-impact-card.tsx"
+      },
+      {
+        "text": "At-Risk Clients",
+        "level": 3,
+        "filePath": "src/app/(admin)/analytics/_components/churn-risk-table.tsx"
+      },
+      {
+        "text": "Client Growth",
+        "level": 3,
+        "filePath": "src/app/(admin)/analytics/_components/client-growth-chart.tsx"
+      },
+      {
+        "text": "Cohort Retention Heatmap",
+        "level": 3,
+        "filePath": "src/app/(admin)/analytics/_components/cohort-heatmap.tsx"
+      },
+      {
+        "text": "Membership Status",
+        "level": 3,
+        "filePath": "src/app/(admin)/analytics/_components/membership-breakdown-chart.tsx"
+      },
+      {
+        "text": "No-Show Cause Analysis",
+        "level": 3,
+        "filePath": "src/app/(admin)/analytics/_components/no-show-cause-analysis.tsx"
+      },
+      {
+        "text": "No-Show Rate",
+        "level": 3,
+        "filePath": "src/app/(admin)/analytics/_components/no-show-chart.tsx"
+      },
+      {
+        "text": "Payment Revenue",
+        "level": 3,
+        "filePath": "src/app/(admin)/analytics/_components/payment-revenue-chart.tsx"
+      },
+      {
+        "text": "Points Activity",
+        "level": 3,
+        "filePath": "src/app/(admin)/analytics/_components/points-activity-chart.tsx"
+      },
+      {
+        "text": "Popular Services",
+        "level": 3,
+        "filePath": "src/app/(admin)/analytics/_components/popular-services-chart.tsx"
+      },
+      {
+        "text": "Retention Rate Over Time",
+        "level": 3,
+        "filePath": "src/app/(admin)/analytics/_components/retention-rate-chart.tsx"
+      },
+      {
+        "text": "Revenue Trend",
+        "level": 3,
+        "filePath": "src/app/(admin)/analytics/_components/revenue-chart.tsx"
+      },
+      {
+        "text": "Revenue Summary",
+        "level": 3,
+        "filePath": "src/app/(admin)/analytics/_components/revenue-summary.tsx"
+      },
+      {
+        "text": "Show-up vs No-show",
+        "level": 3,
+        "filePath": "src/app/(admin)/analytics/_components/show-up-comparison-chart.tsx"
+      },
+      {
+        "text": "Show-up Rate",
+        "level": 3,
+        "filePath": "src/app/(admin)/analytics/_components/show-up-rate-chart.tsx"
+      },
+      {
+        "text": "Staff Appointments",
+        "level": 3,
+        "filePath": "src/app/(admin)/analytics/_components/staff-appointments-chart.tsx"
+      },
+      {
+        "text": "Loyalty Tier Distribution",
+        "level": 3,
+        "filePath": "src/app/(admin)/analytics/_components/tier-distribution-chart.tsx"
+      },
+      {
+        "text": "Top Spenders",
+        "level": 3,
+        "filePath": "src/app/(admin)/analytics/_components/top-spenders-table.tsx"
+      },
+      {
+        "text": "Win-back Attempts",
+        "level": 3,
+        "filePath": "src/app/(admin)/analytics/_components/winback-tracking.tsx"
+      },
+      {
+        "text": "Map Columns",
+        "level": 3,
+        "filePath": "src/app/(admin)/clients/import/_components/import-wizard.tsx"
+      },
+      {
+        "text": "Preview & Validate",
+        "level": 3,
+        "filePath": "src/app/(admin)/clients/import/_components/import-wizard.tsx"
+      },
+      {
+        "text": "Importing...",
+        "level": 3,
+        "filePath": "src/app/(admin)/clients/import/_components/import-wizard.tsx"
+      },
+      {
+        "text": "Import Complete",
+        "level": 3,
+        "filePath": "src/app/(admin)/clients/import/_components/import-wizard.tsx"
+      },
+      {
+        "text": "{client.firstName} {client.lastName}",
+        "level": 2,
+        "filePath": "src/app/(admin)/clients/[id]/_components/client-detail.tsx"
+      },
+      {
+        "text": "Details",
+        "level": 3,
+        "filePath": "src/app/(admin)/clients/[id]/_components/client-detail.tsx"
+      },
+      {
+        "text": "Risk &amp; Retention",
+        "level": 3,
+        "filePath": "src/app/(admin)/clients/[id]/_components/client-detail.tsx"
+      },
+      {
+        "text": "Loyalty Summary",
+        "level": 3,
+        "filePath": "src/app/(admin)/clients/[id]/_components/client-detail.tsx"
+      },
+      {
+        "text": "Appointment History",
+        "level": 3,
+        "filePath": "src/app/(admin)/clients/[id]/_components/client-detail.tsx"
+      },
+      {
+        "text": "Memberships",
+        "level": 3,
+        "filePath": "src/app/(admin)/clients/[id]/_components/client-detail.tsx"
+      },
+      {
+        "text": "Data Consents",
+        "level": 3,
+        "filePath": "src/app/(admin)/clients/[id]/_components/client-detail.tsx"
+      },
+      {
+        "text": "Quick Actions",
+        "level": 3,
+        "filePath": "src/app/(admin)/dashboard/page.tsx"
+      },
+      {
+        "text": "Recent Activity",
+        "level": 3,
+        "filePath": "src/app/(admin)/dashboard/_components/recent-activity.tsx"
+      },
+      {
+        "text": "{meta.label}",
+        "level": 3,
+        "filePath": "src/app/(admin)/loyalty/_components/tier-config-form.tsx"
+      },
+      {
+        "text": "Overview",
+        "level": 3,
+        "filePath": "src/app/(admin)/payments/_components/payment-table.tsx"
+      },
+      {
+        "text": "{report.type} Report",
+        "level": 2,
+        "filePath": "src/app/(admin)/reports/_components/report-detail.tsx"
+      },
+      {
+        "text": "Retention",
+        "level": 3,
+        "filePath": "src/app/(admin)/reports/_components/report-detail.tsx"
+      },
+      {
+        "text": "Bookings",
+        "level": 3,
+        "filePath": "src/app/(admin)/reports/_components/report-detail.tsx"
+      },
+      {
+        "text": "Loyalty",
+        "level": 3,
+        "filePath": "src/app/(admin)/reports/_components/report-detail.tsx"
+      },
+      {
+        "text": "Offers",
+        "level": 3,
+        "filePath": "src/app/(admin)/reports/_components/report-detail.tsx"
+      },
+      {
+        "text": "Report History",
+        "level": 2,
+        "filePath": "src/app/(admin)/reports/_components/reports-list.tsx"
+      },
+      {
+        "text": "{config.label}",
+        "level": 3,
+        "filePath": "src/app/(admin)/settings/_components/billing-tab.tsx"
+      },
+      {
+        "text": "Invoice History",
+        "level": 3,
+        "filePath": "src/app/(admin)/settings/_components/billing-tab.tsx"
+      },
+      {
+        "text": "Plans",
+        "level": 3,
+        "filePath": "src/app/(admin)/settings/_components/billing-tab.tsx"
+      },
+      {
+        "text": "Business Details",
+        "level": 3,
+        "filePath": "src/app/(admin)/settings/_components/merchant-profile-form.tsx"
+      },
+      {
+        "text": "Branding",
+        "level": 3,
+        "filePath": "src/app/(admin)/settings/_components/merchant-profile-form.tsx"
+      },
+      {
+        "text": "Stripe Connect",
+        "level": 3,
+        "filePath": "src/app/(admin)/settings/_components/stripe-connect-card.tsx"
+      },
+      {
+        "text": "Welcome back",
+        "level": 1,
+        "filePath": "src/app/(auth)/login/_components/login-form.tsx"
+      },
+      {
+        "text": "Create your clinic",
+        "level": 1,
+        "filePath": "src/app/(auth)/register/_components/register-form.tsx"
+      },
+      {
+        "text": "No appointments yet",
+        "level": 2,
+        "filePath": "src/app/(client)/c/appointments/_components/appointment-list.tsx"
+      },
+      {
+        "text": "My Appointments",
+        "level": 1,
+        "filePath": "src/app/(client)/c/appointments/_components/appointment-list.tsx"
+      },
+      {
+        "text": "Upcoming",
+        "level": 2,
+        "filePath": "src/app/(client)/c/appointments/_components/appointment-list.tsx"
+      },
+      {
+        "text": "Past",
+        "level": 2,
+        "filePath": "src/app/(client)/c/appointments/_components/appointment-list.tsx"
+      },
+      {
+        "text": "{appointment.service.name}",
+        "level": 3,
+        "filePath": "src/app/(client)/c/appointments/_components/appointment-list.tsx"
+      },
+      {
+        "text": "Confirm Booking",
+        "level": 3,
+        "filePath": "src/app/(client)/c/book/_components/booking-confirmation.tsx"
+      },
+      {
+        "text": "Appointment Booked!",
+        "level": 2,
+        "filePath": "src/app/(client)/c/book/_components/booking-wizard.tsx"
+      },
+      {
+        "text": "Book Appointment",
+        "level": 1,
+        "filePath": "src/app/(client)/c/book/_components/booking-wizard.tsx"
+      },
+      {
+        "text": "{service.name}",
+        "level": 3,
+        "filePath": "src/app/(client)/c/book/_components/service-picker.tsx"
+      },
+      {
+        "text": "Assistant",
+        "level": 1,
+        "filePath": "src/app/(client)/c/chat/_components/chat-interface.tsx"
+      },
+      {
+        "text": "{brandName ? `Welcome to ${brandName}` : \"Welcome Back\"}",
+        "level": 1,
+        "filePath": "src/app/(client)/c/login/page.tsx"
+      },
+      {
+        "text": "Rewards",
+        "level": 2,
+        "filePath": "src/app/(client)/c/loyalty/_components/rewards-grid.tsx"
+      },
+      {
+        "text": "Your Membership",
+        "level": 2,
+        "filePath": "src/app/(client)/c/memberships/_components/active-membership.tsx"
+      },
+      {
+        "text": "{hasActive ? \"Membership Plans\" : \"Choose a Plan\"}",
+        "level": 2,
+        "filePath": "src/app/(client)/c/memberships/_components/plan-browser.tsx"
+      },
+      {
+        "text": "{plan.name}",
+        "level": 3,
+        "filePath": "src/app/(client)/c/memberships/_components/plan-browser.tsx"
+      },
+      {
+        "text": "Your Offers",
+        "level": 1,
+        "filePath": "src/app/(client)/c/offers/_components/offer-list.tsx"
+      },
+      {
+        "text": "Privacy & Data",
+        "level": 1,
+        "filePath": "src/app/(client)/c/privacy/_components/privacy-panel.tsx"
+      },
+      {
+        "text": "Your Data Summary",
+        "level": 2,
+        "filePath": "src/app/(client)/c/privacy/_components/privacy-panel.tsx"
+      },
+      {
+        "text": "Actions",
+        "level": 2,
+        "filePath": "src/app/(client)/c/privacy/_components/privacy-panel.tsx"
+      },
+      {
+        "text": "Service Breakdown",
+        "level": 3,
+        "filePath": "src/app/(client)/c/profile/_components/visit-insights.tsx"
+      },
+      {
+        "text": "Check your email",
+        "level": 1,
+        "filePath": "src/app/(client)/c/verify/page.tsx"
+      },
+      {
+        "text": "You&apos;re All Set!",
+        "level": 2,
+        "filePath": "src/app/(marketing)/m/[slug]/book/_components/booking-success.tsx"
+      },
+      {
+        "text": "Not Found",
+        "level": 2,
+        "filePath": "src/app/(marketing)/m/[slug]/not-found.tsx"
+      },
+      {
+        "text": "{merchant.name}",
+        "level": 1,
+        "filePath": "src/app/(marketing)/m/[slug]/page.tsx"
+      },
+      {
+        "text": "Our Services",
+        "level": 2,
+        "filePath": "src/app/(marketing)/m/[slug]/page.tsx"
+      },
+      {
+        "text": "Something went wrong",
+        "level": 2,
+        "filePath": "src/app/error.tsx"
+      },
+      {
+        "text": "Page not found",
+        "level": 2,
+        "filePath": "src/app/not-found.tsx"
+      },
+      {
+        "text": "{title}",
+        "level": 1,
+        "filePath": "src/components/admin/admin-header.tsx"
+      }
+    ],
+    "buttons": [
+      {
+        "label": "setSelectedThread(row.original.id)}\n        >\n          {row.original.id.slice(0, 12)}...",
+        "filePath": "src/app/(admin)/agents/[id]/_components/conversation-list.tsx"
+      },
+      {
+        "label": "setSelectedThread(null)}\n        >\n          Back to conversations",
+        "filePath": "src/app/(admin)/agents/[id]/_components/conversation-list.tsx"
+      },
+      {
+        "label": "onOpenChange(false)}\n              >\n                Cancel",
+        "filePath": "src/app/(admin)/agents/_components/agent-form-dialog.tsx"
+      },
+      {
+        "label": "{isSubmitting\n                  ? mode === \"edit\"\n                    ? \"Saving...\"\n                    : \"Creating...\"\n                  : mode === \"edit\"\n                    ? \"Save Changes\"\n                    : \"Create Assistant\"}",
+        "filePath": "src/app/(admin)/agents/_components/agent-form-dialog.tsx"
+      },
+      {
+        "label": "setMonths(r.value)}\n              className={`rounded-full px-3 py-1 text-xs font-medium transition-colors ${\n                months === r.value\n                  ? \"bg-primary text-primary-foreground\"\n                  : \"bg-muted text-muted-foreground hover:bg-muted/80\"\n              }`}\n            >\n              {r.label}",
+        "filePath": "src/app/(admin)/analytics/_components/cohort-heatmap.tsx"
+      },
+      {
+        "label": "{isPending\n                  ? \"Saving...\"\n                  : mode === \"create\"\n                    ? \"Create Appointment\"\n                    : \"Save Changes\"}",
+        "filePath": "src/app/(admin)/calendar/_components/appointment-form.tsx"
+      },
+      {
+        "label": "confirmMutation.mutate({ id: appointment.id })\n                          }\n                          className=\"border-green-700/50 text-green-400 hover:bg-green-900/20\"\n                        >\n                          Confirm",
+        "filePath": "src/app/(admin)/calendar/_components/appointment-form.tsx"
+      },
+      {
+        "label": "cancelMutation.mutate({ id: appointment.id })\n                          }\n                          className=\"border-red-700/50 text-red-400 hover:bg-red-900/20\"\n                        >\n                          Cancel",
+        "filePath": "src/app/(admin)/calendar/_components/appointment-form.tsx"
+      },
+      {
+        "label": "completeMutation.mutate({ id: appointment.id })\n                          }\n                          className=\"border-green-700/50 text-green-400 hover:bg-green-900/20\"\n                        >\n                          Complete",
+        "filePath": "src/app/(admin)/calendar/_components/appointment-form.tsx"
+      },
+      {
+        "label": "noShowMutation.mutate({ id: appointment.id })\n                          }\n                          className=\"border-amber-700/50 text-amber-400 hover:bg-amber-900/20\"\n                        >\n                          No Show",
+        "filePath": "src/app/(admin)/calendar/_components/appointment-form.tsx"
+      },
+      {
+        "label": "{isPending\n                  ? mode === \"edit\"\n                    ? \"Saving...\"\n                    : \"Creating...\"\n                  : mode === \"edit\"\n                    ? \"Save Changes\"\n                    : \"Add Client\"}",
+        "filePath": "src/app/(admin)/clients/_components/client-form-dialog.tsx"
+      },
+      {
+        "label": "{isPending\n                  ? mode === \"edit\"\n                    ? \"Saving...\"\n                    : \"Creating...\"\n                  : mode === \"edit\"\n                    ? \"Save Changes\"\n                    : \"Add Reward\"}",
+        "filePath": "src/app/(admin)/loyalty/_components/reward-form-dialog.tsx"
+      },
+      {
+        "label": "{upsertMutation.isPending ? \"Saving...\" : \"Save Config\"}",
+        "filePath": "src/app/(admin)/loyalty/_components/tier-config-form.tsx"
+      },
+      {
+        "label": "{isPending\n                  ? mode === \"edit\"\n                    ? \"Saving...\"\n                    : \"Creating...\"\n                  : mode === \"edit\"\n                    ? \"Save Changes\"\n                    : \"Add Plan\"}",
+        "filePath": "src/app/(admin)/memberships/_components/plan-form-dialog.tsx"
+      },
+      {
+        "label": "{isPending\n                  ? mode === \"edit\"\n                    ? \"Saving...\"\n                    : \"Creating...\"\n                  : mode === \"edit\"\n                    ? \"Save Changes\"\n                    : \"Add Offer\"}",
+        "filePath": "src/app/(admin)/offers/_components/offer-form-dialog.tsx"
+      },
+      {
+        "label": "{isPending\n                  ? mode === \"edit\"\n                    ? \"Saving...\"\n                    : \"Creating...\"\n                  : mode === \"edit\"\n                    ? \"Save Changes\"\n                    : \"Add Service\"}",
+        "filePath": "src/app/(admin)/services/_components/service-form.tsx"
+      },
+      {
+        "label": "Downgrade",
+        "filePath": "src/app/(admin)/settings/_components/billing-tab.tsx"
+      },
+      {
+        "label": "{createMutation.isPending ? \"Adding...\" : \"Add Integration\"}",
+        "filePath": "src/app/(admin)/settings/_components/integration-list.tsx"
+      },
+      {
+        "label": "handleUpdate(integration.provider)}\n                      disabled={updateMutation.isPending}\n                    >\n                      {updateMutation.isPending ? \"Saving...\" : \"Save\"}",
+        "filePath": "src/app/(admin)/settings/_components/integration-list.tsx"
+      },
+      {
+        "label": "setEditingProvider(null)}\n                    >\n                      Cancel",
+        "filePath": "src/app/(admin)/settings/_components/integration-list.tsx"
+      },
+      {
+        "label": "setDeletingProvider(null)}>\n              Cancel",
+        "filePath": "src/app/(admin)/settings/_components/integration-list.tsx"
+      },
+      {
+        "label": "{deleteMutation.isPending ? \"Deleting...\" : \"Delete\"}",
+        "filePath": "src/app/(admin)/settings/_components/integration-list.tsx"
+      },
+      {
+        "label": "{updateProfileMutation.isPending ? \"Saving...\" : \"Save Profile\"}",
+        "filePath": "src/app/(admin)/settings/_components/merchant-profile-form.tsx"
+      },
+      {
+        "label": "{updateBrandingMutation.isPending ? \"Saving...\" : \"Save Branding\"}",
+        "filePath": "src/app/(admin)/settings/_components/merchant-profile-form.tsx"
+      },
+      {
+        "label": "{createMutation.isPending ? \"Adding...\" : \"Add Override\"}",
+        "filePath": "src/app/(admin)/staff/_components/override-manager.tsx"
+      },
+      {
+        "label": "setShowForm(false)}\n              >\n                Cancel",
+        "filePath": "src/app/(admin)/staff/_components/override-manager.tsx"
+      },
+      {
+        "label": "addTag(s)}\n              className=\"rounded-full border border-dashed border-border px-2 py-0.5 text-xs text-muted-foreground transition-colors hover:border-primary hover:text-foreground\"\n            >\n              + {s}",
+        "filePath": "src/app/(admin)/staff/_components/staff-form.tsx"
+      },
+      {
+        "label": "{isPending\n                  ? mode === \"edit\"\n                    ? \"Saving...\"\n                    : \"Creating...\"\n                  : mode === \"edit\"\n                    ? \"Save Changes\"\n                    : \"Add Staff\"}",
+        "filePath": "src/app/(admin)/staff/_components/staff-form.tsx"
+      },
+      {
+        "label": "Cancel",
+        "filePath": "src/app/(client)/c/appointments/_components/appointment-list.tsx"
+      },
+      {
+        "label": "onOpenChange(false)}\n            disabled={cancelMutation.isPending}\n          >\n            Keep Appointment",
+        "filePath": "src/app/(client)/c/appointments/_components/cancel-appointment-sheet.tsx"
+      },
+      {
+        "label": "cancelMutation.mutate({\n                appointmentId: appointment.id,\n                reason: reason.trim() || undefined,\n              })\n            }\n            disabled={cancelMutation.isPending}\n          >\n            {cancelMutation.isPending ? \"Cancelling...\" : \"Yes, Cancel\"}",
+        "filePath": "src/app/(client)/c/appointments/_components/cancel-appointment-sheet.tsx"
+      },
+      {
+        "label": "{createMutation.isPending ? \"Booking...\" : \"Confirm Booking\"}",
+        "filePath": "src/app/(client)/c/book/_components/booking-confirmation.tsx"
+      },
+      {
+        "label": "{\n            setState({ step: 1 });\n            setBooked(false);\n          }}\n          className=\"mt-6 text-sm font-medium text-primary underline-offset-4 hover:underline\"\n        >\n          Book another appointment",
+        "filePath": "src/app/(client)/c/book/_components/booking-wizard.tsx"
+      },
+      {
+        "label": "onSelect(slot)}\n              className={cn(\n                \"rounded-lg border border-border px-3 py-2.5 text-sm font-medium transition-all\",\n                \"hover:border-primary hover:bg-primary/10 hover:text-primary\"\n              )}\n            >\n              {formatTime(slot.startAt)}",
+        "filePath": "src/app/(client)/c/book/_components/slot-picker.tsx"
+      },
+      {
+        "label": "{\n              setStage(\"email\");\n              setOtp(\"\");\n              setError(\"\");\n            }}\n            className=\"w-full text-center text-sm text-muted-foreground hover:text-foreground\"\n          >\n            Use a different email",
+        "filePath": "src/app/(client)/c/login/_components/client-login-form.tsx"
+      },
+      {
+        "label": "reward && redeemMutation.mutate({ clientId, rewardId: reward.id })\n            }\n            disabled={redeemMutation.isPending}\n          >\n            {redeemMutation.isPending ? \"Redeeming...\" : \"Confirm Redemption\"}",
+        "filePath": "src/app/(client)/c/loyalty/_components/redeem-sheet.tsx"
+      },
+      {
+        "label": "setSelectedMembership(current)}\n            >\n              Manage",
+        "filePath": "src/app/(client)/c/memberships/_components/active-membership.tsx"
+      },
+      {
+        "label": "pauseMutation.mutate({ membershipId: membership.id })\n                }\n                disabled={isPending}\n              >\n                {pauseMutation.isPending ? \"Pausing...\" : \"Pause Membership\"}",
+        "filePath": "src/app/(client)/c/memberships/_components/membership-actions-sheet.tsx"
+      },
+      {
+        "label": "setConfirmCancel(true)}\n                disabled={isPending}\n              >\n                Cancel Membership",
+        "filePath": "src/app/(client)/c/memberships/_components/membership-actions-sheet.tsx"
+      },
+      {
+        "label": "cancelMutation.mutate({ membershipId: membership.id })\n                }\n                disabled={isPending}\n              >\n                {cancelMutation.isPending ? \"Cancelling...\" : \"Yes, Cancel\"}",
+        "filePath": "src/app/(client)/c/memberships/_components/membership-actions-sheet.tsx"
+      },
+      {
+        "label": "setConfirmCancel(false)}\n                disabled={isPending}\n              >\n                Go Back",
+        "filePath": "src/app/(client)/c/memberships/_components/membership-actions-sheet.tsx"
+      },
+      {
+        "label": "resumeMutation.mutate({ membershipId: membership.id })\n              }\n              disabled={isPending}\n            >\n              {resumeMutation.isPending ? \"Resuming...\" : \"Resume Membership\"}",
+        "filePath": "src/app/(client)/c/memberships/_components/membership-actions-sheet.tsx"
+      },
+      {
+        "label": "{isPending ? \"Redirecting...\" : \"Subscribe\"}",
+        "filePath": "src/app/(client)/c/memberships/_components/plan-browser.tsx"
+      },
+      {
+        "label": "setSheetOpen(true)}\n          >\n            Redeem",
+        "filePath": "src/app/(client)/c/offers/_components/offer-card.tsx"
+      },
+      {
+        "label": "redeemMutation.mutate({ clientId, offerId: offer.id })\n              }\n              disabled={redeemMutation.isPending}\n            >\n              {redeemMutation.isPending ? \"Redeeming...\" : \"Confirm Redemption\"}",
+        "filePath": "src/app/(client)/c/offers/_components/offer-card.tsx"
+      },
+      {
+        "label": "{\n                setDeleteDialogOpen(false);\n                setConfirmText(\"\");\n              }}\n            >\n              Cancel",
+        "filePath": "src/app/(client)/c/privacy/_components/privacy-panel.tsx"
+      },
+      {
+        "label": "setState({\n                            step: 3,\n                            service: state.service,\n                            staffId: selectedStaffId,\n                            date: selectedDate,\n                            slot,\n                          })\n                        }\n                        className={cn(\n                          \"rounded-lg border border-border px-3 py-2.5 text-sm font-medium transition-all\",\n                          \"hover:border-primary hover:bg-primary/10 hover:text-primary\"\n                        )}\n                      >\n                        {formatTime(slot.startAt)}",
+        "filePath": "src/app/(marketing)/m/[slug]/book/_components/public-booking-wizard.tsx"
+      },
+      {
+        "label": "{\n              setStage(\"register\");\n              setOtp(\"\");\n              setError(\"\");\n            }}\n            className=\"w-full text-center text-sm text-muted-foreground hover:text-foreground\"\n          >\n            Use a different email",
+        "filePath": "src/app/(marketing)/m/[slug]/book/_components/registration-step.tsx"
+      },
+      {
+        "label": "Try again",
+        "filePath": "src/app/error.tsx"
+      },
+      {
+        "label": "markAllAsReadMutation.mutate()}\n              disabled={markAllAsReadMutation.isPending}\n            >\n              Mark all read",
+        "filePath": "src/components/admin/notification-bell.tsx"
+      },
+      {
+        "label": "Essential Only",
+        "filePath": "src/components/shared/cookie-consent.tsx"
+      },
+      {
+        "label": "Accept All",
+        "filePath": "src/components/shared/cookie-consent.tsx"
+      },
+      {
+        "label": "onChange(p.value)}\n          className={cn(\n            \"rounded-full px-3 py-1 text-xs font-medium transition-colors\",\n            value === p.value\n              ? \"bg-primary text-primary-foreground\"\n              : \"bg-muted text-muted-foreground hover:bg-muted/80\"\n          )}\n        >\n          {p.label}",
+        "filePath": "src/components/shared/period-selector.tsx"
+      },
+      {
+        "label": "Close",
+        "filePath": "src/components/ui/dialog.tsx"
+      }
+    ],
+    "featureFlags": {
+      "hasAuth": true,
+      "hasPayments": true,
+      "hasDataViz": true,
+      "hasForms": true,
+      "hasRealtime": false,
+      "hasCMS": false,
+      "hasSearch": false,
+      "hasFileUpload": false,
+      "hasNotifications": true,
+      "hasAnalytics": false,
+      "hasI18n": false,
+      "hasA11y": false
+    },
+    "ariaLabels": [
+      "Open conversations",
+      "Delete thread",
+      "Close",
+      "Message the assistant",
+      "Notifications",
+      "Previous page",
+      "Next page",
+      "Toggle Sidebar"
+    ],
+    "placeholders": [
+      "e.g. Booking Assistant",
+      "Brief description of this agent",
+      "Select type",
+      "Select status",
+      "Tell the assistant how to behave and what it should do",
+      "Initial greeting message",
+      "e.g. Friendly, professional",
+      "Select engine",
+      "All Types",
+      "Search agents...",
+      "Search clients...",
+      "All Levels",
+      "Search by email...",
+      "Search by action...",
+      "All Entities",
+      "All Staff",
+      "Select client",
+      "Select staff",
+      "Select service",
+      "Any notes...",
+      "Select column...",
+      "Jane",
+      "Doe",
+      "jane@example.com",
+      "+1 (555) 000-0000",
+      "VIP, Sensitive Skin, Referral",
+      "Any notes about this client...",
+      "All Tiers",
+      "All Status",
+      "Search by source...",
+      "Free Facial Treatment",
+      "A complimentary facial treatment...",
+      "Unlimited",
+      "https://example.com/image.jpg",
+      "Search rewards...",
+      "0",
+      "Search by client name...",
+      "Premium Wellness",
+      "Full access to all spa services...",
+      "Select interval",
+      "20",
+      "From your payment provider",
+      "Search plans...",
+      "Spring Wellness Special",
+      "20% off all facial treatments...",
+      "Select discount",
+      "Search offers...",
+      "5",
+      "Select tier",
+      "30",
+      "7",
+      "500",
+      "Select trigger",
+      "Search by payment ID...",
+      "All Statuses",
+      "Botox Treatment",
+      "Select category",
+      "Describe the service...",
+      "Search services...",
+      "All Categories",
+      "Select provider",
+      "Paste your API key here",
+      "Secret key",
+      "Leave blank unless instructed by support",
+      "My Spa Business",
+      "contact@example.com",
+      "+1 555 0100",
+      "https://example.com",
+      "#D4AF37",
+      "#1a1a2e",
+      "#e94560",
+      "https://example.com/logo.png",
+      "https://example.com/favicon.ico",
+      "Default (Inter)",
+      "e.g. Holiday, Training",
+      "Select a user...",
+      "Staff member bio...",
+      "#6366f1",
+      "Search by name...",
+      "you@example.com",
+      "Your password",
+      "Glow Med Spa",
+      "Jane Smith",
+      "jane@glowspa.com",
+      "8+ characters",
+      "Repeat password",
+      "Why are you cancelling?",
+      "Type a message...",
+      "000000",
+      "DELETE",
+      "Ask something...",
+      "Search...",
+      "Search users..."
+    ],
+    "titles": [],
+    "errorMessages": [
+      "Assistant deleted",
+      "Assistant created successfully",
+      "Assistant updated successfully",
+      "Temperature must be between 0 and 2",
+      "Max tokens must be between 1 and 8192",
+      "Client marked as contacted",
+      "Failed to reschedule appointment",
+      "Appointment rescheduled",
+      "Appointment created",
+      "Appointment updated",
+      "Appointment confirmed",
+      "Appointment cancelled",
+      "Appointment completed",
+      "Marked as no-show",
+      "Consent granted",
+      "Consent revoked",
+      "Risk assessment updated",
+      "Marked as contacted",
+      "Client created successfully",
+      "Client updated successfully",
+      "Client deleted",
+      "Reward created",
+      "Reward updated",
+      "Points cost must be at least 1",
+      "Stock must be 0 or greater",
+      "Reward deleted",
+      "Points to reach tier must be 0 or greater",
+      "Points per £1 spent must be between 0.1 and 10",
+      "Membership cancelled",
+      "Membership paused",
+      "Membership resumed",
+      "Plan created",
+      "Plan updated",
+      "Price must be 0 or greater",
+      "Plan deleted",
+      "Offer created",
+      "Offer updated",
+      "Discount value must be 0 or greater",
+      "Max redemptions must be at least 1",
+      "Invalid rule config",
+      "Offer deleted",
+      "Report generation started",
+      "Service created",
+      "Service updated",
+      "Service deleted",
+      "Integration added",
+      "Integration updated",
+      "Integration deleted",
+      "Provider and API key are required",
+      "Config JSON must be valid JSON",
+      "Profile updated",
+      "Branding updated",
+      "Override added",
+      "Override removed",
+      "Schedule saved",
+      "Staff profile created",
+      "Staff profile updated",
+      "Service linked",
+      "Service unlinked",
+      "Passwords do not match",
+      "Reward redeemed!",
+      "Welcome! Your membership is now active.",
+      "Membership resumed!",
+      "Offer redeemed!",
+      "Your data has been downloaded.",
+      "Failed to export data. Please try again.",
+      "Your account and data have been deleted.",
+      "Failed to delete account. Please try again."
+    ],
+    "description": "AI-powered salon and spa management platform for beauty and wellness professionals — appointments, clients, staff, payments, and loyalty",
+    "framework": "next",
+    "language": "typescript",
+    "styling": "tailwind"
+  },
+  "domain": {
+    "primary": "beauty-wellness",
+    "confidence": 1,
+    "signals": [
+      "Client/services/calendar routes with auth (salon/spa pattern)",
+      "Staff + services + loyalty/memberships routes",
+      "Calendar/scheduling library dependency",
+      "Client management + payments with auth",
+      "Beauty/wellness-oriented headings",
+      "Beauty/wellness-related package description"
+    ],
+    "secondary": "b2b-saas-analytics"
+  },
+  "userProfile": {
+    "archetype": "professional",
+    "techSavviness": "low",
+    "decisionStake": "moderate",
+    "emotionalState": "neutral",
+    "trustRequirements": "medium",
+    "cognitiveMode": "task-completion",
+    "informationDensity": "moderate"
+  },
+  "directives": {
+    "color": {
+      "temperature": {
+        "value": "neutral",
+        "why": "A neutral temperature balances approachability and professionalism for this audience."
+      },
+      "saturation": {
+        "value": "moderate",
+        "why": "Moderate saturation provides enough visual interest without overwhelming the content."
+      },
+      "contrast": {
+        "value": "moderate",
+        "why": "Moderate contrast balances readability with visual comfort for this audience."
+      },
+      "accentStrategy": {
+        "value": "complementary",
+        "why": "Complementary accents clearly distinguish primary actions from content for task-focused users."
+      }
+    },
+    "typography": {
+      "personality": {
+        "value": "geometric",
+        "why": "Geometric type provides clean neutrality suitable for this audience's needs."
+      },
+      "scale": {
+        "value": "spacious",
+        "why": "Spacious scale improves readability for low tech-savviness audiences."
+      },
+      "weight": {
+        "value": "regular",
+        "why": "Regular weight provides dependable readability across content types."
+      },
+      "hierarchy": {
+        "value": "moderate",
+        "why": "Moderate hierarchy provides clear structure without overwhelming the content."
+      }
+    },
+    "motion": {
+      "intensity": {
+        "value": "subtle",
+        "why": "Subtle motion keeps task-focused users on track without distraction."
+      },
+      "character": {
+        "value": "smooth",
+        "why": "Smooth, predictable transitions avoid confusing low tech-savviness users."
+      },
+      "purpose": {
+        "value": "functional",
+        "why": "Motion should only provide system feedback for task-driven users."
+      }
+    },
+    "density": {
+      "whitespace": {
+        "value": "comfortable",
+        "why": "Comfortable whitespace balances content visibility with breathing room."
+      },
+      "gridDensity": {
+        "value": "loose",
+        "why": "Low tech-savviness users benefit from loose grids with clear spatial separation."
+      },
+      "contentRatio": {
+        "value": "balanced",
+        "why": "A balanced ratio mixes text and visual elements for this audience's cognitive mode."
+      }
+    },
+    "iconography": {
+      "style": {
+        "value": "duotone",
+        "why": "Duotone icons balance personality with clarity for this audience."
+      },
+      "weight": {
+        "value": "regular",
+        "why": "Regular weight icons provide dependable visibility without dominating content."
+      }
+    },
+    "imagery": {
+      "style": {
+        "value": "mixed",
+        "why": "Mixed imagery provides flexibility across different content sections."
+      },
+      "treatment": {
+        "value": "full-color",
+        "why": "Full-color treatment provides the most natural, versatile visual foundation."
+      }
+    },
+    "copyVoice": {
+      "tone": {
+        "value": "friendly",
+        "why": "Friendly copy creates approachability without undermining credibility."
+      },
+      "verbosity": {
+        "value": "concise",
+        "why": "Concise copy balances clarity with efficiency for this audience."
+      }
+    },
+    "emotionalArc": {
+      "entry": {
+        "value": "orient",
+        "why": "Task-focused users need immediate orientation to start their workflow."
+      },
+      "engagement": {
+        "value": "streamline",
+        "why": "Streamlined flows minimize friction for users focused on completing tasks."
+      },
+      "conversion": {
+        "value": "acknowledge",
+        "why": "Brief acknowledgment respects task-oriented users' time."
+      }
+    }
+  },
+  "selectedProfile": "editorial-spa",
+  "profileMatches": [
+    {
+      "profile": "editorial-spa",
+      "score": 85,
+      "reasoning": [
+        "+30: Calm emotional states pair with editorial-spa's serene, unhurried aesthetics",
+        "+10: Lower-stake contexts allow editorial-spa's relaxed pacing",
+        "+45: Beauty/wellness domain demands editorial-spa's serene, premium aesthetic"
+      ]
+    },
+    {
+      "profile": "glass",
+      "score": 80,
+      "reasoning": [
+        "+25: Neutral/playful emotional states suit glass's ethereal, light aesthetic",
+        "+20: Lower density content works with glass's airy spatial treatment",
+        "+35: Glass's ethereal lightness suits beauty/wellness's aspirational visual language"
+      ]
+    },
+    {
+      "profile": "construction",
+      "score": 80,
+      "reasoning": [
+        "+30: Task-completion mode matches construction's utility-first design approach",
+        "+25: Professional archetypes suit construction's functional, no-frills layouts",
+        "+15: Lower tech savviness needs construction's clear, obvious affordances",
+        "+10: Moderate density fits construction's structured, utilitarian layouts"
+      ]
+    },
+    {
+      "profile": "industrial",
+      "score": 65,
+      "reasoning": [
+        "+30: Professional archetypes align with industrial's utilitarian functionality",
+        "+25: Task-completion mode suits industrial's efficiency-first layout approach",
+        "+10: Moderate-to-high stakes benefit from industrial's grounded reliability"
+      ]
+    },
+    {
+      "profile": "luxury",
+      "score": 30,
+      "reasoning": [
+        "+30: Luxury's polished presentation matches beauty/wellness's premium positioning"
+      ]
+    },
+    {
+      "profile": "law-firm",
+      "score": 25,
+      "reasoning": [
+        "+25: Professional archetype expects law-firm's formal, established aesthetic"
+      ]
+    },
+    {
+      "profile": "terminal",
+      "score": 20,
+      "reasoning": [
+        "+20: Task-completion mode matches terminal's command-driven interaction model"
+      ]
+    },
+    {
+      "profile": "medical",
+      "score": 10,
+      "reasoning": [
+        "+10: Moderate density aligns with medical's balanced content presentation"
+      ]
+    },
+    {
+      "profile": "fintech",
+      "score": 0,
+      "reasoning": []
+    },
+    {
+      "profile": "cyberpunk",
+      "score": 0,
+      "reasoning": []
+    },
+    {
+      "profile": "brutalist",
+      "score": 0,
+      "reasoning": []
+    }
+  ],
+  "narrative": "This project is classified as beauty-wellness with b2b-saas-analytics characteristics. The primary user archetype is \"professional\" in a neutral emotional state, operating in task-completion mode. The recommended design profile is \"editorial-spa\", chosen to align with user psychology and domain requirements.",
+  "generatedAt": "2026-03-06T19:47:12.658Z"
+}

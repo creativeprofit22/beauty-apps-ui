@@ -95,7 +95,7 @@ export function SlotMachine({
 
         // After last reel stops
         if (reelIndex === REEL_COUNT - 1) {
-          setTimeout(() => {
+          const resultTimer = setTimeout(() => {
             setSpinning(false);
             const resultSymbols = newResults.map((i) => symbols[i]!);
             const jackpot = resultSymbols.every((s) => s === resultSymbols[0]);
@@ -104,6 +104,7 @@ export function SlotMachine({
             onResult?.(resultSymbols, jackpot);
             if (jackpot) onJackpot?.();
           }, 200);
+          timersRef.current.push(resultTimer);
         }
       }, delay);
 

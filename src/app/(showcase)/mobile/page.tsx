@@ -5,7 +5,6 @@ import { PageHeader } from "@/components/layout/page-header";
 import { ShowcaseSection } from "@/components/layout/showcase-section";
 import { Card } from "@/components/primitives/card";
 import { Button } from "@/components/primitives/button";
-import { BottomNav } from "@/components/navigation/bottom-nav";
 import type { NavItemData } from "@/components/navigation/nav-item";
 import { useLocale } from "@/lib/i18n";
 import { mobileStrings as s } from "@/lib/strings/mobile";
